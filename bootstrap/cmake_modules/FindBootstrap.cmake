@@ -339,7 +339,7 @@ set(CRLCORE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../crlcore/")
      set( pyDeplibs ${clib} ${deplibs} )
 
              add_library( ${clib}      ${pyCpps} ) 
-   set_target_properties( ${clib}      PROPERTIES VERSION ${version} SOVERSION ${soversion} )
+   set_target_properties( ${clib}      PROPERTIES VERSION ${version} SOVERSION ${soversion} POSITION_INDEPENDENT_CODE ON )
    target_link_libraries( ${clib}      ${deplibs} )
                  install( TARGETS      ${clib}  DESTINATION lib${LIB_SUFFIX} )
    endif()
