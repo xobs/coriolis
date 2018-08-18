@@ -105,7 +105,7 @@ extern "C" {
   static PyObject* PyBanner_Repr ( PyBanner* self )
   {
     if ( self->ACCESS_OBJECT == NULL )
-      return PyString_FromString("<PyObject unbound>");
+      return PyBytes_FromString("<PyObject unbound>");
 
     string representation;
 
@@ -114,7 +114,7 @@ extern "C" {
     representation = getPrint(*banner);
     HCATCH
 
-    return PyString_FromString(representation.c_str());
+    return PyBytes_FromString(representation.c_str());
   }
 
   

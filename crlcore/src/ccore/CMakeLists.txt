@@ -314,7 +314,7 @@
                                         ${lefdef_cpps}
                                         ${openaccess_cpps}
                              )
-       set_target_properties ( crlcore  PROPERTIES VERSION 1.0 SOVERSION 1 )
+       set_target_properties ( crlcore  PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON )
        target_link_libraries ( crlcore  ${HURRICANE_PYTHON_LIBRARIES}
                                         ${HURRICANE_GRAPHICAL_LIBRARIES}
                                         ${HURRICANE_LIBRARIES}
@@ -328,7 +328,7 @@
                                         ${QtX_LIBRARIES}
                                         ${Boost_LIBRARIES}
                                         ${LIBXML2_LIBRARIES}
-                                        ${PYTHON_LIBRARIES} -lutil
+					${PYTHON_LIBRARIES} -lutil -lbz2 ${CMAKE_INSTALL_PREFIX}/lib/libisobar.a
                              )
 
                      install ( TARGETS  crlcore DESTINATION lib${LIB_SUFFIX} )

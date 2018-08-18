@@ -78,7 +78,7 @@ extern "C" {
 
     HTRY
     METHOD_HEAD("AllianceLibrary.getPath()")
-    return PyString_FromString( getString(alib->getPath()).c_str() );
+    return PyBytes_FromString( getString(alib->getPath()).c_str() );
     HCATCH
 
     return NULL;
@@ -88,10 +88,10 @@ extern "C" {
   static PyObject* PyAllianceLibrary_Repr ( PyAllianceLibrary* self )
   {
     if ( self->ACCESS_OBJECT == NULL )
-      return PyString_FromString("<PyObject unbound>");
+      return PyBytes_FromString("<PyObject unbound>");
 
     string s = getString( self->ACCESS_OBJECT );
-    return PyString_FromString( s.c_str() );
+    return PyBytes_FromString( s.c_str() );
   }
 
 

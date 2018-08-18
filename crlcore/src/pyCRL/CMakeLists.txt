@@ -67,6 +67,7 @@
                                     -lutil
                       )
 
+     set_target_properties( PROPERTIES POSITION_INDEPENDENT_CODE ON )
      add_python_module( "${pyCpps}"
                         "${pyIncludes}"
                         "pycrlcore;1.0;1"

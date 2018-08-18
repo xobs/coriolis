@@ -79,7 +79,7 @@ extern "C" {
     HTRY
     PyObject* arg0;
     if (ParseOneArg("AllianceFramework.create()", args, INT_ARG, &arg0)) {
-      flags = PyInt_AsUnsignedLongMask(arg0);
+      flags = PyLong_AsUnsignedLongMask(arg0);
     }
 
     af = AllianceFramework::create( flags );
@@ -148,7 +148,7 @@ extern "C" {
       return NULL;
     }
 
-    if      (__cs.getObjectIds() == STRING_ARG) lib = af->getLibrary( Name(PyString_AsString(arg0)) );
+    if      (__cs.getObjectIds() == STRING_ARG) lib = af->getLibrary( Name(PyBytes_AsString(arg0)) );
     else if (__cs.getObjectIds() == INT_ARG   ) lib = af->getLibrary( PyAny_AsLong(arg0) );
     else {
       PyErr_SetString( ConstructorError, "Bad parameter type for AllianceFramework.getLibrary()." );
@@ -183,7 +183,7 @@ extern "C" {
     }
 
     if      (__cs.getObjectIds() == INT_ARG      ) alib = af->getAllianceLibrary( PyAny_AsLong(arg0) );
-    else if (__cs.getObjectIds() == ":string:int") alib = af->getAllianceLibrary( Name(PyString_AsString(arg0)), PyAny_AsLong(arg1) );
+    else if (__cs.getObjectIds() == ":string:int") alib = af->getAllianceLibrary( Name(PyBytes_AsString(arg0)), PyAny_AsLong(arg1) );
     else if (__cs.getObjectIds() == ":library"   ) alib = af->getAllianceLibrary( PYLIBRARY_O(arg0) );
     else {
       PyErr_SetString( ConstructorError, "Bad parameter type for AllianceFramework.getAllianceLibrary()." );
@@ -288,13 +288,13 @@ extern "C" {
     }
 
     if      (__cs.getObjectIds() == ":string:int"       ) { }
-    else if (__cs.getObjectIds() == ":strint:int:string") libName = PyString_AsString(arg2);
+    else if (__cs.getObjectIds() == ":strint:int:string") libName = PyBytes_AsString(arg2);
     else {
       PyErr_SetString( ConstructorError, "Bad parameter type for AllianceFramework.createLibrary()." );
       return NULL;
     }
 
-    alib = af->createLibrary( PyString_AsString(arg0), PyAny_AsLong(arg1), libName );
+    alib = af->createLibrary( PyBytes_AsString(arg0), PyAny_AsLong(arg1), libName );
     if (alib == NULL) Py_RETURN_NONE;
     HCATCH
 
@@ -419,7 +419,7 @@ extern "C" {
       return NULL;
     }
 
-    if      (__cs.getObjectIds() == STRING_ARG) count = af->loadLibraryCells( Name(PyString_AsString(arg0)) );
+    if      (__cs.getObjectIds() == STRING_ARG) count = af->loadLibraryCells( Name(PyBytes_AsString(arg0)) );
     else if (__cs.getObjectIds() == ":library") count = af->loadLibraryCells( PYLIBRARY_O(arg0) );
     else {
       PyErr_SetString( ConstructorError, "Bad parameter type for AllianceFramework.loadLibraryCells()." );

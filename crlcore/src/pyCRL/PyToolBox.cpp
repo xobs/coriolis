@@ -79,7 +79,7 @@ extern "C" {
     if ( not ParseTwoArg ( "CRL.createPartRing", args, CELL_STRING_ARG, &arg0, &arg1 ) )
       return NULL;
 
-    createPartRing ( PYCELL_O(arg0), PyString_AsString(arg1) );
+    createPartRing ( PYCELL_O(arg0), PyBytes_AsString(arg1) );
     HCATCH
 
     Py_RETURN_NONE;

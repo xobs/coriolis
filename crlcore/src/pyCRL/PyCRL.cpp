@@ -95,14 +95,19 @@ extern "C" {
                               , "Clear all VHDL informations on all cells." }
     , {NULL, NULL, 0, NULL}     /* sentinel */
     };
-
+  static PyModuleDef PyCRL_Module;
 
 
 
   // ---------------------------------------------------------------
   // Module Initialization  :  "initCRL ()"
 
-  DL_EXPORT(void) initCRL () {
+  PyMODINIT_FUNC  initCRL (void) {
+    PyCRL_Module.m_base = PyModuleDef_HEAD_INIT;
+    PyCRL_Module.m_name = "CRL";
+    PyCRL_Module.m_doc = NULL;
+    PyCRL_Module.m_methods = PyCRL_Methods;
+
     cdebug_log(30,0) << "initCRL()" << endl;
 
     PyBanner_LinkPyType ();
@@ -149,11 +154,11 @@ extern "C" {
     __cs.addType ( "alcCatalog" , &PyTypeCatalog          , "<Catalog>"          , false );
     __cs.addType ( "alcCatStat" , &PyTypeCatalogState     , "<Catalog::State>"   , false );
 
-    PyObject* module = Py_InitModule ( "CRL", PyCRL_Methods );
+    PyObject* module = PyModule_Create  ( &PyCRL_Module );
     if ( module == NULL ) {
       cerr << "[ERROR]\n"
            << "  Failed to initialize CRL module." << endl;
-      return;
+      return NULL;
     }
 
     Py_INCREF ( &PyTypeBanner );
@@ -198,6 +203,7 @@ extern "C" {
   //DbULoadConstants ( dictionnary );
 
     cdebug_log(30,0) << "CRL.so loaded " << (void*)&typeid(string) << endl;
+    return module;
   }
 
   

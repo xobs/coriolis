@@ -135,10 +135,10 @@ extern "C" {
   static PyObject* PyEnvironment_Repr ( PyEnvironment* self )
   {
     if ( self->ACCESS_OBJECT == NULL )
-      return PyString_FromString("<PyObject unbound>");
+      return PyBytes_FromString("<PyObject unbound>");
 
     string s = "<Environment Alliance>";
-    return PyString_FromString(s.c_str());
+    return PyBytes_FromString(s.c_str());
   }
 
   
