@@ -4,6 +4,8 @@
 
 #include <cstdint>
 #include <algorithm>
+#include <cmath>
+#include <numeric>
 
 namespace coloquinte{
 
