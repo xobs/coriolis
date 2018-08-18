@@ -547,8 +547,7 @@ extern "C" {
 
   PyTypeObject  PyTypeDbU =
     { PyObject_HEAD_INIT(NULL)
-      0                                       /* ob_size.          */
-    , "Hurricane.DbU"                         /* tp_name.          */
+      "Hurricane.DbU"                         /* tp_name.          */
     , sizeof(PyDbU)                           /* tp_basicsize.     */
     , 0                                       /* tp_itemsize.      */
     /* methods. */                            

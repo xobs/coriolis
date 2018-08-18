@@ -275,13 +275,13 @@ extern "C" {
   {
     ostringstream repr;
     repr << "[" << hex << self << "<->" << (void*)&(self->_object) << " " << self->_object << "]";
-    return ( PyString_FromString(repr.str().c_str()) );
+    return ( PyBytes_FromString(repr.str().c_str()) );
   }
 
 
   static PyObject* PyLayerMask_Str ( PyLayerMask *self )
   {
-    return ( PyString_FromString(getString(self->_object).c_str()) );
+    return ( PyBytes_FromString(getString(self->_object).c_str()) );
   }
 
 
@@ -351,8 +351,7 @@ extern "C" {
 
   PyTypeObject  PyTypeLayerMask =
     { PyObject_HEAD_INIT(NULL)
-      0                               /* ob_size.          */
-    , "Hurricane.Layer.Mask"          /* tp_name.          */
+      "Hurricane.Layer.Mask"          /* tp_name.          */
     , sizeof(PyLayerMask)             /* tp_basicsize.     */
     , 0                               /* tp_itemsize.      */
     /* methods. */

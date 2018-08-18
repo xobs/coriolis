@@ -178,12 +178,12 @@ extern "C" {
 
 
 #define  LOAD_CONSTANT(CONSTANT_VALUE,CONSTANT_NAME)             \
- constant = PyInt_FromLong ( (long)CONSTANT_VALUE );             \
+ constant = PyLong_FromLong ( (long)CONSTANT_VALUE );             \
  PyDict_SetItemString ( dictionnary, CONSTANT_NAME, constant );  \
  Py_DECREF ( constant );
 
 #define  LoadObjectConstant(DICTIONARY,CONSTANT_VALUE,CONSTANT_NAME)  \
- constant = PyInt_FromLong ( (long)CONSTANT_VALUE );                  \
+ constant = PyLong_FromLong ( (long)CONSTANT_VALUE );                  \
  PyDict_SetItemString ( DICTIONARY, CONSTANT_NAME, constant );        \
  Py_DECREF ( constant );
 
@@ -1242,8 +1242,7 @@ extern "C" {
 #define PyTypeObjectDefinitions(SELF_TYPE)                              \
   PyTypeObject  PyType##SELF_TYPE =                                     \
     { PyObject_HEAD_INIT(NULL)                                          \
-      0                               /* ob_size.          */           \
-    , "Hurricane."#SELF_TYPE          /* tp_name.          */           \
+      "Hurricane."#SELF_TYPE          /* tp_name.          */           \
     , sizeof(Py##SELF_TYPE)           /* tp_basicsize.     */           \
     , 0                               /* tp_itemsize.      */           \
     /* methods. */                                                      \
@@ -1269,8 +1268,7 @@ extern "C" {
 #define PyTypeObjectDefinitionsOfModule(MODULE,SELF_TYPE)               \
   PyTypeObject  PyType##SELF_TYPE =                                     \
     { PyObject_HEAD_INIT(NULL)                                          \
-      0                               /* ob_size.          */           \
-    , #MODULE "." #SELF_TYPE          /* tp_name.          */           \
+      #MODULE "." #SELF_TYPE          /* tp_name.          */           \
     , sizeof(Py##SELF_TYPE)           /* tp_basicsize.     */           \
     , 0                               /* tp_itemsize.      */           \
     /* methods. */                                                      \
@@ -1296,8 +1294,7 @@ extern "C" {
 #define PyTypeRootObjectDefinitions(SELF_TYPE)                          \
   PyTypeObject  PyType##SELF_TYPE =                                     \
     { PyObject_HEAD_INIT(&PyType_Type)                                  \
-       0                              /* ob_size.          */           \
-    ,  "Hurricane.Py" #SELF_TYPE      /* tp_name.          */           \
+       "Hurricane.Py" #SELF_TYPE      /* tp_name.          */           \
     ,  sizeof(Py##SELF_TYPE)          /* tp_basicsize.     */           \
     , 0                               /* tp_itemsize.      */           \
     /* methods. */                                                      \
@@ -1324,8 +1321,7 @@ extern "C" {
 #define PyTypeInheritedObjectDefinitions(SELF_TYPE, INHERITED_TYPE)     \
   PyTypeObject  PyType##SELF_TYPE =                                     \
     { PyObject_HEAD_INIT(DEFERRED_ADDRESS(&PyType##INHERITED_TYPE))     \
-       0                              /* ob_size.          */           \
-    ,  "Hurricane.Py" #SELF_TYPE      /* tp_name.          */           \
+       "Hurricane.Py" #SELF_TYPE      /* tp_name.          */           \
     ,  sizeof(Py##SELF_TYPE)          /* tp_basicsize.     */           \
     , 0                               /* tp_itemsize.      */           \
     /* methods. */                                                      \
@@ -1363,8 +1359,7 @@ extern "C" {
 #define PyTypeCollectionObjectDefinitions(SELF_TYPE)                    \
   PyTypeObject  PyType##SELF_TYPE =                                     \
     { PyObject_HEAD_INIT(NULL)                                          \
-      0                               /* ob_size.          */           \
-    , "Hurricane."#SELF_TYPE          /* tp_name.          */           \
+      "Hurricane."#SELF_TYPE          /* tp_name.          */           \
     , sizeof(Py ##SELF_TYPE)          /* tp_basicsize.     */           \
     , 0                               /* tp_itemsize.      */           \
     /* methods. */                                                      \
@@ -1391,8 +1386,7 @@ extern "C" {
 #define PyTypeVectorObjectDefinitions(SELF_TYPE)  \
   PyTypeObject  PyType##SELF_TYPE =                                     \
     { PyObject_HEAD_INIT(NULL)                                          \
-      0                               /* ob_size.          */           \
-    , "Hurricane."#SELF_TYPE          /* tp_name.          */           \
+      "Hurricane."#SELF_TYPE          /* tp_name.          */           \
     , sizeof(Py ##SELF_TYPE)          /* tp_basicsize.     */           \
     , 0                               /* tp_itemsize.      */           \
     /* methods. */                                                      \

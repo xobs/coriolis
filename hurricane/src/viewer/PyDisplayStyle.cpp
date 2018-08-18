@@ -133,7 +133,7 @@ extern "C" {
     }
     HCATCH
 
-    return PyString_FromString(group);
+    return PyBytes_FromString(group);
   }
 
 
@@ -154,7 +154,7 @@ extern "C" {
     }
     HCATCH
 
-    return PyString_FromString(pattern);
+    return PyBytes_FromString(pattern);
   }
 
 
@@ -329,10 +329,10 @@ extern "C" {
   static PyObject* PyDisplayStyle_Repr ( PyDisplayStyle* self )
   {
     if ( self->ACCESS_OBJECT == NULL )
-      return PyString_FromString("<PyObject unbound>");
+      return PyBytes_FromString("<PyObject unbound>");
 
     string s = "<DisplayStyle " + getString(self->_object->getName()) + ">";
-    return PyString_FromString(s.c_str());
+    return PyBytes_FromString(s.c_str());
   }
 
   

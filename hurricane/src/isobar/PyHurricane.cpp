@@ -143,8 +143,7 @@ using namespace Hurricane;
   {
     long  value = 0;
 
-    if      (PyObject_IsInstance(object,(PyObject*)&PyInt_Type )) value = PyInt_AsLong ( object );
-    else if (PyObject_IsInstance(object,(PyObject*)&PyLong_Type)) value = PyLong_AsLong( object );
+    if (PyObject_IsInstance(object,(PyObject*)&PyLong_Type)) value = PyLong_AsLong( object );
     return value;
   }
 
@@ -269,8 +268,8 @@ using namespace Hurricane;
         
       if (object->ob_type == _types[i]->_pyType) return _types[i]->_id;
       if (&PyLong_Type    == _types[i]->_pyType) {
-        cerr << "PyLong_Type, now check for PyInt_Type" << endl;
-        if (object->ob_type == &PyInt_Type) return _types[i]->_id;
+        cerr << "PyLong_Type, now check for PyLong_Type" << endl;
+        if (object->ob_type == &PyLong_Type) return _types[i]->_id;
       }
     }
 
@@ -322,7 +321,6 @@ using namespace Hurricane;
 
     for ( unsigned i=0 ; i < __cs.getTypes().size() ; i++ ) {
       PyTypeObject* obType = object->ob_type;
-      if (obType == &PyInt_Type) obType = &PyLong_Type;
 
       baseType = __cs.getTypes()[i]->PyBase( obType );
       if (PyCallable_Check(object) or baseType) {
