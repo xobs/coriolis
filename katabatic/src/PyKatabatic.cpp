@@ -46,21 +46,25 @@ extern "C" {
   static PyMethodDef PyKatabatic_Methods[] =
     { {NULL, NULL, 0, NULL}     /* sentinel */
     };
-
-
+  static PyModuleDef PyKatabatic_Module;
 
 
   // ---------------------------------------------------------------
   // Module Initialization  :  "initKatabatic ()"
 
-  DL_EXPORT(void) initKatabatic () {
+  PyMODINIT_FUNC initKatabatic (void) {
     cdebug_log(38,0) << "initKatabatic()" << endl;
 
-    PyObject* module = Py_InitModule ( "Katabatic", PyKatabatic_Methods );
+    PyKatabatic_Module.m_base = PyModuleDef_HEAD_INIT;
+    PyKatabatic_Module.m_name = "Katabatic";
+    PyKatabatic_Module.m_doc = NULL;
+    PyKatabatic_Module.m_methods = PyKatabatic_Methods;
+
+    PyObject* module = PyModule_Create ( &PyKatabatic_Module );
     if ( module == NULL ) {
       cerr << "[ERROR]\n"
            << "  Failed to initialize Katabatic module." << endl;
-      return;
+      return NULL;
     }
 
     PyObject* dictionnary = PyModule_GetDict(module);
@@ -71,6 +75,7 @@ extern "C" {
     LoadObjectConstant(dictionnary,EngineLayerAssignByLength,"EngineLayerAssignByLength");
     LoadObjectConstant(dictionnary,EngineLayerAssignByTrunk ,"EngineLayerAssignByTrunk" );
     LoadObjectConstant(dictionnary,EngineNoNetLayerAssign   ,"EngineNoNetLayerAssign"   );
+    return module;
   }
 
   
