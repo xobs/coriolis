@@ -56,7 +56,7 @@ set_source_files_properties ( ${LibertyParserGrammarCpp} GENERATED )
 add_library ( liberty  ${cpps}
                        ${liberty_parser_cpps}
             )
-set_target_properties ( liberty PROPERTIES VERSION 1.0 SOVERSION 1)
+set_target_properties ( liberty PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON)
 target_link_libraries ( liberty ${Boost_LIBRARIES}
                       )
 

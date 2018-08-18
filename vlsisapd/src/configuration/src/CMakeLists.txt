@@ -40,7 +40,7 @@
      qtX_add_resources ( RCC_SRCS        Configuration.qrc )
 				         
            add_library ( configuration   ${cpps} ${mocCpps} ${RCC_SRCS} )
- set_target_properties ( configuration   PROPERTIES VERSION 1.0 SOVERSION 1 )
+ set_target_properties ( configuration   PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON)
  target_link_libraries ( configuration   vlsisapdutils
                                          ${QtX_LIBRARIES}
                                          ${PYTHON_LIBRARIES}

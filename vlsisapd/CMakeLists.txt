@@ -5,7 +5,7 @@
 
  cmake_minimum_required(VERSION 2.8.9)
 
- list(INSERT CMAKE_MODULE_PATH 0 "${DESTDIR}$ENV{CORIOLIS_TOP}/share/cmake/Modules/")
+ list(INSERT CMAKE_MODULE_PATH 0 "${CMAKE_CURRENT_SOURCE_DIR}/../bootstrap/cmake_modules/")
  find_package(Bootstrap REQUIRED)
  list(INSERT CMAKE_MODULE_PATH 0 "${VLSISAPD_SOURCE_DIR}/cmake_modules/")
  print_cmake_module_path()
@@ -23,6 +23,9 @@
 
  add_subdirectory(src)
  add_subdirectory(cmake_modules)
+
+ # Required since we're building libraries
+ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
  if(BUILD_DOC AND DOXYGEN_FOUND)
    add_subdirectory(doc)
