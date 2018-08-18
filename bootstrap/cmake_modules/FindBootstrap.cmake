@@ -90,23 +90,15 @@
  set(CMAKE_CXX_FLAGS_RELEASE "-std=${CXX_STANDARD} -Wall -O2  ${ADDTIONAL_FLAGS} -DNDEBUG"   CACHE STRING "C++ Compiler Release options." FORCE)
 
 
+set(CRLCORE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../crlcore/")
+
 #
 # Adds to the CMAKE_MODULE_PATH directories guesseds from project
 # environment variables <PROJECT>_USER_TOP and <PROJECT>_TOP.
 #
  macro(setup_project_paths project)
-   if( NOT("$ENV{${project}_TOP}" STREQUAL "") )
-     message("-- ${project}_TOP is set to $ENV{${project}_TOP}")
-     set(PROJECT_MODULE_PATH "${DESTDIR}$ENV{${project}_TOP}/share/cmake/Modules/")
-     list(INSERT CMAKE_MODULE_PATH 0 "${PROJECT_MODULE_PATH}")
-   endif( NOT("$ENV{${project}_TOP}" STREQUAL "") )
- 
-   if( NOT("$ENV{${project}_USER_TOP}" STREQUAL "") )
-     message("-- ${project}_USER_TOP is set to $ENV{${project}_USER_TOP}")
-     set(PROJECT_MODULE_PATH "${DESTDIR}$ENV{${project}_USER_TOP}/share/cmake/Modules/")
-     list(INSERT CMAKE_MODULE_PATH 0 "${PROJECT_MODULE_PATH}")
-   endif( NOT("$ENV{${project}_USER_TOP}" STREQUAL "") )
- 
+   set(PROJECT_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../${project}/cmake_modules/")
+   list(INSERT CMAKE_MODULE_PATH 0 "${PROJECT_MODULE_PATH}")
    list(REMOVE_DUPLICATES CMAKE_MODULE_PATH)
  endmacro(setup_project_paths project)
 
@@ -299,22 +291,8 @@
 #   Where to find includes & libraries.
 #
  macro(setup_search_dir project)
-   if( NOT("$ENV{${project}_TOP}" STREQUAL "") )
-     message("-- ${project}_TOP is set to $ENV{${project}_TOP}")
-     list(INSERT ${project}_DIR_SEARCH 0 "${DESTDIR}$ENV{${project}_TOP}")
-   endif( NOT("$ENV{${project}_TOP}" STREQUAL "") )
-
-   if( NOT("$ENV{${project}_USER_TOP}" STREQUAL "") )
-     message("-- ${project}_USER_TOP is set to $ENV{${project}_USER_TOP}")
-     list(INSERT ${project}_DIR_SEARCH 0 "${DESTDIR}$ENV{${project}_USER_TOP}")
-   endif( NOT("$ENV{${project}_USER_TOP}" STREQUAL "") )
-
+   list(INSERT ${project}_DIR_SEARCH 0 "${CMAKE_CURRENT_SOURCE_DIR}/../${project}/")
    LIST(REMOVE_DUPLICATES ${project}_DIR_SEARCH)
-  
-   message("-- Components of ${project}_DIR_SEARCH:")
-   foreach(PATH ${${project}_DIR_SEARCH})
-     message("--   ${PATH}")
-   endforeach(PATH)
  endmacro(setup_search_dir project)
 
 
