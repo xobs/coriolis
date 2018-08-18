@@ -56,12 +56,20 @@ extern "C" {
   static PyMethodDef PyViewer_Methods[] =
     { {NULL, NULL, 0, NULL}     /* sentinel */
     };
+  const char PyViewer_Name[] = "Viewer";
+  static PyModuleDef PyViewer_Module;
 
 
   // ---------------------------------------------------------------
   // Module Initialization  :  "initViewer ()"
 
-  DL_EXPORT(void) initViewer () {
+  PyMODINIT_FUNC initViewer (void) {
+
+    PyViewer_Module.m_base = PyModuleDef_HEAD_INIT;
+    PyViewer_Module.m_name = PyViewer_Name;
+    PyViewer_Module.m_doc = NULL;
+    PyViewer_Module.m_methods = PyViewer_Methods;
+
     cdebug_log(20,0) << "initViewer()" << endl;
 
     PyHSVr_LinkPyType ();
@@ -95,11 +103,11 @@ extern "C" {
     __cs.addType ( "graphics"  , &PyTypeGraphics    , "<Graphics>"    , false );
     __cs.addType ( "cellView"  , &PyTypeCellViewer  , "<CellViewer>"  , false );
     
-    PyObject* module = Py_InitModule ( "Viewer", PyViewer_Methods );
+    PyObject* module = PyModule_Create ( &PyViewer_Module );
     if ( module == NULL ) {
       cerr << "[ERROR]\n"
            << "  Failed to initialize Viewer module." << endl;
-      return;
+      return NULL;
     }
     
     Py_INCREF ( &PyTypeDisplayStyle );
@@ -115,6 +123,7 @@ extern "C" {
     PyCellViewer_postModuleInit();
 
     cdebug_log(20,0) << "Viewer.so loaded " << (void*)&typeid(string) << endl;
+    return module;
   }
 
   

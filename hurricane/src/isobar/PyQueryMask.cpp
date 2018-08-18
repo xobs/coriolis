@@ -225,7 +225,6 @@ extern "C" {
        0                                // binaryfunc  nb_add;
      , 0                                // binaryfunc  nb_subtract;
      , 0                                // binaryfunc  nb_multiply;
-     , 0                                // binaryfunc  nb_divide;
      , 0                                // binaryfunc  nb_remainder;
      , 0                                // binaryfunc  nb_divmod;
      , 0                                // ternaryfunc nb_power;
@@ -239,17 +238,13 @@ extern "C" {
      , (binaryfunc)PyQueryMask_and      // binaryfunc  nb_and;
      , (binaryfunc)PyQueryMask_xor      // binaryfunc  nb_xor;
      , (binaryfunc)PyQueryMask_or       // binaryfunc  nb_or;
-     , 0                                // coercion    nb_coerce;       -- Used by the coerce() function
      , 0                                // unaryfunc   nb_int;
      , 0                                // unaryfunc   nb_long;
      , 0                                // unaryfunc   nb_float;
-     , 0                                // unaryfunc   nb_oct;
-     , 0                                // unaryfunc   nb_hex;
                                         // Added in release 2.0
      , 0                                // binaryfunc  nb_inplace_add;
      , 0                                // binaryfunc  nb_inplace_subtract;
      , 0                                // binaryfunc  nb_inplace_multiply;
-     , 0                                // binaryfunc  nb_inplace_divide;
      , 0                                // binaryfunc  nb_inplace_remainder;
      , 0                                // ternaryfunc nb_inplace_power;
      , 0                                // binaryfunc  nb_inplace_lshift;
@@ -264,7 +259,9 @@ extern "C" {
      , 0                                // binaryfunc  nb_inplace_true_divide;
                                         // Added in release 2.5
      , 0                                // unaryfunc   nb_index;
-    };
+     , 0                                // binaryfunc nb_matrix_multiply;
+     , 0                                // binaryfunc nb_inplace_matrix_multiply;
+  };
 
 
   // ---------------------------------------------------------------
@@ -316,7 +313,7 @@ extern "C" {
 
     PyTypeQueryMask.tp_new       =              PyQueryMask_new;
     PyTypeQueryMask.tp_dealloc   = (destructor) PyQueryMask_DeAlloc;
-    PyTypeQueryMask.tp_compare   = (cmpfunc)    PyQueryMask_Cmp;
+  /*PyTypeQueryMask.tp_compare   = (cmpfunc)    PyQueryMask_Cmp;*/
     PyTypeQueryMask.tp_repr      = (reprfunc)   PyQueryMask_Repr;
     PyTypeQueryMask.tp_str       = (reprfunc)   PyQueryMask_Str;
     PyTypeQueryMask.tp_hash      = (hashfunc)   PyQueryMask_Hash;

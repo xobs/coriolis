@@ -641,7 +641,7 @@ extern "C" {
     cdebug_log(20,0) << "Py"#SELF_TYPE"_getName()" << endl;              \
     HTRY                                                               \
     METHOD_HEAD (#SELF_TYPE".getName()")                               \
-    return PyString_FromString(getString(SELF->getName()).c_str());    \
+    return PyBytes_FromString(getString(SELF->getName()).c_str());    \
     HCATCH                                                             \
     return NULL;                                                       \
   }
@@ -968,15 +968,15 @@ extern "C" {
   static PyObject* PY_FUNC_NAME ( PY_SELF_TYPE *self )                   \
   {                                                                      \
     if ( self->ACCESS_OBJECT == NULL )                                   \
-      return ( PyString_FromString("<PyObject unbound>") );              \
+      return ( PyBytes_FromString("<PyObject unbound>") );              \
     SELF_TYPE* object = dynamic_cast<SELF_TYPE*>(self->ACCESS_OBJECT);   \
     if ( object == NULL )                                                \
-      return ( PyString_FromString("<PyObject invalid dynamic-cast>") ); \
+      return ( PyBytes_FromString("<PyObject invalid dynamic-cast>") ); \
                                                                          \
     ostringstream repr;                                                  \
     repr << "[" << hex << self << "<->" << (void*)object << " " << getString(object) << "]"; \
                                                                          \
-    return ( PyString_FromString(repr.str().c_str()) );                  \
+    return ( PyBytes_FromString(repr.str().c_str()) );                  \
   }
 
 
@@ -989,12 +989,12 @@ extern "C" {
   static PyObject* PY_FUNC_NAME ( PY_SELF_TYPE *self )                   \
   {                                                                      \
     if ( self->ACCESS_OBJECT == NULL )                                   \
-      return ( PyString_FromString("<PyObject unbound>") );              \
+      return ( PyBytes_FromString("<PyObject unbound>") );              \
     SELF_TYPE* object = dynamic_cast<SELF_TYPE*>(self->ACCESS_OBJECT);   \
     if ( object == NULL )                                                \
-      return ( PyString_FromString("<PyObject invalid dynamic_cast>") ); \
+      return ( PyBytes_FromString("<PyObject invalid dynamic_cast>") ); \
                                                                          \
-    return ( PyString_FromString(getString(object).c_str()) );           \
+    return ( PyBytes_FromString(getString(object).c_str()) );           \
   }
 
 
@@ -1189,7 +1189,7 @@ extern "C" {
     cdebug_log(20,0) << "Py" #PY_SELF_TYPE "_LinkType()" << endl;                   \
                                                                                   \
     PyType##PY_SELF_TYPE.tp_dealloc = (destructor) Py##PY_SELF_TYPE##_DeAlloc;    \
-    PyType##PY_SELF_TYPE.tp_compare = (cmpfunc)    Py##PY_SELF_TYPE##_Cmp;        \
+  /*PyType##PY_SELF_TYPE.tp_compare = (cmpfunc)    Py##PY_SELF_TYPE##_Cmp;*/      \
     PyType##PY_SELF_TYPE.tp_repr    = (reprfunc)   Py##PY_SELF_TYPE##_Repr;       \
     PyType##PY_SELF_TYPE.tp_str     = (reprfunc)   Py##PY_SELF_TYPE##_Str;        \
     PyType##PY_SELF_TYPE.tp_hash    = (hashfunc)   Py##PY_SELF_TYPE##_Hash;       \
@@ -1206,7 +1206,7 @@ extern "C" {
     cdebug_log(20,0) << "Py" #PY_SELF_TYPE "_LinkType()" << endl;                   \
                                                                                   \
     PyType##PY_SELF_TYPE.tp_dealloc = (destructor) Py##PY_SELF_TYPE##_DeAlloc;    \
-    PyType##PY_SELF_TYPE.tp_compare = (cmpfunc)    Py##PY_SELF_TYPE##_Cmp;        \
+  /*PyType##PY_SELF_TYPE.tp_compare = (cmpfunc)    Py##PY_SELF_TYPE##_Cmp;*/      \
     PyType##PY_SELF_TYPE.tp_repr    = (reprfunc)   Py##PY_SELF_TYPE##_Repr;       \
     PyType##PY_SELF_TYPE.tp_str     = (reprfunc)   Py##PY_SELF_TYPE##_Str;        \
     PyType##PY_SELF_TYPE.tp_hash    = (hashfunc)   Py##PY_SELF_TYPE##_Hash;       \
@@ -1233,7 +1233,7 @@ extern "C" {
     cdebug_log(20,0) << "Py" #PY_SELF_TYPE "Locator_LinkType()" << endl;                                     \
                                                                                                            \
     PyType##PY_SELF_TYPE##Locator.tp_dealloc = (destructor)Py##PY_SELF_TYPE##Locator_DeAlloc;              \
-    PyType##PY_SELF_TYPE##Locator.tp_compare = (cmpfunc)   Py##PY_SELF_TYPE##Locator_Cmp;                  \
+  /*PyType##PY_SELF_TYPE##Locator.tp_compare = (cmpfunc)   Py##PY_SELF_TYPE##Locator_Cmp;*/                \
     PyType##PY_SELF_TYPE##Locator.tp_repr    = (reprfunc)  Py##PY_SELF_TYPE##Locator_Repr;                 \
     PyType##PY_SELF_TYPE##Locator.tp_str     = (reprfunc)  Py##PY_SELF_TYPE##Locator_Str;                  \
     PyType##PY_SELF_TYPE##Locator.tp_methods = Py##PY_SELF_TYPE##Locator_Methods;                          \
@@ -1417,7 +1417,7 @@ extern "C" {
   if ( PyType_Ready( &PyType##TYPE ) < 0 ) {                 \
     cerr << "[ERROR]\n"                                      \
          << "  Failed to initialize <Py" #TYPE ">." << endl; \
-    return;                                                  \
+    return NULL;                                             \
   }
 
 
@@ -1426,7 +1426,7 @@ extern "C" {
   if ( PyType_Ready( &PyType##TYPE ) < 0 ) {                 \
     cerr << "[ERROR]\n"                                      \
          << "  Failed to initialize <Py" #TYPE ">." << endl; \
-    return;                                                  \
+    return NULL;                                             \
   }
 
 

@@ -133,8 +133,7 @@ using namespace Hurricane;
   {
     long  value = 0;
 
-    if      (PyObject_IsInstance(object,(PyObject*)&PyInt_Type )) value = PyInt_AsLong ( object );
-    else if (PyObject_IsInstance(object,(PyObject*)&PyLong_Type)) value = PyLong_AsLong( object );
+    if (PyObject_IsInstance(object,(PyObject*)&PyLong_Type)) value = PyLong_AsLong( object );
     return (int)value;
   }
 
@@ -517,12 +516,17 @@ extern "C" {
     , { "DbU_getOnPhysicalGrid", PyDbU_getOnPhysicalGrid, METH_VARARGS, "Adjusts a DbU::Unit to physical grid." }
     , {NULL, NULL, 0, NULL}    /* sentinel */
     };
+  static PyModuleDef PyHurricane_Module;
 
 
   // ---------------------------------------------------------------
   // Module Initialization  :  "initHurricane ()"
 
-  DL_EXPORT(void) initHurricane () {
+  PyMODINIT_FUNC initHurricane (void) {
+    PyHurricane_Module.m_base = PyModuleDef_HEAD_INIT;
+    PyHurricane_Module.m_name = "Hurricane";
+    PyHurricane_Module.m_doc = NULL;
+    PyHurricane_Module.m_methods = PyHurricane_Methods;
   //trace_on();
     cdebug_log(20,0) << "initHurricane()" << endl;
 
@@ -681,7 +685,7 @@ extern "C" {
     __cs.addType ( "float"      , &PyFloat_Type                , "<Float>"                 , true  );
     __cs.addType ( "int"        , &PyLong_Type                 , "<Int>"                   , true  );
     __cs.addType ( "bool"       , &PyBool_Type                 , "<Bool>"                  , true  );
-    __cs.addType ( "string"     , &PyString_Type               , "<String>"                , true  );
+    __cs.addType ( "string"     , &PyBytes_Type                , "<String>"                , true  );
     __cs.addType ( "list"       , &PyList_Type                 , "<List>"                  , true  );
     // Do not change the "function" string. It's hardwired to callable (function) objects.
     __cs.addType ( "function"   , NULL                         , "<Function>"              , true  );
@@ -728,11 +732,11 @@ extern "C" {
     __cs.addType ( "qmask"      , &PyTypeQueryMask             , "<Query::Mask>"           , false );
 
 
-    PyObject* module = Py_InitModule ( "Hurricane", PyHurricane_Methods );
+    PyObject* module = PyModule_Create ( &PyHurricane_Module );
     if ( module == NULL ) {
       cerr << "[ERROR]\n"
            << "  Failed to initialize Hurricane module." << endl;
-      return;
+      return NULL;
     }
 
     Py_INCREF ( &PyTypeDbU );
@@ -835,6 +839,7 @@ extern "C" {
     PyQuery_postModuleInit();
 
     cdebug_log(20,0) << "Hurricane.so loaded " << (void*)&typeid(string) << endl;
+    return module;
   }
 
   

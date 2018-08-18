@@ -38,6 +38,9 @@ extern "C" {
 #define  ACCESS_CLASS(_pyObject)  &(_pyObject->_baseObject)
 #define  METHOD_HEAD(function)   GENERIC_METHOD_HEAD(Instance,instance,function)
 
+#ifdef LOAD_CONSTANT
+#undef LOAD_CONSTANT
+#endif
 #define  LOAD_CONSTANT(CONSTANT_VALUE,CONSTANT_NAME)              \
   constant = PyInt_FromLong ( (long)CONSTANT_VALUE );             \
   PyDict_SetItemString ( dictionnary, CONSTANT_NAME, constant );  \
@@ -95,12 +98,12 @@ extern "C" {
 
     if (__cs.getObjectIds() == ":ent:string:ent") {
       instance = Instance::create( PYCELL_O(arg0)
-                                 , Name(PyString_AsString(arg1))
+                                 , Name(PyBytes_AsString(arg1))
                                  , PYCELL_O(arg2)
                                  );
     } else if (__cs.getObjectIds() == ":ent:string:ent:transfo") {
       instance = Instance::create( PYCELL_O(arg0)
-                                 , Name(PyString_AsString(arg1))
+                                 , Name(PyBytes_AsString(arg1))
                                  , PYCELL_O(arg2)
                                  , *PYTRANSFORMATION_O(arg3)
                                  , Instance::PlacementStatus::PLACED

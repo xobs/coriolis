@@ -143,7 +143,7 @@
                       )
 
            add_library( viewer      ${cpps} ${MOC_SRCS} ${RCC_SRCS} ${pyCpps} )
- set_target_properties( viewer      PROPERTIES VERSION 1.0 SOVERSION 1 )
+ set_target_properties( viewer      PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON )
  target_link_libraries( viewer      ${depLibs} )
 
      add_python_module( "${pyCpps}"

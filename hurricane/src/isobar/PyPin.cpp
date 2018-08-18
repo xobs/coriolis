@@ -112,7 +112,7 @@ extern "C" {
     if ( __cs.getObjectIds() == pin_arg1 ) {
         pin = Pin::create(
                 PYNET_O ( arg0 ),
-                Name(PyString_AsString(arg1)),
+                Name(PyBytes_AsString(arg1)),
                 PyInt_AsAccessDirection ( arg2 ),
                 PyInt_AsPlacementStatus ( arg3 ),
                 PYLAYER_O ( arg4 ),
@@ -123,7 +123,7 @@ extern "C" {
     } else if ( __cs.getObjectIds() == pin_arg2 ) {
         pin = Pin::create (
                 PYNET_O ( arg0 ),
-                Name(PyString_AsString(arg1)),
+                Name(PyBytes_AsString(arg1)),
                 PyInt_AsAccessDirection ( arg2 ),
                 PyInt_AsPlacementStatus ( arg3 ),
                 PYLAYER_O ( arg4 ),
@@ -132,7 +132,7 @@ extern "C" {
                 PyAny_AsLong ( arg7 ) );
     } else if ( __cs.getObjectIds() == pin_arg3 ) {
         pin = Pin::create ( PYNET_O ( arg0 ),
-                Name(PyString_AsString(arg1)),
+                Name(PyBytes_AsString(arg1)),
                 PyInt_AsAccessDirection ( arg2 ),
                 PyInt_AsPlacementStatus ( arg3 ),
                 PYLAYER_O ( arg4 ),

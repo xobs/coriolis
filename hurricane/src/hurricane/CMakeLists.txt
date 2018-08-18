@@ -184,6 +184,6 @@
     
            add_library ( hurricane ${cpps} )
  target_link_libraries ( hurricane ${Boost_LIBRARIES} ${BZIP2_LIBRARIES} )
- set_target_properties ( hurricane PROPERTIES VERSION 1.0 SOVERSION 1 )
+ set_target_properties ( hurricane PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON )
                install ( TARGETS hurricane DESTINATION lib${LIB_SUFFIX} )
                install ( FILES ${includes} DESTINATION include/coriolis2/hurricane ) 

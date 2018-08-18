@@ -152,7 +152,7 @@ extern "C" {
     PyTypeMaterial.tp_dealloc = (destructor) PyMaterial_DeAlloc;
     PyTypeMaterial.tp_repr    = (reprfunc)   PyMaterial_Repr;
     PyTypeMaterial.tp_str     = (reprfunc)   PyMaterial_Str;
-    PyTypeMaterial.tp_compare = (cmpfunc)    PyMaterial_Cmp;
+  /*PyTypeMaterial.tp_compare = (cmpfunc)    PyMaterial_Cmp;*/
     PyTypeMaterial.tp_hash    = (hashfunc)   PyMaterial_Hash;
     PyTypeMaterial.tp_methods = PyMaterial_Methods;
   }

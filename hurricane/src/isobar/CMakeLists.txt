@@ -69,7 +69,6 @@
                                    PyDebugSession.cpp
                                    PyVertical.cpp
                                    PyQueryMask.cpp
-                                   PyQuery.cpp
                       )	    
                    set( pyIncludes hurricane/isobar/ProxyProperty.h
                                    hurricane/isobar/PyBreakpoint.h
@@ -148,3 +147,4 @@
                         "${depLibs}"
                         include/coriolis2/hurricane/isobar
                       )
+     set_target_properties( isobar PROPERTIES POSITION_INDEPENDENT_CODE ON )

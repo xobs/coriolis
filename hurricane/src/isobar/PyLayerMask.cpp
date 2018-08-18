@@ -225,7 +225,6 @@ extern "C" {
        0                                // binaryfunc  nb_add;
      , 0                                // binaryfunc  nb_subtract;
      , 0                                // binaryfunc  nb_multiply;
-     , 0                                // binaryfunc  nb_divide;
      , 0                                // binaryfunc  nb_remainder;
      , 0                                // binaryfunc  nb_divmod;
      , 0                                // ternaryfunc nb_power;
@@ -239,17 +238,13 @@ extern "C" {
      , (binaryfunc)PyLayerMask_and      // binaryfunc  nb_and;
      , (binaryfunc)PyLayerMask_xor      // binaryfunc  nb_xor;
      , (binaryfunc)PyLayerMask_or       // binaryfunc  nb_or;
-     , 0                                // coercion    nb_coerce;       -- Used by the coerce() function
      , 0                                // unaryfunc   nb_int;
      , 0                                // unaryfunc   nb_long;
      , 0                                // unaryfunc   nb_float;
-     , 0                                // unaryfunc   nb_oct;
-     , 0                                // unaryfunc   nb_hex;
                                         // Added in release 2.0
      , 0                                // binaryfunc  nb_inplace_add;
      , 0                                // binaryfunc  nb_inplace_subtract;
      , 0                                // binaryfunc  nb_inplace_multiply;
-     , 0                                // binaryfunc  nb_inplace_divide;
      , 0                                // binaryfunc  nb_inplace_remainder;
      , 0                                // ternaryfunc nb_inplace_power;
      , 0                                // binaryfunc  nb_inplace_lshift;
@@ -264,6 +259,8 @@ extern "C" {
      , 0                                // binaryfunc  nb_inplace_true_divide;
                                         // Added in release 2.5
      , 0                                // unaryfunc   nb_index;
+     , 0                                // binaryfunc nb_matrix_multiply;
+     , 0                                // binaryfunc nb_inplace_matrix_multiply;
     };
 
 
@@ -316,7 +313,7 @@ extern "C" {
 
     PyTypeLayerMask.tp_new       =              PyLayerMask_new;
     PyTypeLayerMask.tp_dealloc   = (destructor) PyLayerMask_DeAlloc;
-    PyTypeLayerMask.tp_compare   = (cmpfunc)    PyLayerMask_Cmp;
+  /*PyTypeLayerMask.tp_compare   = (cmpfunc)    PyLayerMask_Cmp;*/
     PyTypeLayerMask.tp_repr      = (reprfunc)   PyLayerMask_Repr;
     PyTypeLayerMask.tp_str       = (reprfunc)   PyLayerMask_Str;
     PyTypeLayerMask.tp_hash      = (hashfunc)   PyLayerMask_Hash;

@@ -78,12 +78,12 @@ extern "C" {
 
     if      ( __cs.getObjectIds() == ":ent:string:int:int" )
       reference = Reference::create (  PYCELL_O(arg0)
-                                    ,  Name(PyString_AsString(arg1))
+                                    ,  Name(PyBytes_AsString(arg1))
                                     ,  PyAny_AsLong(arg2)
                                     ,  PyAny_AsLong(arg3) );
     else if ( __cs.getObjectIds() == ":ent:name:point" )
       reference = Reference::create (  PYCELL_O(arg0)
-                                    ,  Name(PyString_AsString(arg1))
+                                    ,  Name(PyBytes_AsString(arg1))
                                     , *PYPOINT_O(arg2) );
     else {
       PyErr_SetString ( ConstructorError, "invalid number of parameters for Reference constructor." );
