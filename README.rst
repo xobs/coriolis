@@ -39,6 +39,18 @@ version.
 Building Coriolis
 =================
 
+On Ubuntu 18.04, install the necessary packages:
+
+```sh
+sudo apt install cmake libxml2-dev python3-dev libboost-python1.62-dev libboost-program-options1.62-dev libboost-regex1.62-dev libqt4-dev liblemon-dev
+```
+
+Build order:
+
+1. vlsisapd
+1. coloquinte
+1. hurricane
+
 To build Coriolis, ensure the following prerequisites are met:
 
 * Python 2.7.
