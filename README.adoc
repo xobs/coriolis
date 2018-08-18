@@ -42,7 +42,7 @@ Building Coriolis
 On Ubuntu 18.04, install the necessary packages:
 
 ```sh
-sudo apt install cmake libxml2-dev python3-dev libboost-python1.62-dev libboost-program-options1.62-dev libboost-regex1.62-dev libqt4-dev liblemon-dev
+sudo apt install cmake libxml2-dev python3-dev libboost-python1.62-dev libboost-program-options1.62-dev libboost-regex1.62-dev libqt4-dev liblemon-dev libbz2-dev rapidjson-dev
 ```
 
 Build order:
