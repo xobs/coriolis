@@ -48,7 +48,10 @@
                                       ${QtX_LIBRARIES}
                                       ${Boost_LIBRARIES}
                                       ${LIBXML2_LIBRARIES}
-                                      ${PYTHON_LIBRARIES} -lutil
+                                      ${PYTHON_LIBRARIES} -lutil -lxml2 -lbz2
+                                      ${CMAKE_INSTALL_PREFIX}/lib/libkatabatic.a
+                                      ${CMAKE_INSTALL_PREFIX}/lib/libknik.a
+                                      ${CMAKE_INSTALL_PREFIX}/lib/libflute.a
                                       ${LIBEXECINFO_LIBRARIES}
                       )
 
