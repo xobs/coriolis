@@ -64,7 +64,7 @@ extern "C" {
   // ---------------------------------------------------------------
   // Module Initialization  :  "initEtesian ()"
 
-  PyMODINIT_FUNC initEtesian (void) {
+  PyMODINIT_FUNC PyInit_Etesian (void) {
     cdebug_log(34,0) << "initEtesian()" << endl;
 
     PyEtesian_Module.m_base = PyModuleDef_HEAD_INIT;
