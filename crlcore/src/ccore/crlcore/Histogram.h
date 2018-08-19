@@ -91,24 +91,24 @@ namespace CRL {
   inline Measure<Histogram>::Measure ( const Name& name, Histogram* data )
     : BaseMeasure(name,0), _data(data) { }
 
-  Measure<Histogram>::~Measure () { delete _data; }
+  inline Measure<Histogram>::~Measure () { delete _data; }
 
-  bool  Measure<Histogram>::isSimpleData () const { return false; }
+  inline bool  Measure<Histogram>::isSimpleData () const { return false; }
 
   inline Histogram* Measure<Histogram>::getData () const { return _data; }
 
   inline void  Measure<Histogram>::setData ( Histogram* data ) { _data=data; }
 
-  std::string  Measure<Histogram>::toString () const
+  inline std::string  Measure<Histogram>::toString () const
   { return "Unsupported"; }
 
-  void  Measure<Histogram>::toGnuplot ( const std::string& basename ) const
+  inline void  Measure<Histogram>::toGnuplot ( const std::string& basename ) const
   { _data->toGnuplot ( basename ); }
 
-  std::string  Measure<Histogram>::_getString () const
+  inline std::string  Measure<Histogram>::_getString () const
   { return "<Measure Histogram>"; }
 
-  Record* Measure<Histogram>::_getRecord () const
+  inline Record* Measure<Histogram>::_getRecord () const
   {
     Record* record = new Record ( _getString() );
     if ( record ) {
