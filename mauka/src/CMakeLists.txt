@@ -49,7 +49,7 @@
 
 
            add_library ( mauka         ${cpps} ${mocCpps} ${pyCpps} )
- set_target_properties ( mauka         PROPERTIES VERSION 1.0 SOVERSION 1 )
+ set_target_properties ( mauka         PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON )
  target_link_libraries ( mauka         ${METIS_LIBRARIES}
                                        ${NIMBUS_LIBRARIES}
                                        ${CORIOLIS_LIBRARIES}
@@ -71,6 +71,7 @@
  set_target_properties ( pyMauka       PROPERTIES COMPILE_FLAGS "${COMPILE_FLAGS} -D__PYTHON_MODULE__=1"
                                                   PREFIX        ""
                                                   OUTPUT_NAME   "Mauka"
+                                                  POSITION_INDEPENDENT_CODE ON
                        )
  target_link_libraries ( pyMauka       mauka
                                        ${CORIOLIS_PYTHON_LIBRARIES}
