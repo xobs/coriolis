@@ -83,7 +83,7 @@ namespace Mauka {
     const Container* container = static_cast<const Container*>(go);
 
     QPainter& painter = widget->getPainter();
-    painter.drawRect ( widget->dbuToDisplayRect(container->getBoundingBox()) );
+    painter.drawRect ( widget->dbuToScreenRect(container->getBoundingBox()) );
   }
 
 

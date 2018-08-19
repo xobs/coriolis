@@ -33,9 +33,10 @@ namespace  Mauka {
   using std::hex;
   using std::ostringstream;
   using Hurricane::tab;
-  using Hurricane::in_trace;
   using Hurricane::Error;
   using Hurricane::Warning;
+  using Hurricane::Bug;
+  using Hurricane::Exception;
   using Isobar::ProxyProperty;
   using Isobar::ProxyError;
   using Isobar::ConstructorError;
@@ -60,7 +61,7 @@ extern "C" {
 
   static PyObject* PyMaukaEngine_get ( PyObject*, PyObject* args )
   {
-    trace << "PyMaukaEngine_get()" << endl;
+    cdebug_log(40,0) << "PyMaukaEngine_get()" << endl;
 
     MaukaEngine*   mauka   = NULL;
     
@@ -77,7 +78,7 @@ extern "C" {
 
   static PyObject* PyMaukaEngine_create ( PyObject*, PyObject* args )
   {
-    trace << "PyMaukaEngine_create()" << endl;
+    cdebug_log(40,0) << "PyMaukaEngine_create()" << endl;
 
     MaukaEngine*   mauka   = NULL;
     
@@ -105,7 +106,7 @@ extern "C" {
 
   PyObject* PyMaukaEngine_regroupOverloadedGCells ( PyMaukaEngine*, PyObject* args )
   {
-    trace << "PyMaukaEngine_regroupOverloadedGCells()" << endl;
+    cdebug_log(40,0) << "PyMaukaEngine_regroupOverloadedGCells()" << endl;
 
     HTRY
     PyObject* arg0;

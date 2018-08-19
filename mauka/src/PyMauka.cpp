@@ -26,7 +26,6 @@ namespace Mauka {
   using std::cerr;
   using std::endl;
   using Hurricane::tab;
-  using Hurricane::in_trace;
   using Isobar::__cs;
   using CRL::PyTypeToolEngine;
   using CRL::PyTypeGraphicTool;
@@ -58,6 +57,7 @@ extern "C" {
   static PyMethodDef PyMauka_Methods[] =
     { {NULL, NULL, 0, NULL}     /* sentinel */
     };
+  static PyModuleDef PyNimbus_Module;
 
 
 
@@ -65,8 +65,13 @@ extern "C" {
   // ---------------------------------------------------------------
   // Module Initialization  :  "initMauka ()"
 
-  DL_EXPORT(void) initMauka () {
-    trace << "initMauka()" << endl;
+  PyMODINIT_FUNC initMauka (void) {
+    cdebug_log(40,0) << "initMauka()" << endl;
+
+    PyNimbus_Module.m_base = PyModuleDef_HEAD_INIT;
+    PyNimbus_Module.m_name = "Mauka";
+    PyNimbus_Module.m_doc = NULL;
+    PyNimbus_Module.m_methods = PyMauka_Methods;
 
     PyMaukaEngine_LinkPyType ();
     PyGraphicMaukaEngine_LinkPyType ();
@@ -78,17 +83,18 @@ extern "C" {
     __cs.addType ( "mauka", &PyTypeMaukaEngine, "<MaukaEngine>", false );
 
 
-    PyObject* module = Py_InitModule ( "Mauka", PyMauka_Methods );
+    PyObject* module = PyModule_Create ( &PyNimbus_Module );
     if ( module == NULL ) {
       cerr << "[ERROR]\n"
            << "  Failed to initialize Mauka module." << endl;
-      return;
+      return NULL;
     }
 
     Py_INCREF ( &PyTypeMaukaEngine );
     PyModule_AddObject ( module, "MaukaEngine", (PyObject*)&PyTypeMaukaEngine );
     Py_INCREF ( &PyTypeGraphicMaukaEngine );
     PyModule_AddObject ( module, "GraphicMaukaEngine", (PyObject*)&PyTypeGraphicMaukaEngine );
+    return module;
   }
 
   

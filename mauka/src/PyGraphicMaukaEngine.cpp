@@ -49,7 +49,7 @@ extern "C" {
 
   static PyObject* PyGraphicMaukaEngine_grab ( PyObject* )
   {
-    trace << "PyGraphicMaukaEngine_grab()" << endl;
+    cdebug_log(40,0) << "PyGraphicMaukaEngine_grab()" << endl;
     PyGraphicMaukaEngine* pyGraphicMaukaEngine = NULL;
 
     HTRY
@@ -65,7 +65,7 @@ extern "C" {
 
   static PyObject* PyGraphicMaukaEngine_getCell ( PyGraphicMaukaEngine* self )
   {
-    trace << "PyGraphicMaukaEngine_getCell ()" << endl;
+    cdebug_log(40,0) << "PyGraphicMaukaEngine_getCell ()" << endl;
 
     Cell* cell = NULL;
     

@@ -34,7 +34,6 @@ namespace Mauka {
   using  std::ostringstream;
   using  std::string;
   using  Hurricane::tab;
-  using  Hurricane::inltrace;
   using  CRL::AllianceFramework;
 
 

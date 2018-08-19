@@ -6,7 +6,7 @@
 // Main contributors :
 //        Christophe Alexandre   <Christophe.Alexandre@lip6.fr>
 //        Sophie Belloeil             <Sophie.Belloeil@lip6.fr>
-//        Hugo Clément                   <Hugo.Clement@lip6.fr>
+//        Hugo Clï¿½ment                   <Hugo.Clement@lip6.fr>
 //        Jean-Paul Chaput           <Jean-Paul.Chaput@lip6.fr>
 //        Damien Dupuis                 <Damien.Dupuis@lip6.fr>
 //        Christian Masson           <Christian.Masson@lip6.fr>
@@ -88,14 +88,14 @@ void DisplayInstanceOccurrence(Occurrence& instanceOccurrence)
 
 void DisplayNonLeafInstances(Cell* cell, Box area)
 {
-    ltrace(100) << "display of "  << cell << " in " << area <<  endl;
+    //ltrace(100) << "display of "  << cell << " in " << area <<  endl;
     for_each_instance(instance, cell->getNonLeafInstancesUnder(area))
     {
-        ltrace(100) << instance <<  " " << instance->getBoundingBox() << endl;
+        //ltrace(100) << instance <<  " " << instance->getBoundingBox() << endl;
         Cell* masterCell = instance->getMasterCell();
-        ltracein(20);
+        //ltracein(20);
         DisplayNonLeafInstances(masterCell, area);
-        ltraceout(20);
+        //ltraceout(20);
         end_for;
     }
 }
