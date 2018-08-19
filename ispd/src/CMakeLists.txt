@@ -2,6 +2,7 @@
                include ( ${QT_USE_FILE} )
    include_directories ( ${Boost_INCLUDE_DIRS}
                          ${HURRICANE_INCLUDE_DIR}
+                         ${UTILITIES_INCLUDE_DIR}
                          ${CORIOLIS_INCLUDE_DIR}
                        )
 
@@ -32,7 +33,8 @@
                                      ${QT_LIBRARIES}
                                      ${Boost_LIBRARIES}
                                      ${PYTHON_LIBRARIES}
-                                     -lutil
+                                     ${UTILITIES_LIBRARY}
+                                     -lutil -lbz2
                                      ${LIBXML2_LIBRARIES}
                        )
                install ( TARGETS     ispd DESTINATION bin )
