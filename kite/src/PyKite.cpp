@@ -57,15 +57,20 @@ extern "C" {
   static PyMethodDef PyKite_Methods[] =
     { {NULL, NULL, 0, NULL}     /* sentinel */
     };
-
+  static PyModuleDef PyKite_Module;
 
 
 
   // ---------------------------------------------------------------
   // Module Initialization  :  "initKite ()"
 
-  DL_EXPORT(void) initKite () {
+  PyMODINIT_FUNC initKite (void) {
     cdebug_log(40,0) << "initKite()" << endl;
+
+    PyKite_Module.m_base = PyModuleDef_HEAD_INIT;
+    PyKite_Module.m_name = "Kite";
+    PyKite_Module.m_doc = NULL;
+    PyKite_Module.m_methods = PyKite_Methods;
 
     PyKiteEngine_LinkPyType();
     PyGraphicKiteEngine_LinkPyType();
@@ -74,11 +79,11 @@ extern "C" {
     PYTYPE_READY_SUB( GraphicKiteEngine, GraphicTool );
 
 
-    PyObject* module = Py_InitModule( "Kite", PyKite_Methods );
+    PyObject* module = PyModule_Create( &PyKite_Module );
     if (module == NULL) {
       cerr << "[ERROR]\n"
            << "  Failed to initialize Kite module." << endl;
-      return;
+      return NULL;
     }
 
     Py_INCREF( &PyTypeKiteEngine );
@@ -91,6 +96,7 @@ extern "C" {
 
     LoadObjectConstant( dictionnary, KtBuildGlobalRouting, "KtBuildGlobalRouting" );
     LoadObjectConstant( dictionnary, KtLoadGlobalRouting , "KtLoadGlobalRouting"  );
+    return module;
   }
 
   

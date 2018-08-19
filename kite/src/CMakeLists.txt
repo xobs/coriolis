@@ -95,7 +95,7 @@
                       )
 
            add_library( kite         ${cpps} ${mocCpps} ${pyCpps} )
- set_target_properties( kite         PROPERTIES VERSION 1.0 SOVERSION 1 )
+ set_target_properties( kite         PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON )
  target_link_libraries( kite         ${depLibs} )
 
      add_python_module( "${pyCpps}"
