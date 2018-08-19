@@ -49,6 +49,7 @@ extern "C" {
   static PyMethodDef PyUnicorn_Methods[] =
     { {NULL, NULL, 0, NULL}     /* sentinel */
     };
+  static PyModuleDef PyUnicorn_Module;
 
 
 
@@ -56,22 +57,28 @@ extern "C" {
   // ---------------------------------------------------------------
   // Module Initialization  :  "initUnicorn ()"
 
-  DL_EXPORT(void) initUnicorn () {
+  PyMODINIT_FUNC initUnicorn (void) {
     cdebug_log(46,0) << "initUnicorn()" << endl;
+
+    PyUnicorn_Module.m_base = PyModuleDef_HEAD_INIT;
+    PyUnicorn_Module.m_name = "Unicorn";
+    PyUnicorn_Module.m_doc = NULL;
+    PyUnicorn_Module.m_methods = PyUnicorn_Methods;
 
     PyUnicornGui_LinkPyType ();
 
     PYTYPE_READY_SUB ( UnicornGui, CellViewer );
 
-    PyObject* module = Py_InitModule ( "Unicorn", PyUnicorn_Methods );
+    PyObject* module = PyModule_Create ( &PyUnicorn_Module );
     if ( module == NULL ) {
       cerr << "[ERROR]\n"
            << "  Failed to initialize Unicorn module." << endl;
-      return;
+      return NULL;
     }
 
     Py_INCREF ( &PyTypeUnicornGui );
     PyModule_AddObject ( module, "UnicornGui", (PyObject*)&PyTypeUnicornGui );
+    return module;
   }
 
   
