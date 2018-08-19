@@ -44,7 +44,7 @@
       
 
            add_library ( nimbus    ${cpps} ${pyCpps} )
- set_target_properties ( nimbus    PROPERTIES VERSION 1.0 SOVERSION 1 )
+ set_target_properties ( nimbus    PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON )
  target_link_libraries ( nimbus    ${CORIOLIS_LIBRARIES}  
                                    ${HURRICANE_PYTHON_LIBRARIES}
                                    ${HURRICANE_GRAPHICAL_LIBRARIES}
@@ -64,6 +64,7 @@
  set_target_properties ( pyNimbus  PROPERTIES COMPILE_FLAGS "${COMPILE_FLAGS} -D__PYTHON_MODULE__=1"
                                               PREFIX        ""
                                               OUTPUT_NAME   "Nimbus"
+                                              POSITION_INDEPENDENT_CODE ON
                        )
  target_link_libraries ( pyNimbus  nimbus 
                                    ${CORIOLIS_PYTHON_LIBRARIES}
