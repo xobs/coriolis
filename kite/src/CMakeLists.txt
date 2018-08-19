@@ -90,7 +90,7 @@
                                      ${QtX_LIBRARIES}
                                      ${Boost_LIBRARIES}
                                      ${LIBXML2_LIBRARIES}
-                                     ${PYTHON_LIBRARIES} -lutil
+                                     ${PYTHON_LIBRARIES} -lutil -lbz2
                                      ${LIBEXECINFO_LIBRARIES}
                       )
 
