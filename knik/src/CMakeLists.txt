@@ -61,12 +61,12 @@
 
 
            add_library ( flute         ${fluteCpps} )
- set_target_properties ( flute         PROPERTIES VERSION 3.1 SOVERSION 3 )
+ set_target_properties ( flute         PROPERTIES VERSION 3.1 SOVERSION 3 POSITION_INDEPENDENT_CODE ON )
  target_link_libraries ( flute         ${HURRICANE_LIBRARIES}
                                        ${CORIOLIS_LIBRARIES}
                        )	    
            add_library ( knik          ${cpps} ${mocCpps} )
- set_target_properties ( knik          PROPERTIES VERSION 1.0 SOVERSION 1 )
+ set_target_properties ( knik          PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON )
  target_link_libraries ( knik          flute
                                        ${HURRICANE_PYTHON_LIBRARIES}
                                        ${HURRICANE_GRAPHICAL_LIBRARIES}
