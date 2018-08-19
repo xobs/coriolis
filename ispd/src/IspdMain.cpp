@@ -81,7 +81,7 @@ namespace {
 
 
     Cell*               _cell = NULL;
-    DataBase::DataBase* _db   = NULL;
+    DataBase* _db   = NULL;
     KnikEngine*         _knik = NULL;
     AllianceFramework*  _af   = AllianceFramework::create ();
     string              _filePath;
@@ -454,6 +454,8 @@ namespace {
 
   Cell* loadFromFile()
   {
+    map<Name,Net*> excludedNets;
+
     string fullPath = _filePath;
     fullPath += ".gr";
     cmess1 << "  o  Loading cell :" << fullPath << endl;
@@ -550,7 +552,7 @@ namespace {
           }
           cmess1 << "     [100%] Done." << endl;
 
-          _knik->initGlobalRouting();
+          _knik->initGlobalRouting( excludedNets );
           _parserState = StateObs;
           continue;
         }
@@ -758,6 +760,11 @@ namespace {
     fileStream.close ();
   }
 
+  void  pageDecorate ( QPainter& painter )
+  {
+      return;
+  }
+
   void printToFile(IspdGui* ispd)
   // ****************************
   {
@@ -778,7 +785,10 @@ namespace {
       widget->setLayerVisible ( Name("Knik::Edges"), true );
 
       QImage image (wWidth, wHeight+60, QImage::Format_RGB32);
-      widget->copyToImage(&image);
+
+      CellWidget::PainterCb_t cb = pageDecorate;
+      widget->copyToImage(&image, cb);
+
       string savePath = _filePath;
       savePath += "_map.png";
       image.save(savePath.c_str(),"png");
@@ -812,6 +822,7 @@ int main ( int argc, char *argv[] )
     bool          knikOverflow;
     bool          loadSolution;
     bool          saveSolution;
+    map<Name,Net*> excludedNets;
 
     poptions::options_description options ("Command line arguments & options");
     options.add_options()
@@ -850,9 +861,9 @@ int main ( int argc, char *argv[] )
     }
 
     System::get()->setCatchCore ( not coreDump ); 
-    if ( verbose1 ) mstream::enable ( mstream::VerboseLevel1 );
-    if ( verbose2 ) mstream::enable ( mstream::VerboseLevel2 ); 
-    ltracelevel ( traceLevel );
+    //if ( verbose1 ) mstream::enable ( mstream::VerboseLevel1 );
+    //if ( verbose2 ) mstream::enable ( mstream::VerboseLevel2 ); 
+    //ltracelevel ( traceLevel );
     _createRings = not loadSolution;
 
     if ( arguments.count("cell") ) {
@@ -912,7 +923,7 @@ int main ( int argc, char *argv[] )
     } else {
       KnikEngine* knik = Knik::KnikEngine::get(_cell);
       if ( arguments.count("knik") ) {
-        knik->Route();
+        knik->Route(excludedNets);
         knik->analyseRouting();
         if ( saveSolution ) knik->saveSolution();
       } else if ( arguments.count("KNIK") ) {
@@ -923,7 +934,7 @@ int main ( int argc, char *argv[] )
       //    knik->reroute();
       //    done = knik->analyseRouting();
       //}
-        knik->run();
+        knik->run(excludedNets);
         if ( saveSolution )
           knik->saveSolution();
       } else if ( loadSolution ) {
