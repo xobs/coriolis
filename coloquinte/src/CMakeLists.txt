@@ -32,7 +32,7 @@ set ( cpps           circuit.cxx
     )
 
          add_library ( coloquinte       ${cpps} )
-set_target_properties( coloquinte       PROPERTIES VERSION 1.0 SOVERSION 1 )
+set_target_properties( coloquinte       PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON )
 
 install( TARGETS coloquinte  DESTINATION lib${LIB_SUFFIX} )
 install( FILES ${includes}   DESTINATION include/coriolis2/coloquinte ) 
