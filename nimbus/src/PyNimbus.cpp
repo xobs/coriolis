@@ -25,7 +25,6 @@ namespace Nimbus {
   using std::cerr;
   using std::endl;
   using Hurricane::tab;
-  using Hurricane::in_trace;
   using Isobar::__cs;
   using CRL::PyTypeToolEngine;
 
@@ -56,30 +55,36 @@ extern "C" {
   static PyMethodDef PyNimbus_Methods[] =
     { {NULL, NULL, 0, NULL}     /* sentinel */
     };
-
+  static PyModuleDef PyNimbus_Module;
 
 
 
   // ---------------------------------------------------------------
   // Module Initialization  :  "initNimbus ()"
 
-  DL_EXPORT(void) initNimbus () {
-    trace << "initNimbus()" << endl;
+  PyMODINIT_FUNC initNimbus (void) {
+    cdebug_log(40,0) << "initNimbus()" << endl;
+
+    PyNimbus_Module.m_base = PyModuleDef_HEAD_INIT;
+    PyNimbus_Module.m_name = "Nimbus";
+    PyNimbus_Module.m_doc = NULL;
+    PyNimbus_Module.m_methods = PyNimbus_Methods;
 
     PyNimbusEngine_LinkPyType ();
 
     PYTYPE_READY_SUB ( NimbusEngine, ToolEngine );
 
 
-    PyObject* module = Py_InitModule ( "Nimbus", PyNimbus_Methods );
+    PyObject* module = PyModule_Create ( &PyNimbus_Module );
     if ( module == NULL ) {
       cerr << "[ERROR]\n"
            << "  Failed to initialize Nimbus module." << endl;
-      return;
+      return NULL;
     }
 
     Py_INCREF ( &PyTypeNimbusEngine );
     PyModule_AddObject ( module, "NimbusEngine", (PyObject*)&PyTypeNimbusEngine );
+    return module;
   }
 
   

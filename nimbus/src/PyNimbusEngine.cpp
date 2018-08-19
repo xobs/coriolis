@@ -33,7 +33,6 @@ namespace  Nimbus {
   using std::hex;
   using std::ostringstream;
   using Hurricane::tab;
-  using Hurricane::in_trace;
   using Hurricane::Error;
   using Hurricane::Warning;
   using Isobar::ProxyProperty;
@@ -60,7 +59,7 @@ extern "C" {
 
   static PyObject* PyNimbusEngine_create ( PyObject*, PyObject* args )
   {
-    trace << "PyNimbusEngine_create()" << endl;
+    cdebug_log(40,0) << "PyNimbusEngine_create()" << endl;
 
     NimbusEngine* nimbus = NULL;
     
