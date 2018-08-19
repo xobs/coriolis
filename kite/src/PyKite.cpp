@@ -64,7 +64,7 @@ extern "C" {
   // ---------------------------------------------------------------
   // Module Initialization  :  "initKite ()"
 
-  PyMODINIT_FUNC initKite (void) {
+  PyMODINIT_FUNC PyInit_Kite (void) {
     cdebug_log(40,0) << "initKite()" << endl;
 
     PyKite_Module.m_base = PyModuleDef_HEAD_INIT;
