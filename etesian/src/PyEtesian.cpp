@@ -57,15 +57,20 @@ extern "C" {
   static PyMethodDef PyEtesian_Methods[] =
     { {NULL, NULL, 0, NULL}     /* sentinel */
     };
-
+  static PyModuleDef PyEtesian_Module;
 
 
 
   // ---------------------------------------------------------------
   // Module Initialization  :  "initEtesian ()"
 
-  DL_EXPORT(void) initEtesian () {
+  PyMODINIT_FUNC initEtesian (void) {
     cdebug_log(34,0) << "initEtesian()" << endl;
+
+    PyEtesian_Module.m_base = PyModuleDef_HEAD_INIT;
+    PyEtesian_Module.m_name = "Etesian";
+    PyEtesian_Module.m_doc = NULL;
+    PyEtesian_Module.m_methods = PyEtesian_Methods;
 
     PyEtesianEngine_LinkPyType();
     PyGraphicEtesianEngine_LinkPyType();
@@ -74,11 +79,11 @@ extern "C" {
     PYTYPE_READY_SUB( GraphicEtesianEngine, GraphicTool );
 
 
-    PyObject* module = Py_InitModule( "Etesian", PyEtesian_Methods );
+    PyObject* module = PyModule_Create( &PyEtesian_Module );
     if (module == NULL) {
       cerr << "[ERROR]\n"
            << "  Failed to initialize Etesian module." << endl;
-      return;
+      return NULL;
     }
 
     Py_INCREF( &PyTypeEtesianEngine );
@@ -87,6 +92,7 @@ extern "C" {
     PyModule_AddObject( module, "GraphicEtesianEngine", (PyObject*)&PyTypeGraphicEtesianEngine );
 
     PyEtesianEngine_postModuleInit();
+    return module;
   }
 
   
