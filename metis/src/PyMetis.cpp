@@ -25,7 +25,6 @@ namespace Metis {
   using std::cerr;
   using std::endl;
   using Hurricane::tab;
-  using Hurricane::in_trace;
   using Isobar::__cs;
   using CRL::PyTypeToolEngine;
 
@@ -50,30 +49,36 @@ extern "C" {
   static PyMethodDef PyMetis_Methods[] =
     { {NULL, NULL, 0, NULL}     /* sentinel */
     };
-
+  static PyModuleDef PyMetis_Module;
 
 
 
   // ---------------------------------------------------------------
   // Module Initialization  :  "initMetis ()"
 
-  DL_EXPORT(void) initMetis () {
-    trace << "initMetis()" << endl;
+  PyMODINIT_FUNC initMetis (void) {
+    cdebug_log(40,0) << "initMetis()" << endl;
+
+    PyMetis_Module.m_base = PyModuleDef_HEAD_INIT;
+    PyMetis_Module.m_name = "Metis";
+    PyMetis_Module.m_doc = NULL;
+    PyMetis_Module.m_methods = PyMetis_Methods;
 
     PyMetisEngine_LinkPyType ();
 
     PYTYPE_READY_SUB ( MetisEngine, ToolEngine );
 
 
-    PyObject* module = Py_InitModule ( "Metis", PyMetis_Methods );
+    PyObject* module = PyModule_Create ( &PyMetis_Module );
     if ( module == NULL ) {
       cerr << "[ERROR]\n"
            << "  Failed to initialize Metis module." << endl;
-      return;
+      return NULL;
     }
 
     Py_INCREF ( &PyTypeMetisEngine );
     PyModule_AddObject ( module, "MetisEngine", (PyObject*)&PyTypeMetisEngine );
+    return module;
   }
 
   

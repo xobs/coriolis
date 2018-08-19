@@ -35,7 +35,6 @@ namespace Metis {
   using  std::string;
   using  Cfg::Parameter;
   using  Hurricane::tab;
-  using  Hurricane::inltrace;
   using  Hurricane::Cell;
 
 

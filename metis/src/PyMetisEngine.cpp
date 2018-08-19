@@ -34,9 +34,10 @@ namespace  Metis {
   using std::hex;
   using std::ostringstream;
   using Hurricane::tab;
-  using Hurricane::in_trace;
   using Hurricane::Error;
   using Hurricane::Warning;
+  using Hurricane::Bug;
+  using Hurricane::Exception;
   using Isobar::ProxyProperty;
   using Isobar::ProxyError;
   using Isobar::ConstructorError;
@@ -61,7 +62,7 @@ extern "C" {
 
   static PyObject* PyMetisEngine_create ( PyObject*, PyObject* args )
   {
-    trace << "PyMetisEngine_create()" << endl;
+    cdebug_log(40,0) << "PyMetisEngine_create()" << endl;
 
     MetisEngine* metis = NULL;
     
@@ -87,7 +88,7 @@ extern "C" {
 
   PyObject* PyMetisEngine_doQuadriPart ( PyMetisEngine*, PyObject* args )
   {
-    trace << "PyMetisEngine_doQuadriPart()" << endl;
+    cdebug_log(40,0) << "PyMetisEngine_doQuadriPart()" << endl;
 
     HTRY
     PyObject* arg0;
