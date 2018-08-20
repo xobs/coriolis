@@ -119,8 +119,8 @@ def guessOs ():
       uname = subprocess.Popen ( ["uname", "-sr"], stdout=subprocess.PIPE )
       osType = uname.stdout.readlines()[0][:-1]
 
-      print "[WARNING] Unrecognized OS: \"%s\"." % lines[0][:-1]
-      print "          (using: \"%s\")" % osType
+      print("[WARNING] Unrecognized OS: \"%s\"." % lines[0][:-1])
+      print("          (using: \"%s\")" % osType)
 
     ldLibraryPath = os.getenv('LD_LIBRARY_PATH')
     if ldLibraryPath and 'devtoolset' in ldLibraryPath: useDevtoolset2 = False
@@ -271,11 +271,11 @@ if __name__ == "__main__":
     evalScript = '%s scl enable devtoolset-2 ${SHELL}' % evalScript
 
   if options.queryISysRoot:
-    print '%s/%s' % (rootDir,osType)
+    print('%s/%s' % (rootDir,osType))
     sys.exit( 0 )
 
   if options.queryInstRoot:
-    print coriolisTop
+    print(coriolisTop)
     sys.exit( 0 )
 
-  print evalScript
+  print(evalScript)

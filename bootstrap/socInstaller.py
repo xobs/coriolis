@@ -38,7 +38,7 @@ try:
   from email.mime.text        import MIMEText
   from email.mime.multipart   import MIMEMultipart
   from email.mime.application import MIMEApplication
-except ImportError, e:
+except ImportError as e:
   module = str(e).split()[-1]
 
 
@@ -93,7 +93,7 @@ class ErrorMessage ( Exception ):
         return
 
     def terminate ( self ):
-        print self
+        print(self)
         sys.exit(self._code)
 
     @property
@@ -121,7 +121,7 @@ class Command ( object ):
       self.fdLog     = fdLog
 
       if self.fdLog != None and not isinstance(self.fdLog,file):
-        print '[WARNING] Command.__init__(): <fdLog> is neither None or a file.'
+        print('[WARNING] Command.__init__(): <fdLog> is neither None or a file.')
       return
 
     def execute ( self ):
@@ -135,13 +135,13 @@ class Command ( object ):
           line = child.stdout.readline()
           if not line: break
 
-          print line[:-1]
+          print(line[:-1])
           sys.stdout.flush()
 
           if isinstance(self.fdLog,file):
             self.fdLog.write( line )
             self.fdLog.flush()
-      except OSError, e:
+      except OSError as e:
         raise BadBinary( self.arguments[0] )
 
       (pid,status) = os.waitpid( child.pid, 0 )
@@ -172,7 +172,7 @@ class GitRepository ( object ):
 
     def removeLocalRepo ( self ):
       if os.path.isdir(self.localRepoDir):
-        print 'Removing Git local repository: <%s>' % self.localRepoDir
+        print('Removing Git local repository: <%s>' % self.localRepoDir)
         shutil.rmtree( self.localRepoDir )
       return
 
@@ -235,12 +235,12 @@ class Configuration ( object ):
 
     def __setattr__ ( self, attribute, value ):
       if attribute in Configuration.SecondaryNames:
-        print ErrorMessage( 1, 'Attempt to write in read-only attribute <%s> in Configuration.'%attribute )
+        print(ErrorMessage( 1, 'Attempt to write in read-only attribute <%s> in Configuration.'%attribute ))
         return
 
       if attribute == 'masterHost' or attribute == '_masterHost':
         if value == 'lepka':
-          print 'Never touch the Git tree when running on <lepka>.'
+          print('Never touch the Git tree when running on <lepka>.')
           self._rmSource     = False
           self._rmBuild      = False
           self._doGit        = False
@@ -267,7 +267,7 @@ class Configuration ( object ):
 
     def __getattr__ ( self, attribute ):
       if attribute[0] != '_': attribute = '_'+attribute
-      if not self.__dict__.has_key(attribute):
+      if attribute not in self.__dict__:
         raise ErrorMessage( 1, 'Configuration has no attribute <%s>.'%attribute )
       return self.__dict__[attribute]
 
@@ -303,7 +303,7 @@ class Configuration ( object ):
       while True:
           logFile = os.path.join(self._logDir,"%s-%s-%02d.log" % (stem,timeTag,index))
           if not os.path.isfile(logFile):
-              print "Report log: <%s>" % logFile
+              print("Report log: <%s>" % logFile)
               break
           index += 1
       fd = open( logFile, "w" )
@@ -312,7 +312,7 @@ class Configuration ( object ):
       return
 
     def closeLogs ( self ):
-      for fd in self._fds.values():
+      for fd in list(self._fds.values()):
         if fd: fd.close()
       return
 
@@ -358,7 +358,7 @@ class Report ( object ):
       fd = open( logFile, 'rb' )
       try:
         fd.seek( -1024*100, os.SEEK_END )
-      except IOError, e:
+      except IOError as e:
         pass
       tailLines = ''
       for line in fd.readlines()[1:]:
@@ -374,7 +374,7 @@ class Report ( object ):
       for attachement in self.attachements:
         self.message.attach( attachement )
 
-      print "Sending mail report to <%s>" % self.conf.receivers
+      print("Sending mail report to <%s>" % self.conf.receivers)
       session = smtplib.SMTP( 'localhost' )
       session.sendmail( self.conf.sender, self.conf.receivers, self.message.as_string() )
       session.quit()
@@ -439,7 +439,7 @@ try:
       for entry in os.listdir(conf.rootDir):
         if entry.startswith('Linux.'):
           buildDir = conf.rootDir+'/'+entry
-          print 'Removing OS build directory: <%s>' % buildDir
+          print('Removing OS build directory: <%s>' % buildDir)
           shutil.rmtree( buildDir )
 
     ccbBin = gitCoriolis.localRepoDir+'/bootstrap/ccb.py'
@@ -470,20 +470,20 @@ try:
 
     for host,command,fd in commands:
       if host and fd:
-        print 'Executing command on <%s>:' % host
-        print ' %s' % command
+        print('Executing command on <%s>:' % host)
+        print(' %s' % command)
         Command( [ 'ssh', host, command ], fd ).execute()
 
     conf.closeLogs()
     conf.success = True
 
-except ErrorMessage, e:
-  print e
+except ErrorMessage as e:
+  print(e)
   conf.closeLogs()
   conf.success = False
 
   if showTrace:
-      print '\nPython stack trace:'
+      print('\nPython stack trace:')
       traceback.print_tb( sys.exc_info()[2] )
   conf.rcode = e.code
 

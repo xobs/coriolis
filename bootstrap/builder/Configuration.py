@@ -22,7 +22,7 @@ import os.path
 import datetime
 import subprocess
 from   .       import ErrorMessage
-from   Project import Project
+from   .Project import Project
 
 
 class Configuration ( object ):
@@ -67,7 +67,7 @@ class Configuration ( object ):
 
     def __setattr__ ( self, attribute, value ):
         if attribute in Configuration.SecondaryNames:
-            print ErrorMessage( 1, 'Attempt to write in read-only attribute <%s> in Configuration.'%attribute )
+            print(ErrorMessage( 1, 'Attempt to write in read-only attribute <%s> in Configuration.'%attribute ))
             return
 
         if attribute[0] == '_':
@@ -84,7 +84,7 @@ class Configuration ( object ):
 
     def __getattr__ ( self, attribute ):
         if attribute[0] != '_': attribute = '_'+attribute
-        if not self.__dict__.has_key(attribute):
+        if attribute not in self.__dict__:
             raise ErrorMessage( 1, 'Configuration has no attribute <%s>.'%attribute )
         return self.__dict__[attribute]
 
@@ -196,8 +196,8 @@ class Configuration ( object ):
             uname = subprocess.Popen ( ["uname", "-sr"], stdout=subprocess.PIPE )
             self._osType = uname.stdout.readlines()[0][:-1]
 
-            print "[WARNING] Unrecognized OS: \"%s\"." % lines[0][:-1]
-            print "          (using: \"%s\")" % self._osType
+            print("[WARNING] Unrecognized OS: \"%s\"." % lines[0][:-1])
+            print("          (using: \"%s\")" % self._osType)
 
         if self._libSuffix == '64' and not os.path.exists('/usr/lib64'):
             self._libSuffix = None
@@ -213,7 +213,7 @@ class Configuration ( object ):
     def register ( self, project ):
         for registered in self._projects:
             if registered.getName() == project.getName():
-                print ErrorMessage( 0, "Project \"%s\" is already registered (ignored)." )
+                print(ErrorMessage( 0, "Project \"%s\" is already registered (ignored)." ))
                 return
         self._projects += [ project ]
         return
@@ -237,7 +237,7 @@ class Configuration ( object ):
         moduleGlobals = globals()
 
         if not confFile:
-            print 'Making an educated guess to locate the configuration file:'
+            print('Making an educated guess to locate the configuration file:')
             locations = [ os.path.abspath(os.path.dirname(sys.argv[0]))
                         , os.environ['HOME']+'/coriolis-2.x/src/coriolis/bootstrap'
                         , os.environ['HOME']+'/coriolis/src/coriolis/bootstrap'
@@ -247,44 +247,44 @@ class Configuration ( object ):
 
             for location in locations:
                 self._confFile = location + '/build.conf'
-                print '  <%s>' % self._confFile
+                print('  <%s>' % self._confFile)
 
                 if os.path.isfile(self._confFile): break
             if not self._confFile:
                 ErrorMessage( 1, 'Cannot locate any configuration file.' ).terminate()
         else:
-            print 'Using user-supplied configuration file:'
-            print '  <%s>' % confFile
+            print('Using user-supplied configuration file:')
+            print('  <%s>' % confFile)
 
             self._confFile = confFile
             if not os.path.isfile(self._confFile):
                 ErrorMessage( 1, 'Missing configuration file:', '<%s>'%self._confFile ).terminate()
 
-        print 'Reading configuration from:'
-        print '  <%s>' % self._confFile
+        print('Reading configuration from:')
+        print('  <%s>' % self._confFile)
         
         try:
-            execfile( self._confFile, moduleGlobals )
-        except Exception, e:
+            exec(compile(open( self._confFile ).read(), self._confFile, 'exec'), moduleGlobals)
+        except Exception as e:
             ErrorMessage( 1, 'An exception occured while loading the configuration file:'
                            , '<%s>\n' % (self._confFile)
                            , 'You should check for simple python errors in this file.'
                            , 'Error was:'
                            , '%s\n' % e ).terminate()
         
-        if moduleGlobals.has_key('projects'):
+        if 'projects' in moduleGlobals:
             entryNb = 0
             for entry in moduleGlobals['projects']:
                 entryNb += 1
-                if not entry.has_key('name'):
+                if 'name' not in entry:
                     raise ErrorMessage( 1, 'Missing project name in project entry #%d.' % entryNb )
-                if not entry.has_key('tools'):
+                if 'tools' not in entry:
                     raise ErrorMessage( 1, 'Missing tools list in project entry #%d (<%s>).' \
                                            % (entryNb,entry['name']) )
                 if not isinstance(entry['tools'],list):
                     raise ErrorMessage( 1, 'Tools item of project entry #%d (<%s>) is not a list.' \
                                            % (entryNb,entry['name']) )
-                if not entry.has_key('repository'):
+                if 'repository' not in entry:
                     raise ErrorMessage( 1, 'Missing project repository in project entry #%d.' \
                                            % entryNb )
 
@@ -293,22 +293,22 @@ class Configuration ( object ):
             ErrorMessage( 1, 'Configuration file is missing the \'project\' symbol.'
                            , '<%s>'%self._confFile ).terminate()
 
-        if moduleGlobals.has_key('projectdir'):
+        if 'projectdir' in moduleGlobals:
             self.projectDir = moduleGlobals['projectdir']
 
-        if moduleGlobals.has_key('svnconfig'):
+        if 'svnconfig' in moduleGlobals:
             svnconfig = moduleGlobals['svnconfig']
-            if svnconfig.has_key('method'): self._svnMethod = svnconfig['method']
+            if 'method' in svnconfig: self._svnMethod = svnconfig['method']
 
-        if moduleGlobals.has_key('package'):
+        if 'package' in moduleGlobals:
             package = moduleGlobals['package']
-            if package.has_key('name'    ): self.packageName    = package['name']
-            if package.has_key('version' ): self.packageVersion = package['version']
-            if package.has_key('excludes'):
+            if 'name' in package: self.packageName    = package['name']
+            if 'version' in package: self.packageVersion = package['version']
+            if 'excludes' in package:
                 if not isinstance(package['excludes'],list):
                     raise ErrorMessage( 1, 'Excludes of package configuration is not a list.')
                 self._packageExcludes = package['excludes']
-            if package.has_key('projects'):
+            if 'projects' in package:
                 if not isinstance(package['projects'],list):
                     raise ErrorMessage( 1, 'Projects to package is not a list.')
                 self._packageProjects = package['projects']
@@ -316,17 +316,17 @@ class Configuration ( object ):
 
 
     def show ( self ):
-        print 'CCB Configuration:'
+        print('CCB Configuration:')
         if self._gitMethod:
-            print '  Git Method: <%s>' % self._gitMethod
+            print('  Git Method: <%s>' % self._gitMethod)
         else:
-            print '  Git Method not defined, will not be able to push/pull.'
+            print('  Git Method not defined, will not be able to push/pull.')
 
         for project in self._projects:
-            print '  project:%-15s repository:<%s>' % ( ('<%s>'%project.getName()), project.getRepository() )
+            print('  project:%-15s repository:<%s>' % ( ('<%s>'%project.getName()), project.getRepository() ))
             toolOrder = 1
             for tool in project.getTools():
-                print '%s%02d:<%s>' % (' '*26,toolOrder,tool)
+                print('%s%02d:<%s>' % (' '*26,toolOrder,tool))
                 toolOrder += 1
-            print
+            print()
         return

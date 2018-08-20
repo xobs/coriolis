@@ -70,11 +70,11 @@ def GetRefXY ( pathname, refname ) :
   cell = CELLS[-1]
     
   # Check arguments type
-  if type ( pathname ) != types.StringType :
+  if type ( pathname ) != bytes :
     err = "\n[Stratus ERROR] GetRefXY : The instance's path must be put with a string.\n"
     raise Exception ( err )
     
-  if type ( refname ) != types.StringType :
+  if type ( refname ) != bytes :
     err = "\n[Stratus ERROR] GetRefXY : The reference must be done with it's name : a string.\n"
     raise Exception ( err )
 
@@ -94,7 +94,7 @@ def PlaceRef ( ref, name ) :
     err = "\n[Stratus ERROR] PlaceRef : Wrong argument, the coordinates of the reference must be put in a XY object.\n"
     raise Exception ( err )
     
-  if type ( name ) != types.StringType :
+  if type ( name ) != bytes :
     err = "\n[Stratus ERROR] PlaceRef : Argument layer must be a string.\n"
     raise Exception ( err )
    
@@ -106,7 +106,7 @@ def PlaceContact ( net, layer, ref, width, height ) :
   from st_model import FRAMEWORK
 
   # Check arguments type
-  if type ( layer ) != types.StringType :
+  if type ( layer ) != bytes :
     err = "\n[Stratus ERROR] PlaceContact : Argument layer must be a string.\n"
     raise Exception ( err )
   myLayer = getDataBase().getTechnology().getLayer ( layer )
@@ -136,7 +136,7 @@ def PlacePin ( net, layer, direction, ref, width, height ) :
   from st_model    import FRAMEWORK
 
   # Check arguments type
-  if type ( layer ) != types.StringType :
+  if type ( layer ) != bytes :
     err = "\n[Stratus ERROR] PlacePin : Argument layer must be a string.\n"
     raise Exception ( err )
   # No CALU permitted for Pin
@@ -184,7 +184,7 @@ def PlaceSegment ( net, layer, ref1, ref2, width ) :
   from st_model import FRAMEWORK
 
   # Check arguments type
-  if type ( layer ) != types.StringType :
+  if type ( layer ) != bytes :
     err = "\n[Stratus ERROR] PlaceSegment : Argument layer must be a string.\n"
     raise Exception ( err )
 
@@ -221,11 +221,11 @@ def CopyUpSegment ( pathname, netname, newnet ) :
   cell = CELLS[-1]
     
   # Check arguments type
-  if type ( pathname ) != types.StringType :
+  if type ( pathname ) != bytes :
     err = "\n[Stratus ERROR] CopyUpSegment : The instance's path must be put with a string.\n"
     raise Exception ( err )
     
-  if type ( netname ) != types.StringType :
+  if type ( netname ) != bytes :
     err = "\n[Stratus ERROR] CopyUpSegment : The segment must be done with it's name : a string.\n"
     raise Exception ( err )
 

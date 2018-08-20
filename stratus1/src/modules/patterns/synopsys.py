@@ -107,9 +107,9 @@ class Synopsys:
   def convert_to_vhdl(self, debug=False, st=False):
     # Convert to VHDL
     if debug:
-      print('VST to VHDL conversion ---------------'
+      print(('VST to VHDL conversion ---------------'
             '--------------------------------------\n'
-            ' - VASY (%s) ...'% self._name)
+            ' - VASY (%s) ...'% self._name))
     if os.system('vasy -o -V -S -I vst -H %s %s 1> %s_vasy.log' %
                  (self._name, self._name, self._name)):
       raise Exception('VASY error (see "%s_vasy.log")'% self._name)
@@ -129,7 +129,7 @@ class Synopsys:
           self._change_ck2st(filename, False) # false for no debug
   
     if debug:
-      print ' - VHDL conversion done.'
+      print(' - VHDL conversion done.')
 
   # -------------------------------------------------------------
   ## Remove power supply connectors from a VHDL file.
@@ -153,7 +153,7 @@ class Synopsys:
         removed += 1
 
     if debug:
-      print ' - removed %d power supply declarations'%removed
+      print(' - removed %d power supply declarations'%removed)
 
     input.close()
 
@@ -167,7 +167,7 @@ class Synopsys:
     corrige = re.compile('(;|,)')
     corrected = 0
 
-    previous = temp.next()
+    previous = next(temp)
     for current in temp:
       if close.search(current) and comma.search(previous):
         out.write(corrige.sub('', previous))
@@ -178,7 +178,7 @@ class Synopsys:
     out.write(previous)
 
     if debug:
-      print ' - corrected %s syntax errors'%corrected
+      print(' - corrected %s syntax errors'%corrected)
 
     # END -------------------------------------------------------
     temp.close()
@@ -207,21 +207,21 @@ class Synopsys:
     for line in input:
       if reg_declare.search(line):
         temp.write(line)
-        temp.write(input.next())
+        temp.write(next(input))
         temp.write('  cp	: IN STD_LOGIC;\n')
-        input.next()
+        next(input)
         changed += 1
       elif reg_inst.search(line):
         temp.write(line)
-        temp.write(input.next())
-        line = input.next()
+        temp.write(next(input))
+        line = next(input)
         temp.write(reg_aff.sub('cp =>', line))
         changed += 1
       else:
         temp.write(line)
 
     if debug:
-      print ' - changed %d ck'%changed
+      print(' - changed %d ck'%changed)
 
     # STEP2: write changes to input file ------------------------
     temp.seek(0)
@@ -242,12 +242,12 @@ class Synopsys:
     tb = open('%s_tb.vhd'%self._cell._name, 'w')
 
     if debug:
-      print('Testbench module ---------------------'
+      print(('Testbench module ---------------------'
             '--------------------------------------\n'
             ' - module name    : %s.vhd\n'
             ' - patterns input : %s\n'
             ' - patterns output: %s' 
-            % (name, infilename, outfilename))
+            % (name, infilename, outfilename)))
 
     # Libraries ---------------------------------------------------
     tb.write('library ieee;\n'
@@ -607,9 +607,9 @@ class Synopsys:
     stmacro = 'b2cr_65.vhd dphs9gp_72x12m4d4_h.vhd schmitc_65.vhd'
 
     if debug:
-      print('Remove macroblocks ".vhd"-------------'
+      print(('Remove macroblocks ".vhd"-------------'
             '--------------------------------------\n'
-            ' - block list: %s' % stmacro)
+            ' - block list: %s' % stmacro))
 
     os.system('rm -f %s'%stmacro)
 
@@ -626,9 +626,9 @@ class Synopsys:
     run = open('%s.vhd' % name, 'w')
 
     if debug:
-      print('Run module ---------------------------'
+      print(('Run module ---------------------------'
             '--------------------------------------\n'
-            ' - module name    : %s.vhd' % name)
+            ' - module name    : %s.vhd' % name))
 
     # Libraries ---------------------------------------------------
     run.write('library ieee;\n'
@@ -746,8 +746,8 @@ class Synopsys:
           raise Exception('vhdlan error: vhdlan failure on "%s" analysis or '
                           'Synopsys environment not set.' % filename)
     if debug:
-      print(' - scs %s (ignore "sys_errlist" and "sys_nerr" warnings) ...'
-            % self._name)
+      print((' - scs %s (ignore "sys_errlist" and "sys_nerr" warnings) ...'
+            % self._name))
     os.system('scs -nc -debug %s_run' % self._name)
 
     if debug:
@@ -782,7 +782,7 @@ class Synopsys:
           self.convert_to_vhdl(st=st, debug=debug)
 
       if debug:
-          print ' - generate test bench and build simulator (Synopsys) ...'
+          print(' - generate test bench and build simulator (Synopsys) ...')
       try:
           self._cell.pat
       except AttributeError:
@@ -825,8 +825,8 @@ class Synopsys:
                            st=False):
     # Debug messages
     if debug:
-      print(' - converting vhdl to verilog (uses Synopsys, uniquify=%s) ...'
-            %uniquify)
+      print((' - converting vhdl to verilog (uses Synopsys, uniquify=%s) ...'
+            %uniquify))
       
     # Optionnal vst2vhd conversion
     if convert_vst:

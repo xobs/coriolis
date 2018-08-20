@@ -65,7 +65,7 @@ class Comp ( Model ) :
     else         : self.func = "Ne"    
 
     # Error : if net is not a string    
-    if type ( self.nb ) != types.StringType :
+    if type ( self.nb ) != bytes :
       err = "\n[Stratus ERROR] " + self.func + " : the argument must be a string.\n"
       raise Exception ( err )
 

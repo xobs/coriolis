@@ -71,7 +71,7 @@ def Cat ( *nets ) :
   # Creation of the inversed tab
   netstries = []
   for net in nets :
-     if type(net) == types.ListType :
+     if type(net) == list :
         for netin in net : netstries.insert(0, netin)
      else:
         netstries.insert ( 0, net )

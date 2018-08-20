@@ -82,9 +82,9 @@ class LayersLUT ( object ):
 
     def lookup ( self, name, flags=Real|Symbolic ):
         layer = None
-        if flags & LayersLUT.Real and self._realLayers.has_key(name):
+        if flags & LayersLUT.Real and name in self._realLayers:
             layer = self._realLayers[name]
-        if flags & LayersLUT.Symbolic and self._symbolicLayers.has_key(name):
+        if flags & LayersLUT.Symbolic and name in self._symbolicLayers:
             layer = self._symbolicLayers[name]
 
         if not layer and flags&LayersLUT.MissingError:
@@ -131,7 +131,7 @@ def loadRealLayers ( realLayersTable, confFile ):
             if len(entry) > 2:
                 routingLayer.setBlockageLayer(basicLayer)
 
-        except Exception, e:
+        except Exception as e:
             ErrorMessage.wrapPrint(e,'In %s:<symbolicLayersTable> at index %d.' % (symbolicFile,entryNo))
     return
 
@@ -196,7 +196,7 @@ def loadSymbolicLayers ( symbolicLayersData, confFile ):
     
             layersLUT.add( symbolicLayer )
 
-        except Exception, e:
+        except Exception as e:
             ErrorMessage.wrapPrint(e,'In %s:<symbolicLayersTable> at index %d.' % (symbolicFile,entryNo))
     return
 
@@ -252,7 +252,7 @@ def loadSymbolicRules ( symbolicRulesTable, confFile ):
                                      ,str(rule)
                                      ])
 
-        except Exception, e:
+        except Exception as e:
             ErrorMessage.wrapPrint(e,'In %s:<symbolicRulesTable> at index %d.' % (symbolicFile,entryNo))
     return
 
@@ -269,7 +269,7 @@ def loadWorkingLayers ( workingLayersTable, confFile ):
            # This call is just to generate an error if the layer is non-existent.
             layersLUT.lookup(layerName,LayersLUT.Real|LayersLUT.Symbolic|LayersLUT.MissingError)
             technology.setWorkingLayer(layerName)
-        except Exception, e:
+        except Exception as e:
             ErrorMessage.wrapPrint(e,'In %s:<symbolicRulesTable> at index %d.' % (symbolicFile,entryNo))
     return
 
@@ -278,7 +278,7 @@ def loadViewerConfig ( viewerConfig, confFile ):
     global symbolicFile
     symbolicFile = confFile
     try:
-        if viewerConfig.has_key('precision'): DbU.setPrecision(viewerConfig['precision'])
-    except Exception, e:
+        if 'precision' in viewerConfig: DbU.setPrecision(viewerConfig['precision'])
+    except Exception as e:
         ErrorMessage.wrapPrint(e,'In %s:<viewerConfig>.')
     return

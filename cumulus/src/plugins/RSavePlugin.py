@@ -24,22 +24,22 @@ try:
   from   helpers   import ErrorMessage
   from   helpers   import WarningMessage
   import plugins
-except ImportError, e:
+except ImportError as e:
   serror = str(e)
   if serror.startswith('No module named'):
     module = serror.split()[-1]
-    print '[ERROR] The <%s> python module or symbol cannot be loaded.' % module
-    print '        Please check the integrity of the <coriolis> package.'
+    print('[ERROR] The <%s> python module or symbol cannot be loaded.' % module)
+    print('        Please check the integrity of the <coriolis> package.')
   if str(e).find('cannot open shared object file'):
     library = serror.split(':')[0]
-    print '[ERROR] The <%s> shared library cannot be loaded.' % library
-    print '        Under RHEL 6, you must be under devtoolset-2.'
-    print '        (scl enable devtoolset-2 bash)'
+    print('[ERROR] The <%s> shared library cannot be loaded.' % library)
+    print('        Under RHEL 6, you must be under devtoolset-2.')
+    print('        (scl enable devtoolset-2 bash)')
   sys.exit(1)
-except Exception, e:
-  print '[ERROR] A strange exception occurred while loading the basic Coriolis/Python'
-  print '        modules. Something may be wrong at Python/C API level.\n'
-  print '        %s' % e
+except Exception as e:
+  print('[ERROR] A strange exception occurred while loading the basic Coriolis/Python')
+  print('        modules. Something may be wrong at Python/C API level.\n')
+  print('        %s' % e)
   sys.exit(2)
 
 
@@ -55,7 +55,7 @@ def rsave ( cell, views=CRL.Catalog.State.Physical, depth=0 ):
   if cell.isTerminal(): return
 
   framework = CRL.AllianceFramework.get()
-  if depth == 0: print '  o  Recursive Save-Cell.'
+  if depth == 0: print('  o  Recursive Save-Cell.')
 
   sviews = ''
   if views & CRL.Catalog.State.Logical:  sviews += 'netlist'
@@ -63,7 +63,7 @@ def rsave ( cell, views=CRL.Catalog.State.Physical, depth=0 ):
     if sviews: sviews += ','
     sviews += 'layout'
 
-  print '     %s+ %s (%s).' % ( ' '*(depth*2), cell.getName(), sviews )
+  print('     %s+ %s (%s).' % ( ' '*(depth*2), cell.getName(), sviews ))
   if cell.isUniquified(): views |= CRL.Catalog.State.Logical
   framework.saveCell( cell, views )
 
@@ -95,19 +95,19 @@ def ScriptMain ( **kw ):
     cell, editor = plugins.kwParseMain( **kw )
 
     views = CRL.Catalog.State.Physical
-    if kw.has_key('views'): views = kw['views']
+    if 'views' in kw: views = kw['views']
 
     if not cell:
-      print WarningMessage( 'No Cell loaded in the editor (yet), nothing done.' )
+      print(WarningMessage( 'No Cell loaded in the editor (yet), nothing done.' ))
       return 0
 
     rsave( cell, views )
     CRL.destroyAllVHDL()
 
-  except ErrorMessage, e:
-    print e; errorCode = e.code
-  except Exception, e:
-    print '\n\n', e; errorCode = 1
+  except ErrorMessage as e:
+    print(e); errorCode = e.code
+  except Exception as e:
+    print('\n\n', e); errorCode = 1
     traceback.print_tb(sys.exc_info()[2])
 
   sys.stdout.flush()

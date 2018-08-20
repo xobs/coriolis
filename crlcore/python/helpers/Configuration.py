@@ -110,7 +110,7 @@ def loadParameters ( parametersData, fromFile ):
                 param.setString(value)
 
             if options and param:
-                for key in options.keys():
+                for key in list(options.keys()):
                     if   key == 'min': param.setMin(options[key])
                     elif key == 'max': param.setMax(options[key])
                     elif key == 'values':
@@ -122,7 +122,7 @@ def loadParameters ( parametersData, fromFile ):
                     elif key == 'flags':
                         param.flags = options[key]
 
-        except Exception, e:
+        except Exception as e:
             ErrorMessage.wrapPrint(e,'In %s:<parametersTable> at index %d.' % (confFile,entryNo))
     return
 
@@ -197,13 +197,13 @@ def loadLayout ( layoutData, fromFile ):
                     layoutType, pathName, text, column, span, flags = entry
                     layout.addParameter ( tabName, pathName, text, column, span, flags )
 
-        except Exception, e:
+        except Exception as e:
             ErrorMessage.wrapPrint(e,'In %s:<layoutTable> at index %d.' % (confFile,entryNo))
     return
 
 
 def loadCompatXml ():
     xmlConf = helpers.sysConfDir+'/tools.configuration.xml'
-    print 'Load XML', xmlConf
+    print('Load XML', xmlConf)
     Cfg.Configuration.get().readFromFile(xmlConf)
     return

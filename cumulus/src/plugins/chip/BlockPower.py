@@ -114,8 +114,8 @@ class Side ( object ):
 
 class Plane ( object ):
 
-  Horizontal = 0001
-  Vertical   = 0002
+  Horizontal = 0o001
+  Vertical   = 0o002
 
   def __init__ ( self, block, metal ):
     self.block = block
@@ -124,7 +124,7 @@ class Plane ( object ):
     return
 
   def addTerminal ( self, net, direction, bb ):
-    if not self.sides.has_key(net):
+    if net not in self.sides:
       self.sides[ net ] = [ Side(self.block,chip.North,net,self.metal)
                           , Side(self.block,chip.South,net,self.metal)
                           , Side(self.block,chip.East ,net,self.metal)
@@ -146,7 +146,7 @@ class Plane ( object ):
     return
 
   def doLayout ( self ):
-    for sidesOfNet in self.sides.values():
+    for sidesOfNet in list(self.sides.values()):
       for side in sidesOfNet:
         side.doLayout()
     return
@@ -175,7 +175,7 @@ class GoCb ( object ):
       query.getPath().getTransformation().applyOn( bb )
       self.block.activePlane.addTerminal( rootNet, direction, bb )
     else:
-      print WarningMessage( 'BlockPower.GoCb() callback called without an active plane.' )
+      print(WarningMessage( 'BlockPower.GoCb() callback called without an active plane.' ))
     return
 
 
@@ -198,7 +198,7 @@ class Block ( chip.Configuration.ChipConfWrapper ):
 
   def connectPower ( self ):
     if not self.vddi or not self.vssi:
-      print ErrorMessage( 1, 'Cannot build block power terminals as vddi and/or vss are not known.' )
+      print(ErrorMessage( 1, 'Cannot build block power terminals as vddi and/or vss are not known.' ))
       return
 
     goCb = GoCb( self )
@@ -219,11 +219,11 @@ class Block ( chip.Configuration.ChipConfWrapper ):
 
   def connectClock ( self ):
     if not self.useClockTree:
-      print WarningMessage( "Clock tree generation has been disabled ('chip.clockTree':False)." )
+      print(WarningMessage( "Clock tree generation has been disabled ('chip.clockTree':False)." ))
       return
 
     if not self.cko:
-      print ErrorMessage( 1, 'Cannot build clock terminal as ck is not known.' )
+      print(ErrorMessage( 1, 'Cannot build clock terminal as ck is not known.' ))
       return
 
     blockCk = None
@@ -232,8 +232,8 @@ class Block ( chip.Configuration.ChipConfWrapper ):
         blockCk = plug.getMasterNet()
 
     if not blockCk:
-      print ErrorMessage( 1, 'Block <%s> has no net connected to the clock <%s>.'
-                             % (self.path.getTailInstance().getName(),self.ck.getName()) )
+      print(ErrorMessage( 1, 'Block <%s> has no net connected to the clock <%s>.'
+                             % (self.path.getTailInstance().getName(),self.ck.getName()) ))
       return
 
     htPlugs = []
@@ -248,7 +248,7 @@ class Block ( chip.Configuration.ChipConfWrapper ):
     if len(ffPlugs) > 0:
       message = 'Clock <%s> of block <%s> is not organized as a H-Tree.' \
                 % (blockCk.getName(),self.path.getTailInstance().getName())
-      print ErrorMessage( 1, message )
+      print(ErrorMessage( 1, message ))
       return
 
     if len(htPlugs) > 1:
@@ -256,7 +256,7 @@ class Block ( chip.Configuration.ChipConfWrapper ):
                 % (self.path.getTailInstance().getName(),blockCk.getName())
       for plug in htPlugs:
         message += '\n        - %s' % plug
-      print ErrorMessage( 1, message )
+      print(ErrorMessage( 1, message ))
       return
 
     UpdateSession.open()
@@ -285,7 +285,7 @@ class Block ( chip.Configuration.ChipConfWrapper ):
 
   def doLayout ( self ):
     UpdateSession.open()
-    for plane in self.planes.values():
+    for plane in list(self.planes.values()):
       plane.doLayout()
     UpdateSession.close()
     return

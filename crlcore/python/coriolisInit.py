@@ -35,22 +35,22 @@ try:
   from   helpers                 import SymbolicTechnology
   from   helpers                 import RealTechnology
   import helpers.Display
-except ImportError, e:
+except ImportError as e:
   serror = str(e)
   if serror.startswith('No module named'):
     module = serror.split()[-1]
-    print '[ERROR] The <%s> python module or symbol cannot be loaded.' % module
-    print '        Please check the integrity of the <coriolis> package.'
+    print('[ERROR] The <%s> python module or symbol cannot be loaded.' % module)
+    print('        Please check the integrity of the <coriolis> package.')
   if str(e).find('cannot open shared object file'):
     library = serror.split(':')[0]
-    print '[ERROR] The <%s> shared library cannot be loaded.' % library
-    print '        Under RHEL 6, you must be under devtoolset-2.'
-    print '        (scl enable devtoolset-2 bash)'
+    print('[ERROR] The <%s> shared library cannot be loaded.' % library)
+    print('        Under RHEL 6, you must be under devtoolset-2.')
+    print('        (scl enable devtoolset-2 bash)')
   sys.exit(1)
-except Exception, e:
-  print '[ERROR] A strange exception occurred while loading the basic Coriolis/Python'
-  print '        modules. Something may be wrong at Python/C API level.\n'
-  print '        %s' % e
+except Exception as e:
+  print('[ERROR] A strange exception occurred while loading the basic Coriolis/Python')
+  print('        modules. Something may be wrong at Python/C API level.\n')
+  print('        %s' % e)
   sys.exit(2)
 
 
@@ -96,7 +96,7 @@ def coriolisConfigure():
                  , ('layoutTable'        , Configuration.loadLayout             , ConfigurationHelper)
                  )
 
-  print '       o  Running configuration hook: coriolisConfigure().'
+  print('       o  Running configuration hook: coriolisConfigure().')
  #print '          - sysConfDir: <%s>' % helpers.sysConfDir
 
   Cfg.Configuration.pushDefaultPriority ( Cfg.Parameter.Priority.ConfigurationFile )
@@ -117,7 +117,7 @@ def coriolisConfigure():
   else:
     w = WarningMessage(['The <HOME> environment variable is not defined, this is most unusual.'
                        ,'It prevents the loading of ${HOME}/.coriolis2/settings.py'])
-    print w
+    print(w)
 
   confFiles   += [ (os.getcwd()+'/.coriolis2/settings.py', 0) ]
 
@@ -127,31 +127,31 @@ def coriolisConfigure():
     try:
       if not os.path.isfile(confFile):
         if confFlags & SystemFile:
-          print '[ERROR] Missing mandatory Coriolis2 system file:'
-          print '        <%s>' % confFile
-          print '        Your installation may be broken. Trying to continue anyway...'
+          print('[ERROR] Missing mandatory Coriolis2 system file:')
+          print('        <%s>' % confFile)
+          print('        Your installation may be broken. Trying to continue anyway...')
         continue
 
-      print '          - Loading \"%s\".' % helpers.truncPath(confFile)
-      execfile(confFile,moduleGlobals)
-    except Exception, e:
-      print '[ERROR] An exception occured while loading the configuration file:'
-      print '        <%s>\n' % (confFile)
-      print '        You should check for simple python errors in this file.'
-      print '        Error was:'
-      print '        %s\n' % e
-      print '        Trying to continue anyway...'
+      print('          - Loading \"%s\".' % helpers.truncPath(confFile))
+      exec(compile(open(confFile).read(), confFile, 'exec'),moduleGlobals)
+    except Exception as e:
+      print('[ERROR] An exception occured while loading the configuration file:')
+      print('        <%s>\n' % (confFile))
+      print('        You should check for simple python errors in this file.')
+      print('        Error was:')
+      print('        %s\n' % e)
+      print('        Trying to continue anyway...')
 
     for symbol, loader, loaderFlags in confHelpers:
-      if moduleGlobals.has_key(symbol):
+      if symbol in moduleGlobals:
         loader( moduleGlobals[symbol], confFile )
         del moduleGlobals[symbol]
       else:
         if confFlags & loaderFlags & HelpersMask:
           if confFlags & SystemFile and loaderFlags & SystemMandatory:
-            print '[ERROR] Mandatory symbol <%s> is missing in system configuration file:' % symbol
-            print '        <%s>' % confFile
-            print '        Trying to continue anyway...'
+            print('[ERROR] Mandatory symbol <%s> is missing in system configuration file:' % symbol)
+            print('        <%s>' % confFile)
+            print('        Trying to continue anyway...')
 
     if confFile.endswith('settings.py'):
       Cfg.Configuration.popDefaultPriority ()

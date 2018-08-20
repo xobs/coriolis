@@ -130,12 +130,12 @@ class Inst :
     
     ##### Errors #####
     # Error : if the model is not a string
-    if type ( model ) != types.StringType :
+    if type ( model ) != bytes :
       err = "\n[Stratus ERROR] Inst : the model must be described in a string.\n"
       raise Exception ( err )
     # Warning : the model can not contain capitalized letters
     if re.search ( "[A-Z]", model ) :
-      print "[Stratus Warning] Inst : Upper case letters are not supported, the name", model, "is lowered."
+      print("[Stratus Warning] Inst : Upper case letters are not supported, the name", model, "is lowered.")
       model = model.lower()
     # Error : spaces are forbidden
     if re.search ( " ", model ) :
@@ -147,7 +147,7 @@ class Inst :
         raise Exception ( err )
       # Warning : the name can not contain capitalized letters
       if re.search ( "[A-Z]", name ) :
-        print "[Stratus Warning] : Upper case letters are not supported, the name", name, "is lowered."
+        print("[Stratus Warning] : Upper case letters are not supported, the name", name, "is lowered.")
         name = name.lower ()
     
     # Error : if map[pin] is not a net
@@ -199,7 +199,7 @@ class Inst :
       raise Exception ( err )
 
     if not self._st_masterCell :
-      if MODELMAP.has_key ( str ( self._hur_masterCell ) ) :
+      if str ( self._hur_masterCell ) in MODELMAP :
         self._st_masterCell = MODELMAP[str ( self._hur_masterCell )]
       else :
         self._st_masterCell = Model ( str ( self._hur_masterCell.getName() ), hurCell = self._hur_masterCell )
@@ -291,7 +291,7 @@ class Inst :
           
           # If the net which is concatened is an alias
           if ( net._alias ) and ( net._alias[bit] ) :
-            netA = net._alias[bit].keys()[0]
+            netA = list(net._alias[bit].keys())[0]
             bitA = net._alias[bit][netA]
             if net._real_net : netA = netA._real_net
           
@@ -301,7 +301,7 @@ class Inst :
           
         # If the net is an alias
         elif ( realNet._alias ) and ( realNet._alias[i] ) :
-          net = realNet._alias[i].keys()[0]
+          net = list(realNet._alias[i].keys())[0]
           bit = realNet._alias[i][net]
           if net._real_net : net = net._real_net
           
@@ -331,7 +331,7 @@ class Inst :
       ### Virtual library ###
       if "_inout" in self.__dict__ :
         import types
-        if type ( self._inout[pin] ) == types.ListType :
+        if type ( self._inout[pin] ) == list :
           for realpin in self._inout[pin] :
             connectPin ( realpin )
         else :
@@ -358,17 +358,17 @@ class Inst :
   ### Prints ###
   ##############
   def printInstance ( self ) :
-    print "  => model", self._model
-    print "  => map"
+    print("  => model", self._model)
+    print("  => map")
     for pin in self._map :
       n = self._map[pin]
       if n._to_merge : n = n._to_merge[0][0]
-      print "    ", pin, "->", n._name
+      print("    ", pin, "->", n._name)
 
   def printMap ( self ) :
-    print "Map:", self._name
+    print("Map:", self._name)
     for pin in self._map :
-      print "  ", pin, self._map[pin]._name
+      print("  ", pin, self._map[pin]._name)
 
 #########################
 #### SetCurrentModel ####

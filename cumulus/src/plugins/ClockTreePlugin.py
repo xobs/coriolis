@@ -30,24 +30,24 @@ try:
   import Etesian
   import Unicorn
   import plugins
-  import clocktree.ClockTree
-  import chip.Configuration
-except ImportError, e:
+  from . import clocktree.ClockTree
+  from . import chip.Configuration
+except ImportError as e:
   serror = str(e)
   if serror.startswith('No module named'):
     module = serror.split()[-1]
-    print '[ERROR] The <%s> python module or symbol cannot be loaded.' % module
-    print '        Please check the integrity of the <coriolis> package.'
+    print('[ERROR] The <%s> python module or symbol cannot be loaded.' % module)
+    print('        Please check the integrity of the <coriolis> package.')
   if str(e).find('cannot open shared object file'):
     library = serror.split(':')[0]
-    print '[ERROR] The <%s> shared library cannot be loaded.' % library
-    print '        Under RHEL 6, you must be under devtoolset-2.'
-    print '        (scl enable devtoolset-2 bash)'
+    print('[ERROR] The <%s> shared library cannot be loaded.' % library)
+    print('        Under RHEL 6, you must be under devtoolset-2.')
+    print('        (scl enable devtoolset-2 bash)')
   sys.exit(1)
-except Exception, e:
-  print '[ERROR] A strange exception occurred while loading the basic Coriolis/Python'
-  print '        modules. Something may be wrong at Python/C API level.\n'
-  print '        %s' % e
+except Exception as e:
+  print('[ERROR] A strange exception occurred while loading the basic Coriolis/Python')
+  print('        modules. Something may be wrong at Python/C API level.\n')
+  print('        %s' % e)
   sys.exit(2)
 
 
@@ -71,20 +71,20 @@ def ScriptMain ( **kw ):
 
     errorCode = 0
 
-    print '  o  Cleaning up any previous run.'
+    print('  o  Cleaning up any previous run.')
     for fileName in os.listdir('.'):
       if fileName.endswith('.ap'):
-        print '      - <%s>' % fileName
+        print('      - <%s>' % fileName)
         os.unlink(fileName)
 
     cell = None
-    if kw.has_key('cell') and kw['cell']:
+    if 'cell' in kw and kw['cell']:
       cell = kw['cell']
 
     editor = None
-    if kw.has_key('editor') and kw['editor']:
+    if 'editor' in kw and kw['editor']:
       editor = kw['editor']
-      print '  o  Editor detected, running in graphic mode.'
+      print('  o  Editor detected, running in graphic mode.')
       if cell == None: cell = editor.getCell()
 
     if cell == None:
@@ -122,10 +122,10 @@ def ScriptMain ( **kw ):
    #showNet( cell, 'ck_htree_bl_bl_tl' )
    #showNet( cell, 'ck_htree_bl_bl_tr' )
 
-  except ErrorMessage, e:
-      print e; errorCode = e.code
-  except Exception, e:
-      print '\n\n', e; errorCode = 1
+  except ErrorMessage as e:
+      print(e); errorCode = e.code
+  except Exception as e:
+      print('\n\n', e); errorCode = 1
       traceback.print_tb(sys.exc_info()[2])
       
   return 0

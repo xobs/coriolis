@@ -61,7 +61,7 @@ def checkColor ( color ):
             ,str(options[attribute])])
 
     # Try a predefined color lookup.
-    if stdColors.has_key(color): return stdColors[color]
+    if color in stdColors: return stdColors[color]
 
     # Try a RGB hexa: #RRGGBB.
     if color[0] == '#':
@@ -212,13 +212,13 @@ def loadStyleTuple ( styleTuple ):
                                          ])
                 styleType, name, options = styleEntry
                 arguments = { 'group':group, 'name':name }
-                for key in options.keys():
+                for key in list(options.keys()):
                     if key == 'color':
                         arguments[key] = checkColor(options[key])
                         continue
                     elif key == 'border': checkAttribute(options,'border',int)
                     elif key == 'pattern':
-                        if patternsLUT.has_key(options[key]):
+                        if options[key] in patternsLUT:
                             arguments[key] = patternsLUT[ options[key] ].hexa
                             continue
                         pass
@@ -228,12 +228,12 @@ def loadStyleTuple ( styleTuple ):
                         w = WarningMessage( ['Unknown Drawing option: <%s>' % key
                                             ,'In %s:<styleTable>:"%s" at index %d.' \
                                                  % (displayFile,style.getName(),entryNo)] )
-                        print w
+                        print(w)
                         continue
                     arguments[key] = options[key]
                 style.addDrawingStyle( **arguments )
     
-        except Exception, e:
+        except Exception as e:
             if style:
                 footer = 'In %s:<styleTable>:"%s" at index %d.' % (displayFile,style.getName(),entryNo)
             else:
@@ -259,7 +259,7 @@ def loadStyles ( stylesTable, fromFile ):
 
         for styleTuple in stylesTable:
             loadStyleTuple( styleTuple )
-    except Exception, e:
+    except Exception as e:
         styleTableExample = [ 'Should be a three level deep tuple:'
                             ,'  ( ( (Style, id, description)'
                             ,'    , (Entry1, ...)'

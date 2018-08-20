@@ -359,7 +359,7 @@ class DpgenRegular ( Model ) :
       temp2 = LV_xl.xltovhdl()
   
       if temp1 != temp2 :
-        print "[Stratus Warning] : Due to its wrong size, the constant", temp1, "has been modified to :", temp2, ". Check if it's the value one wanted."
+        print("[Stratus Warning] : Due to its wrong size, the constant", temp1, "has been modified to :", temp2, ". Check if it's the value one wanted.")
   
     # Check the drive argument
     for iDrive in range ( MAX_TDRIVE ) :

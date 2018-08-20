@@ -20,10 +20,10 @@ from PyQt4.QtGui     import QApplication
 from PyQt4.QtGui     import QMainWindow
 from PyQt4.QtGui     import QAction
 from PyQt4.QtGui     import QKeySequence
-from OptionsWidget   import OptionsWidget
-from CompileWidget   import CompileWidget
-from ConfigureWidget import ConfigureWidget
-from AboutWidget     import AboutWidget
+from .OptionsWidget   import OptionsWidget
+from .CompileWidget   import CompileWidget
+from .ConfigureWidget import ConfigureWidget
+from .AboutWidget     import AboutWidget
 
 
 class BuilderGui ( QMainWindow ):

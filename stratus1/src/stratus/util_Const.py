@@ -137,10 +137,10 @@ def ltox ( aDigit ) :
 class newxl :
 
   def __init__ ( self ) :
-    self._size = 0L
+    self._size = 0
     self._l    = []
 
-    for i in range ( XLONG_SIZE ) : self._l.append ( 0L )
+    for i in range ( XLONG_SIZE ) : self._l.append ( 0 )
 
 
   ###########
@@ -151,7 +151,7 @@ class newxl :
   
     LV_const = asConst
 
-    if type ( asConst ) != types.StringType : raise Exception ( "\n[Stratus ERROR] : the constant must be described in a string.\n" )
+    if type ( asConst ) != bytes : raise Exception ( "\n[Stratus ERROR] : the constant must be described in a string.\n" )
   
     base   = 1
     offset = 2
@@ -236,8 +236,8 @@ class newxl :
       err = "\n[Stratus ERROR] : Requested bit", aBit, "is out of range\n"
       raise Exception ( err )
   
-    if   self._l[i] & mask : return 1L
-    else                   : return 0L
+    if   self._l[i] & mask : return 1
+    else                   : return 0
 
     
   ###############

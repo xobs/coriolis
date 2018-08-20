@@ -142,8 +142,8 @@ class ProjectBuilder:
             uname = subprocess.Popen ( ["uname", "-sr"], stdout=subprocess.PIPE )
             self._osType = uname.stdout.readlines()[0][:-1]
 
-            print "[WARNING] Unrecognized OS: \"%s\"." % lines[0][:-1]
-            print "          (using: \"%s\")" % self._osType
+            print("[WARNING] Unrecognized OS: \"%s\"." % lines[0][:-1])
+            print("          (using: \"%s\")" % self._osType)
         
         return
 
@@ -159,12 +159,12 @@ class ProjectBuilder:
             m = revisionPattern.match ( line )
             if m:
                 self._svnTag = m.group("revision")
-                print "Latest revision of project %s is %s." % (project.getName(),self._svnTag)
+                print("Latest revision of project %s is %s." % (project.getName(),self._svnTag))
                 self._updateSecondary ()
                 return
 
-        print "[WARNING] Cannot guess revision for project \"%s\"." % project.getName() 
-        print "          (using: \"x\")"
+        print("[WARNING] Cannot guess revision for project \"%s\"." % project.getName()) 
+        print("          (using: \"x\")")
         return
 
 
@@ -196,7 +196,7 @@ class ProjectBuilder:
         (pid,status) = os.waitpid ( child.pid, 0 )
         status >>= 8
         if status != 0:
-            print "[ERROR] %s (status:%d)." % (error,status)
+            print("[ERROR] %s (status:%d)." % (error,status))
             sys.exit ( status )
         return
 
@@ -208,16 +208,16 @@ class ProjectBuilder:
        #cmakeModules  = os.path.join ( self._installDir, "share", "cmake", "Modules" )
 
         if not os.path.isdir(toolSourceDir):
-            print "[ERROR] Missing tool source directory: \"%s\" (skipped)." % toolSourceDir
+            print("[ERROR] Missing tool source directory: \"%s\" (skipped)." % toolSourceDir)
             return
 
         if self._rmBuild:
-            print "Removing tool build directory: \"%s\"." % toolBuildDir
+            print("Removing tool build directory: \"%s\"." % toolBuildDir)
             command = [ "/bin/rm", "-rf", toolBuildDir ]
             self._execute ( command, "Removing tool build directory" )
             
         if not os.path.isdir(toolBuildDir):
-            print "Creating tool build directory: \"%s\"." % toolBuildDir
+            print("Creating tool build directory: \"%s\"." % toolBuildDir)
             os.makedirs ( toolBuildDir )
             os.chdir    ( toolBuildDir )
 
@@ -249,7 +249,7 @@ class ProjectBuilder:
             if tool == "crlcore" and self._enableDoc == "ON":
                 command += [ "dvi", "safepdf" ]
             command += self._makeArguments
-            print "Make command:", command
+            print("Make command:", command)
             sys.stdout.flush ()
             self._execute ( command, "Build failed" )
         return
@@ -259,14 +259,14 @@ class ProjectBuilder:
         toolSourceDir = os.path.join ( self._sourceDir , tool )
         if not os.path.isdir(toolSourceDir):
             if not self._quiet:
-                print "[ERROR] Missing tool source directory: \"%s\" (skipped)." % toolSourceDir
+                print("[ERROR] Missing tool source directory: \"%s\" (skipped)." % toolSourceDir)
             return
         os.chdir ( toolSourceDir )
 
-        print "Checking SVN status of tool: ", tool
+        print("Checking SVN status of tool: ", tool)
         command = [ "svn", "status", "-u", "-q" ]
         self._execute ( command, "svn status -u -q" )
-        print
+        print()
         return
 
 
@@ -274,45 +274,45 @@ class ProjectBuilder:
         toolSourceDir = os.path.join ( self._sourceDir , tool )
         if not os.path.isdir(toolSourceDir):
             if not self._quiet:
-                print "[ERROR] Missing tool source directory: \"%s\" (skipped)." % toolSourceDir
+                print("[ERROR] Missing tool source directory: \"%s\" (skipped)." % toolSourceDir)
             return
         os.chdir ( toolSourceDir )
 
-        print "Doing a SVN update of tool: ", tool
+        print("Doing a SVN update of tool: ", tool)
         command = [ "svn", "update" ]
         self._execute ( command, "svn update" )
-        print
+        print()
         return
 
 
     def _svnCheckout ( self, tool ):
         project = self.getToolProject ( tool )
         if not project:
-            print "[ERROR] Tool \"%s\" is not part of any project." % tool
-            print "        Cannot guess the SVN repository."
+            print("[ERROR] Tool \"%s\" is not part of any project." % tool)
+            print("        Cannot guess the SVN repository.")
             return
         if not project.getRepository ():
-            print "[ERROR] Project \"%s\" isn't associated to a repository." % project.getName()
+            print("[ERROR] Project \"%s\" isn't associated to a repository." % project.getName())
             return
         
         toolSvnTrunkDir = os.path.join ( self._svnMethod+project.getRepository(), tool, "trunk" )
         os.chdir ( self._sourceDir )
 
-        print "Doing a SVN checkout of tool: ", tool
+        print("Doing a SVN checkout of tool: ", tool)
         command = [ "svn", "co", toolSvnTrunkDir, tool ]
         self._execute ( command, "svn checkout %s" % tool )
-        print
+        print()
         return
 
 
     def _svnExport ( self, tool ):
         project = self.getToolProject ( tool )
         if not project:
-            print "[ERROR] Tool \"%s\" is not part of any project." % tool
-            print "        Cannot guess the SVN repository."
+            print("[ERROR] Tool \"%s\" is not part of any project." % tool)
+            print("        Cannot guess the SVN repository.")
             return
         if not project.getRepository ():
-            print "[ERROR] Project \"%s\" isn't associated to a repository." % project.getName()
+            print("[ERROR] Project \"%s\" isn't associated to a repository." % project.getName())
             return
         
         toolSvnTrunkDir = os.path.join ( self._svnMethod+project.getRepository(), tool, "trunk" )
@@ -323,16 +323,16 @@ class ProjectBuilder:
 
         toolExportDir = os.path.join ( self._archiveDir, tool )
         if os.path.isdir ( toolExportDir ):
-            print "Removing tool export (tarball) directory: \"%s\"." % toolExportDir
+            print("Removing tool export (tarball) directory: \"%s\"." % toolExportDir)
             command = [ "/bin/rm", "-r", toolExportDir ]
             self._execute ( command, "Removing tool export (tarball) directory" )
 
-        print "Doing a SVN export of tool: ", tool
+        print("Doing a SVN export of tool: ", tool)
         command = [ "svn", "export", toolSvnTrunkDir, toolExportDir ]
         if self._svnTag != "x":
             command += [ "--revision", self._svnTag ]
         self._execute ( command, "svn export %s" % toolExportDir )
-        print
+        print()
         return
 
 
@@ -353,21 +353,21 @@ class ProjectBuilder:
     def register ( self, project ):
         for registered in self._projects:
             if registered.getName() == project.getName():
-                print "[ERROR] Project \"%s\" is already registered (ignored)."
+                print("[ERROR] Project \"%s\" is already registered (ignored).")
                 return
         self._projects += [ project ]
         return
 
 
     def _setEnvironment ( self, variable, userVariable ):
-        if not self._environment.has_key(variable):
+        if variable not in self._environment:
             self._environment[ variable ] = self._installDir
        #if not self._environment.has_key(userVariable):
        #    self._environment[ userVariable ] = self._installDir
         if not self._quiet:
-            print "Setting %s = \"%s\"." % (variable    ,self._environment[variable])
-            if self._environment.has_key(userVariable):
-                print "Transmitting %s = \"%s\"." % (userVariable,self._environment[userVariable])
+            print("Setting %s = \"%s\"." % (variable    ,self._environment[variable]))
+            if userVariable in self._environment:
+                print("Transmitting %s = \"%s\"." % (userVariable,self._environment[userVariable]))
         return
 
 
@@ -386,13 +386,13 @@ class ProjectBuilder:
             for project in self._projects:
                 self._standalones = project.activate ( self._standalones ) 
             for tool in self._standalones:
-                print "[WARNING] Tool \"%s\" is not part of any project." % tool
+                print("[WARNING] Tool \"%s\" is not part of any project." % tool)
 
         if projects:
             for projectName in projects:
                 project = self.getProject ( projectName )
                 if not project:
-                    print "[ERROR] No project of name \"%s\"." % projectName
+                    print("[ERROR] No project of name \"%s\"." % projectName)
                     sys.exit ( 1 )
                 project.activateAll()
 
@@ -402,11 +402,11 @@ class ProjectBuilder:
 
         for project in self._projects:
             for tool in project.getActives():
-                print "\nProcessing tool: \"%s\"." % tool
+                print("\nProcessing tool: \"%s\"." % tool)
                 getattr(self,command) ( tool )
 
         for tool in self._standalones:
-            print "\nProcessing tool: \"%s\"." % tool
+            print("\nProcessing tool: \"%s\"." % tool)
             getattr(self,command) ( tool )
         return
 
@@ -443,11 +443,11 @@ class ProjectBuilder:
         self._doSpec ()
         
         if os.path.isdir(self._tarballDir):
-            print "Removing previous tarball directory: \"%s\"." % self._tarballDir
+            print("Removing previous tarball directory: \"%s\"." % self._tarballDir)
             command = [ "/bin/rm", "-r", self._tarballDir ]
             self._execute ( command, "Removing top export (tarball) directory" )
  
-        print "Creating tarball directory: \"%s\"." % self._tarballDir
+        print("Creating tarball directory: \"%s\"." % self._tarballDir)
         os.makedirs ( self._tarballDir )
         self.svnExport ( tools, projects )
 
@@ -470,7 +470,7 @@ class ProjectBuilder:
         command = [ "/bin/tar", "jcvf", self._sourceTarBz2, os.path.basename(self._archiveDir) ]
         self._execute ( command, "tar command failed" )
  
-        print "Cleanup SVN export tarball archive directory: \"%s\"." % self._archiveDir
+        print("Cleanup SVN export tarball archive directory: \"%s\"." % self._archiveDir)
         command = [ "/bin/rm", "-r", self._archiveDir ]
         self._execute ( command, "Removing archive export (tarball) directory" )
 

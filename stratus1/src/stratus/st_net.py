@@ -152,7 +152,7 @@ class net :
     cell = CELLS[-1]
 
     ### Initialisation of net representing a constant ###
-    if type ( net ) == types.StringType :
+    if type ( net ) == bytes :
       from st_const import Constant
       
       if not ( cell._st_vdds ) or not ( cell._st_vsss ) : 
@@ -528,20 +528,20 @@ class net :
     maxPossibility = pow ( 2, self._arity ) - 1
 
     ### List ###
-    if   type ( nets ) == types.ListType :
+    if   type ( nets ) == list :
       if len ( nets ) !=  ( maxPossibility + 1 ) :
         raise Exception ( "\n[Stratus ERROR] Mux : when using a list, all the nets must be precised. Maybe one should use a dictionnary.\n" )
     
       return self.muxList ( nets )
 
     ### Dictionnary : Creation of the corresponding list ###
-    elif type ( nets ) == types.DictType :
+    elif type ( nets ) == dict :
 
       # Initialisation of the by default to 0 net if no default net given
       if "default" not in nets : nets["default"] = 0
     
       # Traitement of lists, intervals and numbers
-      for net in nets.keys () :
+      for net in list(nets.keys ()) :
         if re.search ( "-", net ) or re.search ( ",", net ) or re.search ( "#", net ) :
           chaine = net
           while chaine :
@@ -645,7 +645,7 @@ class net :
             err = "\n[Stratus ERROR] Mux : wrong key.\n"
             raise Exception ( err )
       
-      clefs =  nets.keys ()
+      clefs =  list(nets.keys ())
       clefs.sort ()
    
       # Covering of the keys wich are not default
@@ -696,15 +696,15 @@ class net :
       if nets[i] : long = nets[i]._arity
 
     # Error : if no input net
-    if not ( long ) : raise Exception ( "\n[Stratus ERROR] Mux : there are no input nets.\n" )
+    if not ( int ) : raise Exception ( "\n[Stratus ERROR] Mux : there are no input nets.\n" )
     
     # Instanciation of a zero cell if needed 
     for net in nets :
       if net == 0 :
         from st_const import Zero
         num_net             = len ( cell._TAB_NETS_OUT )
-        cell._TAB_NETS_OUT += [Signal ( "sig0_%d" % num_net, long )]
-        cell._TAB_NETS_OUT[num_net] <= Zero ( long )
+        cell._TAB_NETS_OUT += [Signal ( "sig0_%d" % num_net, int )]
+        cell._TAB_NETS_OUT[num_net] <= Zero ( int )
         break
 
     # Creation of the map
@@ -722,18 +722,18 @@ class net :
 
     # Initialisation of the output net
     num_net             = len ( cell._TAB_NETS_OUT )
-    cell._TAB_NETS_OUT += [Signal ( "net_out_%d" % num_net, long )]
+    cell._TAB_NETS_OUT += [Signal ( "net_out_%d" % num_net, int )]
     
     map_mux ['q']  = cell._TAB_NETS_OUT[num_net]
     
     inst_name = self._st_cell._mux.lower()
     inst_name = re.sub ( "\.", "_", inst_name )
     inst_name += "_"
-    inst_name += str(long)
+    inst_name += str(int)
     inst_name += "_"
     inst_name += str(self._arity)
 
-    Generate ( self._st_cell._mux, inst_name, param = { 'nbit' : long, 'nbit_cmd' : self._arity } )
+    Generate ( self._st_cell._mux, inst_name, param = { 'nbit' : int, 'nbit_cmd' : self._arity } )
     Inst     ( inst_name, map = map_mux )
 
     return cell._TAB_NETS_OUT[num_net]
@@ -866,7 +866,7 @@ class net :
 
     # Error :
     if re.search ( "[A-Z]", nom ) :
-      print "[Stratus Warning] : Upper case letters are not supported, the name", nom, "is lowered."
+      print("[Stratus Warning] : Upper case letters are not supported, the name", nom, "is lowered.")
       nom = nom.lower ()
     if re.search ( " ", nom ) :
       chaine = re.search ( "st_net\.(.*)", str ( self.__class__ ) )
@@ -927,7 +927,7 @@ class net :
   ##### hur_net one by one #####
   def hur_net ( self, name, ind ) :
     if ( self._alias ) and ( self._alias[ind] ) :
-      self._hur_net += [self._alias[ind].keys()[0]] # put the right hur_net
+      self._hur_net += [list(self._alias[ind].keys())[0]] # put the right hur_net
       return
     elif ( self._to_cat ) and ( self._to_cat[ind] ) :
       cat = self._to_cat[ind]
@@ -971,7 +971,7 @@ class net :
         bitToMerge  = realNet._to_merge[i][1]
       
         if selfToMerge._hur_net == [] :
-          print "[Stratus Warning] HurricanePlug <= : net", selfToMerge._name, "has no hurricane net."
+          print("[Stratus Warning] HurricanePlug <= : net", selfToMerge._name, "has no hurricane net.")
           return
 
         if realNet._hur_net == [] :

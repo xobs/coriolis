@@ -21,8 +21,8 @@ import os.path
 import datetime
 import subprocess
 from   .             import ErrorMessage
-from   Project       import Project
-from   Configuration import Configuration
+from   .Project       import Project
+from   .Configuration import Configuration
 
 
 class Builder:
@@ -86,7 +86,7 @@ class Builder:
             if attribute in self._conf.getAllIds():
                 return getattr( self._conf, attribute )
 
-        if not self.__dict__.has_key(attribute):
+        if attribute not in self.__dict__:
             raise ErrorMessage( 1, 'Builder has no attribute <%s>.'%attribute )
         return self.__dict__[attribute]
 
@@ -133,7 +133,7 @@ class Builder:
 
     def _execute ( self, command, error ):
         if self._devtoolset2 == True:
-            print 'Using devtoolset-2 (scl enable devtoolset-2 ...)'
+            print('Using devtoolset-2 (scl enable devtoolset-2 ...)')
             commandAsString = ''
             for i in range(len(command)):
                 if i: commandAsString += ' '
@@ -164,11 +164,11 @@ class Builder:
        #cmakeModules  = os.path.join ( self.installDir, "share", "cmake", "Modules" )
 
         if not os.path.isdir(toolSourceDir):
-            print ErrorMessage( 0, "Missing tool source directory: \"%s\" (skipped)."%toolSourceDir )
+            print(ErrorMessage( 0, "Missing tool source directory: \"%s\" (skipped)."%toolSourceDir ))
             return
 
         if self._rmBuild:
-            print "Removing tool build directory: \"%s\"." % toolBuildDir
+            print("Removing tool build directory: \"%s\"." % toolBuildDir)
             command = [ "/bin/rm", "-rf", toolBuildDir ]
             self._execute ( command, "Removing tool build directory" )
 
@@ -186,7 +186,7 @@ class Builder:
                    , toolSourceDir ]
             
         if not os.path.isdir(toolBuildDir):
-            print "Creating tool build directory: \"%s\"." % toolBuildDir
+            print("Creating tool build directory: \"%s\"." % toolBuildDir)
             os.makedirs ( toolBuildDir )
             os.chdir    ( toolBuildDir )
             self._execute ( command, "First CMake failed" )
@@ -219,7 +219,7 @@ class Builder:
                 if tool.name == "stratus1":
                     command += [ "dvi", "safepdf", "html" ]
             command += self._makeArguments
-            print "Make/Ninja command:", command
+            print("Make/Ninja command:", command)
             sys.stdout.flush ()
             self._execute ( command, "Build failed" )
         return
@@ -280,19 +280,19 @@ class Builder:
 
 
     def _setEnvironment ( self, systemVariable, userVariable ):
-        if not self._environment.has_key(systemVariable) or self._environment[systemVariable] == "":
-            if not self._environment.has_key(userVariable) or self._environment[userVariable] == "" :
+        if systemVariable not in self._environment or self._environment[systemVariable] == "":
+            if userVariable not in self._environment or self._environment[userVariable] == "" :
                 self._environment[ systemVariable ] = self.installDir
-                print "[WARNING] Neither <%s> nor <%s> environment variables are sets." \
-                      % (systemVariable,userVariable)
-                print "          Setting <%s> to <%s>." % (systemVariable,self.installDir)
+                print("[WARNING] Neither <%s> nor <%s> environment variables are sets." \
+                      % (systemVariable,userVariable))
+                print("          Setting <%s> to <%s>." % (systemVariable,self.installDir))
             else:
                 self._environment[ systemVariable ] = self._environment[ userVariable ]
                 
         if not self._quiet:
-            print "Setting <%s> to <%s>." % (systemVariable,self._environment[systemVariable])
-            if self._environment.has_key(userVariable):
-                print "Transmitting <%s> as <%s>." % (userVariable,self._environment[userVariable])
+            print("Setting <%s> to <%s>." % (systemVariable,self._environment[systemVariable]))
+            if userVariable in self._environment:
+                print("Transmitting <%s> as <%s>." % (userVariable,self._environment[userVariable]))
         return
 
 
@@ -319,7 +319,7 @@ class Builder:
             for project in self.projects:
                 self.standalones = project.activate ( self.standalones ) 
             for tool in self.standalones:
-                print "[WARNING] Tool \"%s\" is not part of any project." % tool
+                print("[WARNING] Tool \"%s\" is not part of any project." % tool)
 
         if projects:
             for projectName in projects:
@@ -334,7 +334,7 @@ class Builder:
 
         for project in self.projects:
             for tool in project.getActives():
-                print "\nProcessing tool: \"%s\"." % tool.name
+                print("\nProcessing tool: \"%s\"." % tool.name)
                 getattr(self,command) ( tool )
         return
 
@@ -364,11 +364,11 @@ class Builder:
    #    self._doDebChangelog ()
 
         if os.path.isdir(self.tarballDir):
-            print "Removing previous tarball directory: \"%s\"." % self.tarballDir
+            print("Removing previous tarball directory: \"%s\"." % self.tarballDir)
             command = [ "/bin/rm", "-rf", self.tarballDir ]
             self._execute ( command, "Removing top export (tarball) directory" )
 
-        print "Creating tarball directory: \"%s\"." % self.tarballDir
+        print("Creating tarball directory: \"%s\"." % self.tarballDir)
         os.makedirs ( self.tarballDir )
         self.gitArchive ( projects[0] )
 
@@ -414,7 +414,7 @@ class Builder:
               if os.path.islink(path):
                 realpath = os.path.realpath( os.readlink(path) )
                 if not os.path.isfile(realpath):
-                  print 'Remove obsolete link: <%s>.' % path
+                  print('Remove obsolete link: <%s>.' % path)
                   os.unlink( path )
 
         rpmSpecFile   = os.path.join ( self.rpmbuildDir, "SPECS"  , "coriolis2.spec" )

@@ -70,7 +70,7 @@ class Pattern ( object ):
     
         side = math.sqrt(4*len(self._hexa))
         if pow(side,2) != 4*len(self._hexa):
-            print '[ERROR] The pattern is not square (%d self._bits).' % (4*len(self._hexa))
+            print('[ERROR] The pattern is not square (%d self._bits).' % (4*len(self._hexa)))
             return None
     
         side /= 4
@@ -154,27 +154,27 @@ def loadPatterns ( patternsData, fromFile ):
                                      ,str(entry)
                                      ])
 
-            if not entry.has_key('name'):
+            if 'name' not in entry:
                 raise ErrorMessage(1,['Malformed entry in <patternsTable>.'
                                      ,'Pattern has no \'name\' key.'
                                      ,str(entry)
                                      ])
             arguments = { 'name':entry['name'] }
 
-            if entry.has_key('bits'):
+            if 'bits' in entry:
                 arguments['bits'] = entry['bits']
 
-            if entry.has_key('hexa'):
-                if entry.has_key('bits'):
+            if 'hexa' in entry:
+                if 'bits' in entry:
                     w = WarningMessage( 'Pattern <%s> has both bits & hexa, ignoring hexa.' % entry['name'] )
-                    print w
+                    print(w)
                 else:
                     arguments['hexa'] = entry['hexa']
 
             patternsLUT[ entry['name'] ] = Pattern( **arguments ) 
 
 
-        except Exception, e:
+        except Exception as e:
             ErrorMessage.wrapPrint(e,'In %s:<patternsTable> at index %d.' % (confFile,entryNo))
     return
 

@@ -35,7 +35,7 @@ from   PyQt4.QtGui    import QTableView
 from   PyQt4.QtGui    import QGroupBox
 from   PyQt4.QtGui    import QFileDialog
 from   PyQt4.QtGui    import QApplication
-from   Configuration  import Configuration
+from   .Configuration  import Configuration
 
 
 class ConfSettingsModel ( QAbstractTableModel ):

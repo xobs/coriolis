@@ -1,7 +1,7 @@
 
 import Cfg
 
-print "          - Loading hMetis configuration."
+print("          - Loading hMetis configuration.")
   
 # hMETIS parameters.
 Cfg.getParamInt ("metis.globalConnectionsWeightRatio"  ).setInt (1    )

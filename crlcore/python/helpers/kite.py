@@ -1,7 +1,7 @@
 
 import Cfg
 
-print "          - Loading Katabatic & Kite configuration."
+print("          - Loading Katabatic & Kite configuration.")
  
 # Katabatic parameters.
 Cfg.getParamInt       ("katabatic.globalLengthThreshold").setInt       (1450   )

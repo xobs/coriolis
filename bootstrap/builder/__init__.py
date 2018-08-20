@@ -69,7 +69,7 @@ class ErrorMessage ( Exception ):
         return
 
     def terminate ( self ):
-        print self
+        print(self)
         sys.exit(self._code)
 
     def _getCode ( self ): return self._code

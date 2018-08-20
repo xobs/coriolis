@@ -1,7 +1,7 @@
 
 import Cfg
 
-print "          - Loading Nimbus configuration."
+print("          - Loading Nimbus configuration.")
   
 # Nimbus parameters.
 param = Cfg.getParamPercentage("nimbus.aspectRatio")

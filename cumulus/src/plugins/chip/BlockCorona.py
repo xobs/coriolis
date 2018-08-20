@@ -105,9 +105,9 @@ class HorizontalRail ( Rail ):
 
        #print '  HorizontalRail.connect() net:%s contact:%s' % (self.net.getName(),str(contact))
        #if self.net != contact.getNet(): return False
-        if self.vias.has_key(contact.getX()): return False
+        if contact.getX() in self.vias: return False
         
-        keys        = self.vias.keys()
+        keys        = list(self.vias.keys())
         keys.sort()
         insertIndex = bisect.bisect_left( keys, contact.getX() )
 
@@ -141,7 +141,7 @@ class HorizontalRail ( Rail ):
         railVias = [ self.side.corner0(self.order)
                    , self.side.corner1(self.order) ]
 
-        for via in self.vias.values():
+        for via in list(self.vias.values()):
           if via[1].getNet() != via[2].getNet(): continue
 
           via[1].doLayout()
@@ -178,7 +178,7 @@ class VerticalRail ( Rail ):
         railVias = [ self.side.corner0(self.order)
                    , self.side.corner1(self.order) ]
 
-        for via in self.vias.values():
+        for via in list(self.vias.values()):
           if via[1].getNet() != via[2].getNet(): continue
 
           via[1].doLayout()
@@ -225,12 +225,12 @@ class VerticalRail ( Rail ):
                                    , '(corona:%s)'                       % str(self.side.innerBb) ] ) 
 
        #if self.net != contact.getNet(): return False
-        if self.vias.has_key(contact.getY()): return False
+        if contact.getY() in self.vias: return False
 
         trace( 550, ',+', '\tVerticalRail.connect() [%s] @%d\n' % (self.order,DbU.toLambda(self.axis)) )
         trace( 550, contact )
         
-        keys        = self.vias.keys()
+        keys        = list(self.vias.keys())
         keys.sort()
         insertIndex = bisect.bisect_left( keys, contact.getY() )
         trace( 550, ',+', '\tkeys:' )
@@ -396,14 +396,14 @@ class VerticalSide ( Side ):
     def addBlockages ( self, sideXMin, sideXMax ):
         spans = IntervalSet()
         for rail in self._rails:
-            for via in rail.vias.values():
+            for via in list(rail.vias.values()):
                 if via[1].getNet() != via[2].getNet(): continue
 
                 spans.merge( via[1]._y - via[1]._height/2, via[1]._y + via[1]._height/2 )
 
         routingGauge = CRL.AllianceFramework.get().getRoutingGauge()
-        for depth in range(self.getInnerRail(0).vias.values()[0][1].bottomDepth
-                          ,self.getInnerRail(0).vias.values()[0][1].topDepth ):
+        for depth in range(list(self.getInnerRail(0).vias.values())[0][1].bottomDepth
+                          ,list(self.getInnerRail(0).vias.values())[0][1].topDepth ):
           blockageLayer = routingGauge.getRoutingLayer(depth).getBlockageLayer()
           pitch         = routingGauge.getLayerPitch(depth)
 
@@ -512,8 +512,8 @@ class Corona ( object ):
         return self.routingGauge.getLayerGauge( self.verticalDepth ).getLayer()
 
     def connectBlock ( self ):
-        for plane in self._block.planes.values():
-          for side in plane.sides.values():
+        for plane in list(self._block.planes.values()):
+          for side in list(plane.sides.values()):
             self._southSide.connect( side[chip.South] )
             self._northSide.connect( side[chip.North] )
             self._westSide .connect( side[chip.West ] )

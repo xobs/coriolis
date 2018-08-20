@@ -18,12 +18,12 @@
 
 # For Corona's sides.
 North     = 0000
-South     = 0001
-East      = 0002
-West      = 0003
+South     = 0o001
+East      = 0o002
+West      = 0o003
 
 # For Corona's corners.
 SouthWest = 0000
-SouthEast = 0001
-NorthWest = 0002
-NorthEast = 0003
+SouthEast = 0o001
+NorthWest = 0o002
+NorthEast = 0o003

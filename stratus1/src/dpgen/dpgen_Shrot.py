@@ -340,4 +340,4 @@ class DpgenShrot ( Model ) :
   ## VBE ##
   #########
   def Vbe ( self ) :
-    print "vbe of DpgenShrot not implemented"
+    print("vbe of DpgenShrot not implemented")

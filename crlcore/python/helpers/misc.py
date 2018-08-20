@@ -1,7 +1,7 @@
 
 import Cfg
 
-print "          - Loading Misc. configuration."
+print("          - Loading Misc. configuration.")
 
 # Misc. parameters.
 Cfg.getParamBool("misc.catchCore"    ).setBool(False)

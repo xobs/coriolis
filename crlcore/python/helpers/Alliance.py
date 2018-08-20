@@ -120,11 +120,11 @@ def _loadAllianceConfig ( af, allianceConfig ):
                     libPath, mode = libraryEntry
                     env.addSYSTEM_LIBRARY(library=libPath,mode=AddMode.toEnvironment(mode))
 
-        except Exception, e:
+        except Exception as e:
             ErrorMessage.wrapPrint(e,'In %s:<Alliance> at index %d.' % (allianceFile,entryNo))
     try:
         env.validate()
-    except Exception, e:
+    except Exception as e:
         ErrorMessage.wrapPrint(e,'In %s:<Alliance>.' % (allianceFile))
         sys.exit(1)
     return
@@ -136,7 +136,7 @@ def loadRoutingGaugesTable ( routingGaugesTable, fromFile ):
 
     af = AllianceFramework.get()
 
-    for gaugeName in routingGaugesTable.keys():
+    for gaugeName in list(routingGaugesTable.keys()):
         gaugeDatas = routingGaugesTable[gaugeName]
 
         technology = DataBase.getDB().getTechnology()
@@ -171,7 +171,7 @@ def loadRoutingGaugesTable ( routingGaugesTable, fromFile ):
                                                              , DbU.fromLambda(entry[1][8])  # Obstacle dW.
                                                              ) )
 
-            except Exception, e:
+            except Exception as e:
                 ErrorMessage.wrapPrint(e,'In %s:<routingGaugesTable> at index %d.' % (allianceFile,entryNo))
 
         af.addRoutingGauge(gauge)
@@ -184,7 +184,7 @@ def loadCellGaugesTable ( cellGaugesTable, fromFile ):
 
     af = AllianceFramework.get()
 
-    for gaugeName in cellGaugesTable.keys():
+    for gaugeName in list(cellGaugesTable.keys()):
         gaugeDatas = cellGaugesTable[gaugeName]
         gauge      = None
 
@@ -201,7 +201,7 @@ def loadCellGaugesTable ( cellGaugesTable, fromFile ):
                                     , DbU.fromLambda(gaugeDatas[2]) # sliceHeight.
                                     , DbU.fromLambda(gaugeDatas[3]) # sliceStep.
                                     )
-        except Exception, e:
+        except Exception as e:
             ErrorMessage.wrapPrint(e,'In %s:<cellGaugesTable> at index %d.' % (allianceFile,gaugeDatasNo))
 
         if gauge: af.addCellGauge(gauge)

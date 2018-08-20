@@ -18,18 +18,18 @@ except ImportError as e:
   serror = str(e)
   if serror.startswith('No module named'):
     module = serror.split()[-1]
-    print('[ERROR] The <%s> python module or symbol cannot be loaded.' % module)
+    print(('[ERROR] The <%s> python module or symbol cannot be loaded.' % module))
     print('        Please check the integrity of the <coriolis> package.')
   if str(e).find('cannot open shared object file'):
     library = serror.split(':')[0]
-    print('[ERROR] The <%s> shared library cannot be loaded.' % library)
+    print(('[ERROR] The <%s> shared library cannot be loaded.' % library))
     print('        Under RHEL 6, you must be under devtoolset-2.')
     print('        (scl enable devtoolset-2 bash)')
   sys.exit(1)
 except Exception as e:
   print('[ERROR] A strange exception occurred while loading the basic Coriolis/Python')
   print('        modules. Something may be wrong at Python/C API level.\n')
-  print('        %s' % e)
+  print(('        %s' % e))
   sys.exit(2)
 
 
@@ -63,27 +63,27 @@ def runScript ( scriptPath, editor ):
       sys.path.append(os.path.dirname(scriptPath))
     
       module = __import__( os.path.basename(scriptPath), globals(), locals() )
-      if not module.__dict__.has_key('ScriptMain'):
+      if 'ScriptMain' not in module.__dict__:
           print('[ERROR] Script module is missing function ScriptMain().')
-          print('        <%s>' % scriptPath)
+          print(('        <%s>' % scriptPath))
           return
       if not callable( module.__dict__['ScriptMain'] ):
           print('[ERROR] Script module symbol ScriptMain is not callable (not a function?).')
-          print('        <%s>' % scriptPath)
+          print(('        <%s>' % scriptPath))
           return
     
       module.__dict__['ScriptMain']( **kw )
 
   except ImportError as e:
       module = str(e).split()[-1]
-      print('[ERROR] The <%s> script cannot be loaded.' % module)
+      print(('[ERROR] The <%s> script cannot be loaded.' % module))
       print('        Please check your design hierarchy.')
   except Exception as e:
       print('[ERROR] An exception occured while loading the Stratus script module:')
-      print('        <%s>\n' % (scriptPath))
+      print(('        <%s>\n' % (scriptPath)))
       print('        You should check for simple python errors in this module.')
       print('        Error was:')
-      print('          %s\n' % e)
+      print(('          %s\n' % e))
       print('        Trying to continue anyway...')
   return
 
@@ -130,7 +130,7 @@ if __name__ == '__main__':
         flags |= CRL.AllianceFramework.NoPythonInit
 
       af = CRL.AllianceFramework.create( flags )
-      print(af.getEnvironment().getPrint())
+      print((af.getEnvironment().getPrint()))
 
       Cfg.Configuration.pushDefaultPriority(Cfg.Parameter.Priority.CommandLine)
 
@@ -191,8 +191,8 @@ if __name__ == '__main__':
               runScript(options.script,unicorn)
           
           setCgtBanner(unicorn.getBanner())
-          print(unicorn.getBanner())
-          print(credits())
+          print((unicorn.getBanner()))
+          print((credits()))
     
           if cell: unicorn.setCell(cell)
           unicorn.show()

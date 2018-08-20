@@ -64,10 +64,10 @@ def Generate ( model_name, inst_name, param = {} ) :
   if '_vbe' in cell.__dict__ : param['behavioral'] = cell._vbe
 
   # Error : if the model is not a string
-  if type ( model_name ) != types.StringType :
+  if type ( model_name ) != bytes :
     err = "\n[Stratus ERROR] Generate : the model must be described in a string.\n"
     raise Exception ( err )
-  if type (  inst_name ) != types.StringType :
+  if type (  inst_name ) != bytes :
     err = "\n[Stratus ERROR] Generate : the model must be described in a string.\n"
     raise Exception ( err )
 
@@ -77,7 +77,7 @@ def Generate ( model_name, inst_name, param = {} ) :
     raise Exception ( err )
   # Warning : the name can not contain capitalized letters
   if re.search ( "[A-Z]", inst_name ) :
-    print "[Stratus Warning] Generate : Upper case letters are not supported, the name", inst_name, "is lowered."
+    print("[Stratus Warning] Generate : Upper case letters are not supported, the name", inst_name, "is lowered.")
     inst_name = inst_name.lower()
   
   # Check if the model does already exist

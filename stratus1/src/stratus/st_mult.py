@@ -70,7 +70,7 @@ class Multiplier ( Model ) :
     else :
        self._signed = True
     
-    if self.nbit0 < 3 or self.nbit1 < 3 : raise SizeError, 'input arities must be greater than 2'
+    if self.nbit0 < 3 or self.nbit1 < 3 : raise SizeError('input arities must be greater than 2')
     
     self.type = "nr"
     self.nType = 1

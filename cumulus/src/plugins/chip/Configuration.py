@@ -76,12 +76,12 @@ def getRpBb ( instance, netName ):
 def showNet ( cell, netName ):
   net = cell.getNet(netName)
   if not net:
-    print ErrorMessage( 3, 'Cell %s doesn\'t have net %s' % (cell.getName(),netName) ) 
+    print(ErrorMessage( 3, 'Cell %s doesn\'t have net %s' % (cell.getName(),netName) )) 
     return
   
-  print 'Components of', netName
+  print('Components of', netName)
   for component in net.getComponents():
-    print '| ', component, component.getBoundingBox() 
+    print('| ', component, component.getBoundingBox()) 
   return
 
 
@@ -143,8 +143,8 @@ class GaugeConf ( object ):
           self._topLayerDepth = layerGauge.getDepth()
           break
       if not self._topLayerDepth:
-        print WarningMessage( 'Gauge top layer not defined, using top of gauge (%d).' \
-                              % self._routingGauge.getDepth() )
+        print(WarningMessage( 'Gauge top layer not defined, using top of gauge (%d).' \
+                              % self._routingGauge.getDepth() ))
         self._topLayerDepth = self._routingGauge.getDepth()
 
       self._horizontalDepth     = -1
@@ -265,7 +265,7 @@ class GaugeConf ( object ):
   
     def _rpByOccurrence ( self, occurrence, net ):
       plug = occurrence.getEntity()
-      if self._plugToRp.has_key(plug):
+      if plug in self._plugToRp:
         rp = self._plugToRp[plug]
       else:
         rp = RoutingPad.create( net, occurrence, RoutingPad.BiggestArea )
@@ -275,7 +275,7 @@ class GaugeConf ( object ):
   
     def _rpAccessByOccurrence ( self, occurrence, net, flags ):
       plug = occurrence.getEntity()
-      if self._plugToRp.has_key(plug):
+      if plug in self._plugToRp:
         rp = self._plugToRp[plug]
       else:
         rp = RoutingPad.create( net, occurrence, RoutingPad.BiggestArea )
@@ -284,7 +284,7 @@ class GaugeConf ( object ):
       return self._rpAccess( self._rpByOccurrence(occurrence,net), flags )
   
     def _rpByPlug ( self, plug, net ):
-      if self._plugToRp.has_key(plug):
+      if plug in self._plugToRp:
         rp = self._plugToRp[plug]
       else:
         occurrence = Occurrence( plug, Path(net.getCell(),'') )
@@ -365,28 +365,28 @@ class ChipConf ( object ):
 
     @staticmethod
     def _readChipSize( chipConfigDict ):
-      if not chipConfigDict.has_key('chip.size'): return Box()
+      if 'chip.size' not in chipConfigDict: return Box()
       chipSize = chipConfigDict['chip.size']
       if not isinstance(chipSize,tuple):
-        print ErrorMessage( 1, 'The Chip size parameter is *not* a tuple.' )
+        print(ErrorMessage( 1, 'The Chip size parameter is *not* a tuple.' ))
         return Box()
       if len(chipSize) != 2:
-        print ErrorMessage( 1, 'The Chip size parameter is *not* a tuple of exactly two items.' )
+        print(ErrorMessage( 1, 'The Chip size parameter is *not* a tuple of exactly two items.' ))
         return Box()
       return Box( 0, 0, DbU.fromLambda(chipSize[0]), DbU.fromLambda(chipSize[1]) )
 
 
     @staticmethod
     def _readCoreSize( chipConfigDict ):
-      if not chipConfigDict.has_key('core.size'):
-        print ErrorMessage( 1, 'The Core size parameter is missing.' )
+      if 'core.size' not in chipConfigDict:
+        print(ErrorMessage( 1, 'The Core size parameter is missing.' ))
         return Box()
       coreSize = chipConfigDict['core.size']
       if not isinstance(coreSize,tuple):
-        print ErrorMessage( 1, 'The Core size parameter is *not* a tuple.' )
+        print(ErrorMessage( 1, 'The Core size parameter is *not* a tuple.' ))
         return Box()
       if len(coreSize) != 2:
-        print ErrorMessage( 1, 'The Core size parameter is *not* a tuple of exactly two items.' )
+        print(ErrorMessage( 1, 'The Core size parameter is *not* a tuple of exactly two items.' ))
         return Box()
       return Box( 0, 0, DbU.fromLambda(coreSize[0]), DbU.fromLambda(coreSize[1]) )
 
@@ -394,36 +394,36 @@ class ChipConf ( object ):
     @staticmethod
     def _readClockTree( chipConfigDict ):
       useClockTree = False
-      if chipConfigDict.has_key('chip.clockTree'):
+      if 'chip.clockTree' in chipConfigDict:
         if chipConfigDict['chip.clockTree']:
           useClockTree = True
       return useClockTree
 
 
     def _readPads ( self, chipConfigDict, keyword ):
-      if not chipConfigDict.has_key(keyword): return []
+      if keyword not in chipConfigDict: return []
       padNameList = chipConfigDict[keyword]
       if not isinstance(padNameList,list):
-          print ErrorMessage( 1, 'The "%s" entry is not a list.' )
+          print(ErrorMessage( 1, 'The "%s" entry is not a list.' ))
           return []
 
       af      = CRL.AllianceFramework.get()
       padList = []
       for i in range(len(padNameList)):
         if not isinstance(padNameList[i],str):
-          print ErrorMessage( 1, 'The element [%d] of list %s is *not* a string (skipped).'
-                                  % (i,keyword) )
+          print(ErrorMessage( 1, 'The element [%d] of list %s is *not* a string (skipped).'
+                                  % (i,keyword) ))
           continue
 
         instance = self._cell.getInstance( padNameList[i] )
         if not instance:
-          print ErrorMessage( 1, 'The pad [%d] (%s) of list %s do not exists in netlist (skipped).'
-                                  % (i,padNameList[i],keyword) )
+          print(ErrorMessage( 1, 'The pad [%d] (%s) of list %s do not exists in netlist (skipped).'
+                                  % (i,padNameList[i],keyword) ))
           continue
 
         if (not af.isPad(instance.getMasterCell().getName())):
-          print ErrorMessage( 1, 'The pad [%d] (%s) of list %s is not an instance of a pad cell (skipped).'
-                                  % (i,padNameList[i],keyword) )
+          print(ErrorMessage( 1, 'The pad [%d] (%s) of list %s is not an instance of a pad cell (skipped).'
+                                  % (i,padNameList[i],keyword) ))
           continue
 
         padList.append( instance )
@@ -526,18 +526,18 @@ class ChipConf ( object ):
         if pad in self._northPads: continue
         if pad in self._eastPads:  continue
         if pad in self._westPads:  continue
-        print ErrorMessage( 1, 'Pad "%s" is not on any side (N/S/E/W).' % pad.getName() )
+        print(ErrorMessage( 1, 'Pad "%s" is not on any side (N/S/E/W).' % pad.getName() ))
         self._validated = False
 
       if len(self._cores) < 1:
-        print ErrorMessage( 1, 'Chip "%s" doesn\'t seems to have a core.' % self._cell.getName() )
+        print(ErrorMessage( 1, 'Chip "%s" doesn\'t seems to have a core.' % self._cell.getName() ))
         self._validated = False
 
       if len(self._cores) > 1:
         message = [ 'Chip "%s" have more than one core:' % self._cell.getName() ]
         for i in range(len(self._cores)):
           message.append( '%4d: %s' % (i,self._cores[i].getName()) )
-        print ErrorMessage( 1, message )
+        print(ErrorMessage( 1, message ))
         self._validated = False
 
       return
@@ -557,7 +557,7 @@ class ChipConf ( object ):
           if not net:
             net = self._cell.getNet( masterNet.getName() )
             if not net:
-              print ErrorMessage( 1, 'Missing global net <%s> at chip level.' % masterNet.getName() )
+              print(ErrorMessage( 1, 'Missing global net <%s> at chip level.' % masterNet.getName() ))
               self._validated = False
               continue
           self._guessGlobalNet( masterNet.getName(), net )
@@ -571,7 +571,7 @@ class ChipConf ( object ):
           if not net:
             net = self._cell.getNet( masterNet.getName() )
             if not net:
-              print ErrorMessage( 1, 'Missing global net <%s> at chip level.' % masterNet.getName() )
+              print(ErrorMessage( 1, 'Missing global net <%s> at chip level.' % masterNet.getName() ))
               self._validated = False
               continue
 
@@ -587,7 +587,7 @@ class ChipConf ( object ):
                      , (self._ckName  ,self._ck  ,'external chip clock')
                      ):
         if not netData[1]:
-          print ErrorMessage( 1, 'Missing global net <%s> (%s) at chip level.' % (netData[0],netData[2]) )
+          print(ErrorMessage( 1, 'Missing global net <%s> (%s) at chip level.' % (netData[0],netData[2]) ))
           self._validated = False
 
       self._blockageNet = self._cell.getNet(self._blockageName)
@@ -599,8 +599,8 @@ class ChipConf ( object ):
 
     def computeChipSize ( self ):
       if not self._clockPad:
-        print ErrorMessage( 1, 'There must be at least one pad of model "%s" to be used as reference.' \
-                               % self._pckName )
+        print(ErrorMessage( 1, 'There must be at least one pad of model "%s" to be used as reference.' \
+                               % self._pckName ))
         self._validated = False
         return
 
@@ -756,7 +756,7 @@ def loadConfiguration ( cell, viewer=None ):
     
     confModule = __import__( confFile, globals(), locals(), confFile )
 
-    if not confModule.__dict__.has_key('chip'):
+    if 'chip' not in confModule.__dict__:
       raise WarningMessage( 'Module <%s> do not provides the chip variable, skipped.' \
                             % confFile )
 

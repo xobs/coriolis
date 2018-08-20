@@ -80,7 +80,7 @@ from stratus import *
 def _str2list(val):
     binlist = list(val)
     binlist.reverse()
-    binlist = map(int, binlist)
+    binlist = list(map(int, binlist))
     return binlist
 
 # ------------------------------------------------------
@@ -174,7 +174,7 @@ def str2uint(val):
 def int2str(value, wl):
     res = ""
     for pos in range(wl):
-        res = str( (value & 1L<<pos) >>pos) + res
+        res = str( (value & 1<<pos) >>pos) + res
     return res
 
 # ------------------------------------------------------
@@ -233,7 +233,7 @@ def runpat(name_vst, name_pat, options='', stdout=False, stderr=True):
         cmd_str += ' 2> /dev/null'
 
     result = system(cmd_str)
-    if not result : print "Simulation OK"
+    if not result : print("Simulation OK")
 
     return result
 
@@ -414,10 +414,10 @@ class LoadSig:
         
     # ------------------------------------------------------
     ## Return next sample
-    def next(self):
-        line = self._it.next()
+    def __next__(self):
+        line = next(self._it)
         while re.compile("^#").search(line):
-            line = self._it.next()
+            line = next(self._it)
         return self._make_output(line)
 
 # -------------------------------------------------------------------------
@@ -561,7 +561,7 @@ class MaskNumber:
     #
     # @param self The object pointer.
     # @return next sample.
-    def next(self):
+    def __next__(self):
         # Signal width inferior to MAX_IT => exhaustive pattern generation.
         # else we use PMG.
         if (self._width < self.MAX_IT) and (self._exhaustiv):

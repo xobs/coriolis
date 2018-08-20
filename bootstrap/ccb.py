@@ -26,26 +26,26 @@ try:
   import distutils.sysconfig
   import subprocess
   import re
-except ImportError, e:
+except ImportError as e:
   module = str(e).split()[-1]
 
-  print '[ERROR] The <%s> python module or symbol cannot be loaded.' % module
-  print '        Please check your standard Python installation, it may have problems.'
+  print('[ERROR] The <%s> python module or symbol cannot be loaded.' % module)
+  print('        Please check your standard Python installation, it may have problems.')
   quit()
 
 
 def safeImport ( moduleName, symbol=None ):
   try:
     module = __import__( moduleName, globals(), locals(), symbol )
-  except ImportError, e:
-    print '[ERROR] The <%s> python module or symbol cannot be loaded.' % moduleName
-    print '        Please check the integrity of the <coriolis/boostrap> package.'
+  except ImportError as e:
+    print('[ERROR] The <%s> python module or symbol cannot be loaded.' % moduleName)
+    print('        Please check the integrity of the <coriolis/boostrap> package.')
     if showTrace: traceback.print_tb(sys.exc_info()[2])
     sys.exit(1)
-  except Exception, e:
-    print '[ERROR] An exception occured while importing module <%s>. Is is a bug,' % moduleName
-    print '        you may want to report it...'
-    print '        %s' % e
+  except Exception as e:
+    print('[ERROR] An exception occured while importing module <%s>. Is is a bug,' % moduleName)
+    print('        you may want to report it...')
+    print('        %s' % e)
     if showTrace: traceback.print_tb(sys.exc_info()[2])
     sys.exit(2)
   if symbol: return module.__dict__[symbol]
@@ -57,7 +57,7 @@ def checkCMake ():
     (pid,status) = os.waitpid ( child.pid, 0 )
     status >>= 8
     if status != 0:
-      print '[ERROR] The <cmake> program has not been found, please install it.'
+      print('[ERROR] The <cmake> program has not been found, please install it.')
       sys.exit(1)
 
 
@@ -138,8 +138,8 @@ def guessOs ():
         uname = subprocess.Popen ( ["uname", "-sr"], stdout=subprocess.PIPE )
         osType = uname.stdout.readlines()[0][:-1]
 
-        print "[WARNING] Unrecognized OS: \"%s\"." % lines[0][:-1]
-        print "          (using: \"%s\")" % osType
+        print("[WARNING] Unrecognized OS: \"%s\"." % lines[0][:-1])
+        print("          (using: \"%s\")" % osType)
     
     return osType, libDir
 
@@ -151,8 +151,8 @@ def guessPythonSitePackage ():
 
 def autoLocate ():
     osType, libDir = guessOs()
-    print 'Building for target: <%s>' % osType
-    print 'Making an educated guess to locate myself:'
+    print('Building for target: <%s>' % osType)
+    print('Making an educated guess to locate myself:')
     sitePackage    = guessPythonSitePackage()
     
     builderDir = None
@@ -169,19 +169,19 @@ def autoLocate ():
                  ]
     
     for location in locations:
-      print '  <%s>' % location,
+      print('  <%s>' % location, end=' ')
       if os.path.isfile(location + '/builder/__init__.py'):
           if not builderDir:
               builderDir = location
-              print '(Found*)'
+              print('(Found*)')
           else:
-              print '(Found)'
+              print('(Found)')
       else:
-          print '(No)'
+          print('(No)')
     
     if not builderDir:
-      print '[ERROR] Failed to locate the builder modules in any of the normal pathes.'
-      print '        Please check your Coriolis/Bootsrap installation.'
+      print('[ERROR] Failed to locate the builder modules in any of the normal pathes.')
+      print('        Please check your Coriolis/Bootsrap installation.')
       if showTrace: traceback.print_tb(sys.exc_info()[2])
       sys.exit(1)
     
@@ -252,13 +252,13 @@ if options.gui:
     gui.show()
     rcode = app.exec_()
     sys.exit( rcode )
-  except ErrorMessage, e:
-    print e
+  except ErrorMessage as e:
+    print(e)
     if showTrace: traceback.print_tb(sys.exc_info()[2])
     sys.exit(2)
-  except Exception, e:
-    print '[ERROR] An exception occured while running the Qt application.'
-    print '        %s' % e
+  except Exception as e:
+    print('[ERROR] An exception occured while running the Qt application.')
+    print('        %s' % e)
     if showTrace: traceback.print_tb(sys.exc_info()[2])
     sys.exit(2)
 
@@ -306,12 +306,12 @@ else:
     elif options.doRpm:       builder.doRpm       ()
     elif options.doDeb:       builder.doDeb       ()
     else:                     builder.build       ( tools=options.tools, projects=options.projects )
-  except ErrorMessage, e:
-    print e
+  except ErrorMessage as e:
+    print(e)
     if showTrace: traceback.print_tb(sys.exc_info()[2])
     sys.exit(e.code)
-  except KeyboardInterrupt, e:
-    print '\n[ERROR] Interrupted by user\'s request (CTRL+C)'
+  except KeyboardInterrupt as e:
+    print('\n[ERROR] Interrupted by user\'s request (CTRL+C)')
     sys.exit(1)
 
 sys.exit(0)

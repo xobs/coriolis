@@ -156,9 +156,9 @@ def pyRouteCk ( cell, netCk ) :
           clockPlug = plug
           break
 
-      if clockPlug and not net_list.has_key ( str ( clockPlug.getNet().getName() ) ) : net_list[str ( clockPlug.getNet().getName() )] = ( clockPlug.getNet(), cell ) 
+      if clockPlug and str ( clockPlug.getNet().getName() ) not in net_list : net_list[str ( clockPlug.getNet().getName() )] = ( clockPlug.getNet(), cell ) 
   
-  map ( createGrid, net_list.values() )
+  list(map ( createGrid, list(net_list.values()) ))
      
   UpdateSession.close()
 
@@ -926,7 +926,7 @@ def pyPowerRing ( cell, core, n ) :
   topRoutingLayer     = db.getTechnology().getLayer( topRoutingLayerName )
   allowedDepth        = CRL.AllianceFramework.get().getRoutingGauge().getLayerDepth( topRoutingLayer )
 
-  print('topRoutingLayer: <%s> depth:%d' % (topRoutingLayer.getName(), allowedDepth))
+  print(('topRoutingLayer: <%s> depth:%d' % (topRoutingLayer.getName(), allowedDepth)))
   
   UpdateSession.open()
   
@@ -1677,10 +1677,10 @@ def create_inst ( model, name, cell ) :
   inst = Instance.create ( cell, name, modelmastercell )
   
   # Connection
-  plugGround = inst.getPlug ( iter(modelmastercell.getGroundNets()).next() )
-  plugGround.setNet ( iter(cell.getGroundNets()).next() )
-  plugPower = inst.getPlug ( iter(modelmastercell.getPowerNets()).next() )
-  plugPower.setNet ( iter(cell.getPowerNets()).next() )
+  plugGround = inst.getPlug ( next(iter(modelmastercell.getGroundNets())) )
+  plugGround.setNet ( next(iter(cell.getGroundNets())) )
+  plugPower = inst.getPlug ( next(iter(modelmastercell.getPowerNets())) )
+  plugPower.setNet ( next(iter(cell.getPowerNets())) )
 
   return inst
 
@@ -1977,16 +1977,16 @@ def affichePad ( cell ) :
   global pad_north, pad_south, pad_east, pad_west
   
   print("Pads in the north are :")
-  for pad in pad_north : print(cell.getInstance ( pad.getName() ).getMasterCell().getName()) 
+  for pad in pad_north : print((cell.getInstance ( pad.getName() ).getMasterCell().getName())) 
 
   print("Pads in the south are :")
-  for pad in pad_south : print(cell.getInstance ( pad.getName() ).getMasterCell().getName()) 
+  for pad in pad_south : print((cell.getInstance ( pad.getName() ).getMasterCell().getName())) 
 
   print("Pads in the east are :")
-  for pad in pad_east  : print(cell.getInstance ( pad.getName() ).getMasterCell().getName())
+  for pad in pad_east  : print((cell.getInstance ( pad.getName() ).getMasterCell().getName()))
 
   print("Pads in the west are :")
-  for pad in pad_west  : print(cell.getInstance ( pad.getName() ).getMasterCell().getName())
+  for pad in pad_west  : print((cell.getInstance ( pad.getName() ).getMasterCell().getName()))
 
 ############
 def searchVddVss ( cell, *args ) :

@@ -260,4 +260,4 @@ class DpgenShifter ( Model ) :
   ## VBE ##
   #########
   def Vbe ( self ) :
-    print "vbe of DpgenShifter not implemented"
+    print("vbe of DpgenShifter not implemented")

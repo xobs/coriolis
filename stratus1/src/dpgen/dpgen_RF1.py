@@ -136,15 +136,15 @@ class  top_rf1 ( Model ) :
     nbitu = 0
 
     if nword % 2 == 1 or nword > 32 or nword < 4 :
-      print "Error in DpgenRf1 : the word number must be even larger than 4 and no larger than 32\n"
+      print("Error in DpgenRf1 : the word number must be even larger than 4 and no larger than 32\n")
       sys.exit ( 3 )
     
     if nword == 4 and ( type == 2 or type == 3 ) :
-      print "Error in DpgenRf1 : the word number must be larger than 4\n"
+      print("Error in DpgenRf1 : the word number must be larger than 4\n")
       sys.exit ( 3 )
     
     if nbit % 2 == 1 or nbit > 64 or nbit < 2 :
-      print "Error in DpgenRf1 : the bit number must be even and no larger than 64\n"
+      print("Error in DpgenRf1 : the bit number must be even and no larger than 64\n")
       sys.exit ( 3 )
 
     adrange = 2
@@ -1363,7 +1363,7 @@ class  top_rf1 ( Model ) :
   ## VBE ##
   #########
   def Vbe ( self ) :
-    print "rf1 behavior not implemented"
+    print("rf1 behavior not implemented")
 
 
 

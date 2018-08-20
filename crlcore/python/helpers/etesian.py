@@ -1,7 +1,7 @@
 
 import Cfg
 
-print "          - Loading Mauka configuration."
+print("          - Loading Mauka configuration.")
   
 # Etesian parameters.
 Cfg.getParamPercentage("etesian.aspectRatio" ).setPercentage(100      )

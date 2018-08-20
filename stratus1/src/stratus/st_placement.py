@@ -569,11 +569,11 @@ class ClockBuffer :
     plugQ = inst.getPlug ( modelMasterCell.getNet ( "q" ) )
     plugQ.setNet ( self.ck_b._hur_net[0] )
     
-    plugGround = inst.getPlug ( iter(modelMasterCell.getGroundNets()).next() )
-    plugGround.setNet ( iter(self.cell._hur_cell.getGroundNets()).next() )
+    plugGround = inst.getPlug ( next(iter(modelMasterCell.getGroundNets())) )
+    plugGround.setNet ( next(iter(self.cell._hur_cell.getGroundNets())) )
 
-    plugPower = inst.getPlug ( iter(modelMasterCell.getPowerNets()).next() )
-    plugPower.setNet ( iter(self.cell._hur_cell.getPowerNets()).next() )
+    plugPower = inst.getPlug ( next(iter(modelMasterCell.getPowerNets())) )
+    plugPower.setNet ( next(iter(self.cell._hur_cell.getPowerNets())) )
 
   def AddFF ( self, netname ) :
     net = self.cell._hur_cell.getNet ( netname )

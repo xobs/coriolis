@@ -53,7 +53,7 @@ class Stimuli:
       if st_config.format == 'vhd' :
          fic = open(self._cell._name+'.txt', 'w')
          for stim in self._cell.Stimuli():
-            for val in stim.values():
+            for val in list(stim.values()):
                if not(isinstance(val[0],VddIn) or isinstance(val[0], VssIn)):
                   fic.write(str(val[1]) + " ")
             fic.write('\n')
@@ -65,7 +65,7 @@ class Stimuli:
       from patwrite import PatWrite
       pat = PatWrite(self._cell._name+'.pat',self._cell)
       # pat file interface
-      for port in self._connectors.values():
+      for port in list(self._connectors.values()):
          pat.declar(port[0])
       pat.pattern_begin()
 
@@ -74,7 +74,7 @@ class Stimuli:
          # write time and comment
          pat._f.write("< " + str(pat.current_time).rjust(10) +
                       " " + pat.time_unit + ">" + " : ")
-         for val in stim.values():
+         for val in list(stim.values()):
             strOut = ""
             if isinstance(val[0], SignalOut) or isinstance(val[0], SignalInOut): strOut = "?" 
             if val[1] == '-': strVal = '*'
@@ -98,12 +98,12 @@ class Stimuli:
      tb = open('%s_tb.vhd'%self._cell._name, 'w')
 
      if debug:
-      print('Testbench module ---------------------'
+      print(('Testbench module ---------------------'
            '--------------------------------------\n'
            ' - module name    : %s.vhd\n'
            ' - input file     : %s\n'
            ' - output file    : %s' 
-           % (name, infilename, outfilename))
+           % (name, infilename, outfilename)))
 
      # Libraries ---------------------------------------------------
      tb.write('library ieee;\n'
@@ -116,7 +116,7 @@ class Stimuli:
      tb.write('entity %s IS\n\n'
             '  port (\n' % name)
 
-     for signal in self._connectors.values():
+     for signal in list(self._connectors.values()):
         vector = ""
         if isinstance(signal[0],VddIn) or isinstance(signal[0],VssIn):
            del self._connectors[signal[0]._name]
@@ -187,7 +187,7 @@ class Stimuli:
             '      readline(infile, l);')
      # Description block
      # - read pattern values and affect them netlist
-     for n, c in self._connectors.iteritems():
+     for n, c in self._connectors.items():
         if c[0]._direct == 'IN':
           tb.write('      -- %s\n'
                   '      read(l, v_%s);\n'
@@ -266,9 +266,9 @@ class Stimuli:
       portmap = ""
 
       if debug:
-         print('Run module ---------------------------'
+         print(('Run module ---------------------------'
             '--------------------------------------\n'
-            ' - module name    : %s.vhd' % name)
+            ' - module name    : %s.vhd' % name))
 
       # Libraries ---------------------------------------------------
       run.write('library ieee;\n'

@@ -81,10 +81,10 @@ class Side ( object ):
         if checkSize % sliceHeight != 0:
           checkSize += sliceHeight - (checkSize % sliceHeight)
 
-        print ErrorMessage( 1, [ 'Chip is not %s enought to accomodate the %s,' % (sideName,checkName)
+        print(ErrorMessage( 1, [ 'Chip is not %s enought to accomodate the %s,' % (sideName,checkName)
                                , 'needs %dl, but only has %dl.'
                                  % ( DbU.toLambda(checkSize), DbU.toLambda(chipSize) )
-                               ] )
+                               ] ))
         return False
       return True
 
@@ -165,8 +165,8 @@ class Side ( object ):
                                                   , height
                                                   ) )
       if not connecteds:
-        print WarningMessage( 'Cannot find a suitable connector for <%s> on pad <%s>'
-                            % (net.getName(),pad.getName()) )
+        print(WarningMessage( 'Cannot find a suitable connector for <%s> on pad <%s>'
+                            % (net.getName(),pad.getName()) ))
 
       trace( 550, '-' )
       return
@@ -315,8 +315,8 @@ class Corona ( chip.Configuration.ChipConfWrapper ):
 
   def _locatePadRails ( self ):
     if not self.clockPad:
-      print ErrorMessage( 1, 'There must be at least one pad of model "%s" to guess the pad rails.' \
-                             % self.pckName )
+      print(ErrorMessage( 1, 'There must be at least one pad of model "%s" to guess the pad rails.' \
+                             % self.pckName ))
       return False
 
     for plug in self.clockPad.getPlugs():
@@ -332,7 +332,7 @@ class Corona ( chip.Configuration.ChipConfWrapper ):
       if not net:
         net = self.cell.getNet( masterNet.getName() )
         if not net:
-          print ErrorMessage( 1, 'Missing global net <%s> at chip level.' % masterNet.getName() )
+          print(ErrorMessage( 1, 'Missing global net <%s> at chip level.' % masterNet.getName() ))
           continue
 
       for component in masterNet.getExternalComponents():
@@ -357,8 +357,8 @@ class Corona ( chip.Configuration.ChipConfWrapper ):
 
   def _guessPadHvLayers ( self ):
     if not self.powerPad:
-      print ErrorMessage( 1, 'There must be at least one pad of model "%s" to guess the pad power terminals.' \
-                             % self.pvddick )
+      print(ErrorMessage( 1, 'There must be at least one pad of model "%s" to guess the pad power terminals.' \
+                             % self.pvddick ))
       return False
 
     availableDepths = set()

@@ -28,9 +28,9 @@ try:
   Cfg.getParamString('stratus1.simulator').setString('asimut')
   Cfg.Configuration.popDefaultPriority()
 
-  print '  o  Stratus Configuration:'
-  print '     - Netlist format: <%s>.' % Cfg.getParamString('stratus1.format').asString()
-  print '     - Simulator: <%s>.'      % Cfg.getParamString('stratus1.simulator').asString()
+  print('  o  Stratus Configuration:')
+  print('     - Netlist format: <%s>.' % Cfg.getParamString('stratus1.format').asString())
+  print('     - Simulator: <%s>.'      % Cfg.getParamString('stratus1.simulator').asString())
   
   from st_model         import *
   from st_net           import *
@@ -53,16 +53,16 @@ try:
   from util             import *
   
   from patterns         import *
-except ImportError, e:
+except ImportError as e:
   module = str(e).split()[-1]
 
-  print '[ERROR] The <%s> python module or symbol cannot be loaded.' % module
-  print '        Please check the integrity of the <coriolis> package.'
+  print('[ERROR] The <%s> python module or symbol cannot be loaded.' % module)
+  print('        Please check the integrity of the <coriolis> package.')
   sys.exit(1)
-except Exception, e:
-  print '[ERROR] A strange exception occurred while loading the basic Coriolis/Python'
-  print '        modules. Something may be wrong at Python/C API level.\n'
-  print '        %s' % e
+except Exception as e:
+  print('[ERROR] A strange exception occurred while loading the basic Coriolis/Python')
+  print('        modules. Something may be wrong at Python/C API level.\n')
+  print('        %s' % e)
   sys.exit(2)
 
 
@@ -78,11 +78,11 @@ def buildModel ( moduleName, flags, className=None, modelName=None, parameters={
       if not modelName: modelName = moduleName.lower()
 
       module = __import__( moduleName, globals(), locals(), className )
-      if not module.__dict__.has_key(className):
-          print '[ERROR] Stratus module <%s> do not contains a design named <%s>.' % (moduleName,className)
+      if className not in module.__dict__:
+          print('[ERROR] Stratus module <%s> do not contains a design named <%s>.' % (moduleName,className))
           sys.exit(1)
 
-      print '     - Generating Stratus Model <%s> (generator:<%s>).' % (modelName, className)
+      print('     - Generating Stratus Model <%s> (generator:<%s>).' % (modelName, className))
       model = module.__dict__[className](modelName,parameters)
       model.Interface()
 
@@ -94,18 +94,18 @@ def buildModel ( moduleName, flags, className=None, modelName=None, parameters={
       model.View(stopLevel, 'Model %s' % modelName)
       model.Save(LOGICAL|PHYSICAL)
 
-    except ImportError, e:
+    except ImportError as e:
       module = str(e).split()[-1]
 
-      print '[ERROR] The <%s> Stratus design cannot be loaded.' % module
-      print '        Please check your design hierarchy.'
-      print e
+      print('[ERROR] The <%s> Stratus design cannot be loaded.' % module)
+      print('        Please check your design hierarchy.')
+      print(e)
       sys.exit(1)
-    except Exception, e:
-      print '[ERROR] A strange exception occurred while loading the Stratus'
-      print '        design <%s>. Please check that module for error:\n' % moduleName
+    except Exception as e:
+      print('[ERROR] A strange exception occurred while loading the Stratus')
+      print('        design <%s>. Please check that module for error:\n' % moduleName)
       traceback.print_tb(sys.exc_info()[2])
-      print '        %s' % e
+      print('        %s' % e)
       sys.exit(2)
 
     framework = CRL.AllianceFramework.get()

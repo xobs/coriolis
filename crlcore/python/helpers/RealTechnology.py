@@ -47,7 +47,7 @@ def loadGdsLayers ( realLayersTable, confFile ):
             basicLayer.setRealName     ( realName )
             basicLayer.setExtractNumber( gdsiiExtractNumber )
 
-        except Exception, e:
+        except Exception as e:
             ErrorMessage.wrapPrint(e,'In %s:<realLayersTable> at index %d.' % (realFile,entryNo))
     return
 
@@ -61,7 +61,7 @@ def loadTechnoConfig (  technoConfig, confFile ):
     for key in [ 'gridUnit', 'gridValue', 'gridsPerLambda' ]:
         try:
             if key == 'gridUnit':
-                if technoConfig.has_key(key):
+                if key in technoConfig:
                     gridUnit = technoConfig[key]
                     if gridUnit != DbU.UnitPowerPico  and \
                        gridUnit != DbU.UnitPowerNano  and \
@@ -74,7 +74,7 @@ def loadTechnoConfig (  technoConfig, confFile ):
                     raise ErrorMessage(1,'<technoConfig> has no <gridUnit> defined, assuming Micro.')
 
             elif key == 'gridValue':
-                if technoConfig.has_key('gridValue'):
+                if 'gridValue' in technoConfig:
                     gridValue = technoConfig['gridValue']
                     if not isinstance(gridUnit,float) and not isinstance(gridUnit,int):
                         raise ErrorMessage(1,['In <technoConfig>, <gridValue> must be of type float (and not: %s).'
@@ -85,7 +85,7 @@ def loadTechnoConfig (  technoConfig, confFile ):
                     raise ErrorMessage(1,'<technoConfig> has no <gridValue> defined.')
     
             elif key == 'gridsPerLambda':
-                if technoConfig.has_key('gridsPerLambda'):
+                if 'gridsPerLambda' in technoConfig:
                     gridsPerLambda = technoConfig['gridsPerLambda']
                     if not isinstance(gridsPerLambda,int):
                         raise ErrorMessage(1,['In <technoConfig>, <gridsPerLambda> must be of type int (and not: %s).'
@@ -93,6 +93,6 @@ def loadTechnoConfig (  technoConfig, confFile ):
                                            ])
                     DbU.setGridsPerLambda(gridsPerLambda)
     
-        except Exception, e:
+        except Exception as e:
             ErrorMessage.wrapPrint(e)
     return

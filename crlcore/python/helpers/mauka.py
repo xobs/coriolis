@@ -1,7 +1,7 @@
 
 import Cfg
 
-print "          - Loading Mauka configuration."
+print("          - Loading Mauka configuration.")
   
 # Mauka parameters.
 Cfg.getParamPercentage("mauka.annealingBinMult" ).setPercentage(5      )

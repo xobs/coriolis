@@ -96,7 +96,7 @@ class ErrorMessage ( Exception ):
         return
 
     def terminate ( self ):
-        print self
+        print(self)
         sys.exit(self._code)
 
     def _getCode ( self ): return self._code
@@ -117,7 +117,7 @@ class ErrorMessage ( Exception ):
         else:
             ewrap = e
         if footer: ewrap.addMessage(footer)
-        print ewrap
+        print(ewrap)
         if showTrace: traceback.print_tb(sys.exc_info()[2])
         return
 
@@ -261,26 +261,26 @@ def initTechno ( quiet ):
   technoFiles.reverse()
   for technoFile in technoFiles:
     if os.path.isfile(technoFile):
-      if not quiet: print '          - Loading \"%s\".' % truncPath(technoFile)
-      execfile(technoFile,moduleGlobals)
+      if not quiet: print('          - Loading \"%s\".' % truncPath(technoFile))
+      exec(compile(open(technoFile).read(), technoFile, 'exec'),moduleGlobals)
       break
-  if moduleGlobals.has_key('symbolicTechnology'):
+  if 'symbolicTechnology' in moduleGlobals:
     symbolicTechno = symbolicTechnology
   else:
-    print '[WARNING] The symbolic technology name is not set. Using <%s>.' % symbolicTechno
-  if moduleGlobals.has_key('realTechnology'):
+    print('[WARNING] The symbolic technology name is not set. Using <%s>.' % symbolicTechno)
+  if 'realTechnology' in moduleGlobals:
     realTechno = realTechnology
   else:
-    print '[WARNING] The real technology name is not set. Using <%s>.' % realTechno
+    print('[WARNING] The real technology name is not set. Using <%s>.' % realTechno)
 
-  if moduleGlobals.has_key('NdaDirectory'):
+  if 'NdaDirectory' in moduleGlobals:
     ndaConfDir = os.path.join( NdaDirectory, 'etc/coriolis2' )
   else:
     ndaConfDir = sysConfDir
 
   symbolicDir = os.path.join( sysConfDir, symbolicTechno )
   realDir     = os.path.join( ndaConfDir, realTechno )
-  if not quiet: print '          - Technologies: %s+%s.' % (symbolicTechno,realTechno)
+  if not quiet: print('          - Technologies: %s+%s.' % (symbolicTechno,realTechno))
 
 
 def staticInitialization ( quiet=False ):
@@ -296,7 +296,7 @@ def staticInitialization ( quiet=False ):
   _trace = Trace()
   
   reSysConfDir = re.compile(r'.*etc\/coriolis2')
-  if not quiet: print '  o  Locating configuration directory:'
+  if not quiet: print('  o  Locating configuration directory:')
   
   for path in sys.path:
     if reSysConfDir.match(path):
@@ -314,6 +314,6 @@ def staticInitialization ( quiet=False ):
       raise ErrorMessage( 1, [ 'Cannot locate the directoty holding the configuration files.'
                              , 'The path is something ending by <.../etc/coriolis2>.'] )
   
-  if not quiet: print '     - <%s>' % sysConfDir
+  if not quiet: print('     - <%s>' % sysConfDir)
   initTechno( quiet )
   return

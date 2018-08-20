@@ -53,27 +53,27 @@ try:
   import Kite
   import Unicorn
   import plugins
-  import clocktree.ClockTree
-  import chip.Configuration
-  import chip.BlockPower
-  import chip.BlockCorona
-  import chip.PadsCorona
-except ImportError, e:
+  from . import clocktree.ClockTree
+  from . import chip.Configuration
+  from . import chip.BlockPower
+  from . import chip.BlockCorona
+  from . import chip.PadsCorona
+except ImportError as e:
   serror = str(e)
   if serror.startswith('No module named'):
     module = serror.split()[-1]
-    print '[ERROR] The <%s> python module or symbol cannot be loaded.' % module
-    print '        Please check the integrity of the <coriolis> package.'
+    print('[ERROR] The <%s> python module or symbol cannot be loaded.' % module)
+    print('        Please check the integrity of the <coriolis> package.')
   if str(e).find('cannot open shared object file'):
     library = serror.split(':')[0]
-    print '[ERROR] The <%s> shared library cannot be loaded.' % library
-    print '        Under RHEL 6, you must be under devtoolset-2.'
-    print '        (scl enable devtoolset-2 bash)'
+    print('[ERROR] The <%s> shared library cannot be loaded.' % library)
+    print('        Under RHEL 6, you must be under devtoolset-2.')
+    print('        (scl enable devtoolset-2 bash)')
   sys.exit(1)
-except Exception, e:
-  print '[ERROR] A strange exception occurred while loading the basic Coriolis/Python'
-  print '        modules. Something may be wrong at Python/C API level.\n'
-  print '        %s' % e
+except Exception as e:
+  print('[ERROR] A strange exception occurred while loading the basic Coriolis/Python')
+  print('        modules. Something may be wrong at Python/C API level.\n')
+  print('        %s' % e)
   sys.exit(2)
 
 
@@ -99,10 +99,10 @@ class PlaceCore ( chip.Configuration.ChipConfWrapper ):
          and coreAb.getHeight() <= self.coreSize.getHeight():
         self.coreSize = coreAb
       else:
-        print ErrorMessage( 1, [ 'Core %s already have an abutment box, bigger than the requested one:'
+        print(ErrorMessage( 1, [ 'Core %s already have an abutment box, bigger than the requested one:'
                                  % self.cores[0].getName()
                                , "       Cell abutment box: %s" % str(coreAb)
-                               , "    Maximum abutment box: %s" % str(self.coreSize) ] )
+                               , "    Maximum abutment box: %s" % str(self.coreSize) ] ))
         self.validated = False
 
     return self.validated
@@ -135,8 +135,8 @@ class PlaceCore ( chip.Configuration.ChipConfWrapper ):
       if plug.getInstance() == self.cores[0]:
         ckCore = plug.getMasterNet()
     if not ckCore:
-      print WarningMessage( 'Core <%s> is not connected to chip clock.'
-                            % self.cores[0].getName() )
+      print(WarningMessage( 'Core <%s> is not connected to chip clock.'
+                            % self.cores[0].getName() ))
 
     if self.useClockTree and ckCore:
       ht = clocktree.ClockTree.HTree.create( self, coreCell, ckCore, coreCell.getAbutmentBox() )
@@ -217,13 +217,13 @@ def ScriptMain ( **kw ):
     coreCorona.doLayout()
     if editor: editor.fit()
 
-  except ErrorMessage, e:
-    print e; errorCode = e.code
-    if     locals().has_key('editor') and editor \
-       and locals().has_key('cell'  ) and cell: editor.fit()
+  except ErrorMessage as e:
+    print(e); errorCode = e.code
+    if     'editor' in locals() and editor \
+       and 'cell' in locals() and cell: editor.fit()
     rvalue = False
-  except Exception, e:
-    print '\n\n', e; errorCode = 1
+  except Exception as e:
+    print('\n\n', e); errorCode = 1
     traceback.print_tb(sys.exc_info()[2])
     rvalue = False
 

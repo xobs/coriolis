@@ -26,18 +26,18 @@ from   CRL       import RoutingLayerGauge
 
 
 NoFlags           = 0000
-ShowWarnings      = 0001
-WarningsAreErrors = 0002
+ShowWarnings      = 0o001
+WarningsAreErrors = 0o002
 
 
 
 def  kwParseMain ( **kw ):
     cell = None
-    if kw.has_key('cell') and kw['cell']:
+    if 'cell' in kw and kw['cell']:
       cell = kw['cell']
 
     editor = None
-    if kw.has_key('editor') and kw['editor']:
+    if 'editor' in kw and kw['editor']:
       editor = kw['editor']
       if cell == None: cell = editor.getCell()
 
@@ -93,7 +93,7 @@ class CheckUnplaced ( object ):
         error = ErrorMessage( 3, message )
       
         if self.flags & WarningsAreErrors: raise error
-        else:                              print error
+        else:                              print(error)
     return self.unplaceds
 
 
@@ -120,7 +120,7 @@ class StackedVia ( object ):
 
     def mergeDepth ( self, depth ):
       if self._hasLayout:
-        print WarningMessage( 'StackedVia.mergeDepth(): Cannot be called *after* StackVia.doLayout()' )
+        print(WarningMessage( 'StackedVia.mergeDepth(): Cannot be called *after* StackVia.doLayout()' ))
         return
       if depth < self._bottomDepth: self._bottomDepth = depth
       if depth > self._topDepth:    self._topDepth    = depth

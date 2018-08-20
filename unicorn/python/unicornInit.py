@@ -21,31 +21,31 @@ try:
   from   helpers   import ErrorMessage
   from   helpers   import WarningMessage
   import Viewer
-except ImportError, e:
+except ImportError as e:
   serror = str(e)
   if serror.startswith('No module named'):
     module = serror.split()[-1]
-    print '[ERROR] The <%s> python module or symbol cannot be loaded.' % module
-    print '        Please check the integrity of the <coriolis> package.'
+    print('[ERROR] The <%s> python module or symbol cannot be loaded.' % module)
+    print('        Please check the integrity of the <coriolis> package.')
   if str(e).find('cannot open shared object file'):
     library = serror.split(':')[0]
-    print '[ERROR] The <%s> shared library cannot be loaded.' % library
-    print '        Under RHEL 6, you must be under devtoolset-2.'
-    print '        (scl enable devtoolset-2 bash)'
+    print('[ERROR] The <%s> shared library cannot be loaded.' % library)
+    print('        Under RHEL 6, you must be under devtoolset-2.')
+    print('        (scl enable devtoolset-2 bash)')
   sys.exit(1)
-except Exception, e:
-  print '[ERROR] A strange exception occurred while loading the basic Coriolis/Python'
-  print '        modules. Something may be wrong at Python/C API level.\n'
-  print '        %s' % e
+except Exception as e:
+  print('[ERROR] A strange exception occurred while loading the basic Coriolis/Python')
+  print('        modules. Something may be wrong at Python/C API level.\n')
+  print('        %s' % e)
   sys.exit(2)
 
 
 def unicornConfigure ( **kw ):
     editor = None
-    if kw.has_key('editor'):
+    if 'editor' in kw:
         editor = kw['editor']
     else:
-        print ErrorMessage( 3, 'unicornConfigure.py: Must be run from a CellView derived class.' )
+        print(ErrorMessage( 3, 'unicornConfigure.py: Must be run from a CellView derived class.' ))
         return
 
     cumulusDir = None
@@ -53,18 +53,18 @@ def unicornConfigure ( **kw ):
       if path.endswith('/cumulus'):
         cumulusDir = path
     if not cumulusDir:
-        print ErrorMessage( 3, 'unicornConfigure.py: Cannot find <cumulus> in PYTHONPATH.' )
+        print(ErrorMessage( 3, 'unicornConfigure.py: Cannot find <cumulus> in PYTHONPATH.' ))
         return
 
     pluginsDir = os.path.join( cumulusDir, 'plugins' )
     if not os.path.isdir(pluginsDir):
-        print ErrorMessage( 3, 'unicornConfigure.py: Cannot find <cumulus/plugins> directory:' \
-                             , '<%s>' % pluginsDir )
+        print(ErrorMessage( 3, 'unicornConfigure.py: Cannot find <cumulus/plugins> directory:' \
+                             , '<%s>' % pluginsDir ))
         return
     sys.path.append( pluginsDir )
       
     if editor.hasMenu( 'plugins' ):
-        print WarningMessage( 'The <plugins> menu has already been created.' )
+        print(WarningMessage( 'The <plugins> menu has already been created.' ))
         return
 
     editor.addMenu( 'plugins', 'Plu&gins', Viewer.CellViewer.TopMenu )
@@ -77,17 +77,17 @@ def unicornConfigure ( **kw ):
       try:
         module = __import__( moduleName, globals(), locals(), moduleName )
 
-        if not module.__dict__.has_key('unicornHook'):
-          print WarningMessage( 'Plugin <%s> do not provides the unicornHook() method, skipped.' \
-                                 % moduleName )
+        if 'unicornHook' not in module.__dict__:
+          print(WarningMessage( 'Plugin <%s> do not provides the unicornHook() method, skipped.' \
+                                 % moduleName ))
           continue
 
         module.__dict__['unicornHook']( **kw )
-      except ErrorMessage, e:
-        print e
-      except Exception, e:
-        print ErrorMessage( 3, 'Plugin <%s> cannot be loaded, see message below:' % moduleName )
-        print e
+      except ErrorMessage as e:
+        print(e)
+      except Exception as e:
+        print(ErrorMessage( 3, 'Plugin <%s> cannot be loaded, see message below:' % moduleName ))
+        print(e)
         traceback.print_tb(sys.exc_info()[2])
 
     return

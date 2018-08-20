@@ -56,22 +56,22 @@ try:
   from   chip.Configuration import destroyNetComponents
   from   chip.Configuration import GaugeConf
   from   chip.Configuration import GaugeConfWrapper
-except ImportError, e:
+except ImportError as e:
   serror = str(e)
   if serror.startswith('No module named'):
     module = serror.split()[-1]
-    print '[ERROR] The <%s> python module or symbol cannot be loaded.' % module
-    print '        Please check the integrity of the <coriolis> package.'
+    print('[ERROR] The <%s> python module or symbol cannot be loaded.' % module)
+    print('        Please check the integrity of the <coriolis> package.')
   if str(e).find('cannot open shared object file'):
     library = serror.split(':')[0]
-    print '[ERROR] The <%s> shared library cannot be loaded.' % library
-    print '        Under RHEL 6, you must be under devtoolset-2.'
-    print '        (scl enable devtoolset-2 bash)'
+    print('[ERROR] The <%s> shared library cannot be loaded.' % library)
+    print('        Under RHEL 6, you must be under devtoolset-2.')
+    print('        (scl enable devtoolset-2 bash)')
   sys.exit(1)
-except Exception, e:
-  print '[ERROR] A strange exception occurred while loading the basic Coriolis/Python'
-  print '        modules. Something may be wrong at Python/C API level.\n'
-  print '        %s' % e
+except Exception as e:
+  print('[ERROR] A strange exception occurred while loading the basic Coriolis/Python')
+  print('        modules. Something may be wrong at Python/C API level.\n')
+  print('        %s' % e)
   sys.exit(2)
 
 
@@ -87,13 +87,13 @@ class HTree ( GaugeConfWrapper ):
                              % aspectRatio )
 
     ht = HTree( conf, cell, clockNet, clockBox )
-    print '  o  Creating Clock H-Tree for <%s>.' % cell.getName()
+    print('  o  Creating Clock H-Tree for <%s>.' % cell.getName())
     ht.build()
     trace( 550, '\tht.build() OK\n' )
     ht.place()
     trace( 550, '\tht.place() OK\n' )
    #ht.route()
-    print '     - H-Tree depth: %d' % ht.getTreeDepth()
+    print('     - H-Tree depth: %d' % ht.getTreeDepth())
     trace( 550, '\tusedVTracks: %s\n' % str(ht.usedVTracks) )
     return ht
 
@@ -582,9 +582,9 @@ def computeAbutmentBox ( cell, spaceMargin, aspectRatio, cellGauge ):
   if math.trunc(columns) != columns: columns = math.trunc(columns) + 1
   else:                              columns = math.trunc(columns)
 
-  print '  o  Creating abutment box (margin:%.1f%%, aspect ratio:%.1f%%, g-length:%.1fl)' \
-      % (spaceMargin*100.0,aspectRatio*100.0,(cellLength/sliceHeight))
-  print '     - GCell grid: [%dx%d]' % (columns,rows)
+  print('  o  Creating abutment box (margin:%.1f%%, aspect ratio:%.1f%%, g-length:%.1fl)' \
+      % (spaceMargin*100.0,aspectRatio*100.0,(cellLength/sliceHeight)))
+  print('     - GCell grid: [%dx%d]' % (columns,rows))
 
   UpdateSession.open()
   abutmentBox =  Box( DbU.fromLambda(0)

@@ -1,7 +1,7 @@
 
 import Cfg
 
-print "          - Loading Stratus 1 configuration."
+print("          - Loading Stratus 1 configuration.")
   
 # Status1 parameters.
 Cfg.getParamString("stratus1.mappingName").setString ("./stratus2sxlib.xml" )

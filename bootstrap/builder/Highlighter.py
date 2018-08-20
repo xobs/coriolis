@@ -73,7 +73,7 @@ class Highlighter ( QSyntaxHighlighter ):
     for rule in Highlighter.Rules:
       m = rule[2].match(line)
       if m:
-        if m.groupdict().has_key('percent'):
+        if 'percent' in m.groupdict():
           self.setFormat( 7, len(line), rule[3] )
         else:
           self.setFormat( 0, len(line), rule[3] )
