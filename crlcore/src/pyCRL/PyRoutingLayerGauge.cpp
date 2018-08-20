@@ -91,21 +91,21 @@ extern "C" {
                         , &obsDw
                         )) {
       if ( not PyObject_IsInstance(pyLayer,(PyObject*)&PyTypeLayer) ) {
-        PyErr_SetString ( ConstructorError, "Bad type for layer argument of RoutingLayerGauge.create()." );
+        PyErr_SetString ( PyExc_RuntimeError, "Bad type for layer argument of RoutingLayerGauge.create()." );
         return NULL;
       }
       switch( direction ) {
         case Constant::Horizontal:
         case Constant::Vertical: break;
         default:
-          PyErr_SetString ( ConstructorError, "Bad value for direction argument of RoutingLayerGauge.create()." );
+          PyErr_SetString ( PyExc_RuntimeError, "Bad value for direction argument of RoutingLayerGauge.create()." );
           return NULL;
       }
       switch( type ) {
         case Constant::Default:
         case Constant::PinOnly: break;
         default:
-          PyErr_SetString ( ConstructorError, "Bad value for type argument of RoutingLayerGauge.create()." );
+          PyErr_SetString ( PyExc_RuntimeError, "Bad value for type argument of RoutingLayerGauge.create()." );
           return NULL;
       }
 
@@ -121,7 +121,7 @@ extern "C" {
                                      , obsDw
                                      );
     } else {
-      PyErr_SetString ( ConstructorError, "Bad parameters given to RoutingLayerGauge.create()." );
+      PyErr_SetString ( PyExc_RuntimeError, "Bad parameters given to RoutingLayerGauge.create()." );
       return NULL;
     }
 
