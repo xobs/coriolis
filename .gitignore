@@ -14,6 +14,7 @@ man/
 rtf/
 html/
 latex/
+build/
 
 bootstrap/coriolis2.spec
 
