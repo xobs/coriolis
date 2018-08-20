@@ -14,7 +14,7 @@ find_package(Bootstrap REQUIRED)
                                   
  set_cmake_policies()
  set_lib_link_mode()
- setup_boost(program_options filesystem python regex)
+ setup_boost(program_options filesystem python3 regex)
  setup_qt()
  
  find_package(PythonLibs         REQUIRED)

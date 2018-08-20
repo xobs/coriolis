@@ -20,7 +20,7 @@ find_package(Bootstrap  REQUIRED)
  
  set_cmake_policies()
  set_lib_link_mode()
- setup_boost(program_options python regex)
+ setup_boost(program_options python3 regex)
  
  find_package(PythonLibs         REQUIRED)
  find_package(PythonSitePackages REQUIRED)

@@ -17,7 +17,7 @@
 
  set_cmake_policies()
  set_lib_link_mode()
- setup_boost(program_options filesystem regex python)
+ setup_boost(program_options filesystem regex python3)
  setup_qt()
 
  find_package(PythonLibs         REQUIRED)

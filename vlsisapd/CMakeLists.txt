@@ -12,7 +12,7 @@
 
  message(STATUS "Boost_NO_SYSTEM_PATHS: ${Boost_NO_SYSTEM_PATHS}")
  set_cmake_policies()
- setup_boost(program_options python regex)
+ setup_boost(program_options python3 regex)
 
  find_package(LibXml2 REQUIRED)
  find_package(PythonSitePackages REQUIRED)

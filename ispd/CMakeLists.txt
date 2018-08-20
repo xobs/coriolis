@@ -17,7 +17,7 @@
  set_cmake_policies()
  set_lib_link_mode()
 #setup_apple()
- setup_boost(program_options filesystem python regex)
+ setup_boost(program_options filesystem python3 regex)
  
  find_package(LibXml2 REQUIRED)
  set(QT_USE_QTXML "true")
