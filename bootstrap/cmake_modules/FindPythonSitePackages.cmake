@@ -3,9 +3,9 @@ if(UNIX)
  # This way avoids newline in the script string.
   set(SCRIPT            "import os.path,distutils.sysconfig")
   set(SCRIPT "${SCRIPT}; pathes = distutils.sysconfig.get_python_lib().split('/')")
-  set(SCRIPT "${SCRIPT}; print os.path.join(pathes[-2],pathes[-1])")
+  set(SCRIPT "${SCRIPT}; print(os.path.join(pathes[-2],pathes[-1]))")
  
-  execute_process(COMMAND "python" "-c" "${SCRIPT}"
+  execute_process(COMMAND "python3" "-c" "${SCRIPT}"
                   RESULT_VARIABLE RETURN_CODE
                   OUTPUT_VARIABLE PYTHON_SITE_PACKAGES
                   OUTPUT_STRIP_TRAILING_WHITESPACE
