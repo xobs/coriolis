@@ -138,6 +138,7 @@ namespace Isobar {
 
     if (_pyResult == NULL) {
       cerr << "Something has gone slightly wrong" << endl;
+      PyErr_Print();
     }
 
     if (PyErr_Occurred()) {
@@ -169,6 +170,7 @@ namespace Isobar {
 
     if (_pyResult == NULL) {
       cerr << "Something has gone slightly wrong" << endl;
+      PyErr_Print();
       return NULL;
     }
 
