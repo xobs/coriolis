@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 #
 # This file is part of the Coriolis Software.
 # Copyright (c) UPMC/LIP6 2008-2012, All Rights Reserved
@@ -590,7 +590,7 @@ class Model :
     
     file = open ( fileName, "w+" )
     
-    file.write ( "#!/usr/bin/python\n\n" )
+    file.write ( "#!/usr/bin/env python3\n\n" )
     file.write ( "from stratus import *\n\n" )
 
     file.write ( "class %s ( Model ) :\n\n" % nom )

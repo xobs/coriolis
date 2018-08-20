@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 #
 # This file is part of the Coriolis Software.
 # Copyright (c) UPMC 2008-2016, All Rights Reserved

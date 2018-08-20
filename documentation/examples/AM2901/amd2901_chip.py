@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 
 chip = { 'pads.south'     : [ 'p_a3'  , 'p_a2', 'p_a1', 'p_r0', 'p_vddick0', 'p_vssick0', 'p_a0'     , 'p_i6', 'p_i8' , 'p_i7'  , 'p_r3' ]
