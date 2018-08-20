@@ -43,7 +43,7 @@ extern "C" {
   extern  PyObject* PyToolEngine_Link           ( ToolEngine* object );
   extern  void      PyToolEngine_LinkPyType     ();
 
-# define IsPyToolEngine(v)    ( (v)->ob_type == &PyTypeToolEngine )
+# define IsPyToolEngine(v)    ( Py_TYPE(v) == &PyTypeToolEngine )
 # define PYTOOLENGINE(v)      ( (PyToolEngine*)(v) )
 # define PYTOOLENGINE_O(v)    ( PYTOOLENGINE(v)->_object )
 

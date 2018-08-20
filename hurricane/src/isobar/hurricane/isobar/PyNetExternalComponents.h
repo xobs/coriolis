@@ -43,7 +43,7 @@ extern "C" {
   extern void  PyNetExternalComponents_LinkPyType  ();
 
 
-#define IsPyNetExternalComponents(v)   ( (v)->ob_type == &PyTypeNetExternalComponents )
+#define IsPyNetExternalComponents(v)   ( Py_TYPE(v) == &PyTypeNetExternalComponents )
 #define PYNETEXTERNALCOMPONENTS(v)     ( (PyNetExternalComponents*)(v) )
 #define PYNETEXTERNALCOMPONENTS_O(v)   ( PY_NET_EXTERNAL_COMPONENTS(v)->_object )
 

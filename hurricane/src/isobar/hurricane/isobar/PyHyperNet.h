@@ -44,7 +44,7 @@ namespace  Isobar {
     extern void      PyHyperNet_LinkPyType();
 
 
-#define IsPyHyperNet(v)    ( (v)->ob_type == &PyTypeHyperNet )
+#define IsPyHyperNet(v)    ( Py_TYPE(v) == &PyTypeHyperNet )
 #define PYHYPERNET(v)      ( (PyHyperNet*)(v) )
 #define PYHYPERNET_O(v)    ( PYHYPERNET(v)->_object )
 

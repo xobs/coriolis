@@ -44,7 +44,7 @@ extern "C" {
   extern  void          PyBlif_LinkPyType();
 
 
-#define IsPyBlif(v)    ( (v)->ob_type == &PyTypeBlif )
+#define IsPyBlif(v)    ( Py_TYPE(v) == &PyTypeBlif )
 #define PY_BLIF(v)     ( (PyBlif*)(v) )
 
 

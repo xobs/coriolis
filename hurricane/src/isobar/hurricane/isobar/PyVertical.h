@@ -43,7 +43,7 @@ namespace  Isobar {
     extern  void      PyVertical_LinkPyType ();
 
 
-#define IsPyVertical(v) ((v)->ob_type == &PyTypeVertical)
+#define IsPyVertical(v) (Py_TYPE(v) == &PyTypeVertical)
 #define PYVERTICAL(v)   ((PyVertical*)(v))
 #define PYVERTICAL_O(v) (PYVERTICAL(v)->_baseObject._baseObject._baseObject._object)
 

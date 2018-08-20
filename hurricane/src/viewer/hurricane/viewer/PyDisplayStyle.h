@@ -48,7 +48,7 @@ extern "C" {
   extern  void      PyDisplayStyle_postModuleInit ();
 
 
-#define IsPyDisplayStyle(v)   ( (v)->ob_type == &PyTypeDisplayStyle )
+#define IsPyDisplayStyle(v)   ( Py_TYPE(v) == &PyTypeDisplayStyle )
 #define PYDISPLAY_STYLE(v)    ( (PyDisplayStyle*)(v) )
 #define PYDISPLAY_STYLE_O(v)  ( PYDISPLAY_STYLE(v)->_object )
 

@@ -352,7 +352,7 @@ extern "C" {
   // PyLayer Object Definitions.
 
   PyTypeObject  PyTypeLayerMask =
-    { PyObject_HEAD_INIT(NULL)
+    { PyVarObject_HEAD_INIT(NULL, 0)
       "Hurricane.Layer.Mask"          /* tp_name.          */
     , sizeof(PyLayerMask)             /* tp_basicsize.     */
     , 0                               /* tp_itemsize.      */

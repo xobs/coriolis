@@ -47,7 +47,7 @@ extern "C" {
   extern  void      PyGraphics_LinkPyType ();
 
 
-#define IsPyGraphics(v)  ( (v)->ob_type == &PyTypeGraphics )
+#define IsPyGraphics(v)  ( Py_TYPE(v) == &PyTypeGraphics )
 #define PYGRAPHICS(v)    ( (PyGraphics*)(v) )
 #define PYGRAPHICS_O(v)  ( PYGRAPHICS(v)->_object )
 

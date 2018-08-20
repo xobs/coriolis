@@ -47,7 +47,7 @@ namespace  Isobar {
     extern  void      PyLibrary_LinkPyType ();
 
 
-#define IsPyLibrary(v) ( (v)->ob_type == &PyTypeLibrary )
+#define IsPyLibrary(v) ( Py_TYPE(v) == &PyTypeLibrary )
 #define PYLIBRARY(v)   ( (PyLibrary*)(v) )
 #define PYLIBRARY_O(v) ( PYLIBRARY(v)->_object )
 

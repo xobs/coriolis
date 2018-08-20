@@ -44,7 +44,7 @@ extern "C" {
   extern  void          PyAcmSigda_LinkPyType();
 
 
-#define IsPyAcmSigda(v)     ( (v)->ob_type == &PyTypeAcmSigda )
+#define IsPyAcmSigda(v)     ( Py_TYPE(v) == &PyTypeAcmSigda )
 #define PY_ACM_SIGDA(v)     ( (PyAcmSigda*)(v) )
 
 

@@ -46,7 +46,7 @@ extern "C" {
   extern  void      PyHApplication_LinkPyType ();
 
 
-#define IsPyHApplication(v)   ( (v)->ob_type == &PyTypeHApplication )
+#define IsPyHApplication(v)   ( Py_TYPE(v) == &PyTypeHApplication )
 #define PY_HAPPLICATION(v)    ( (PyHApplication*)(v) )
 #define PY_HAPPLICATION_O(v)  ( PY_HAPPLICATION(v)->_object )
 

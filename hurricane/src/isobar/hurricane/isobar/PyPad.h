@@ -44,7 +44,7 @@ namespace  Isobar {
     extern  void      PyPad_LinkPyType ();
 
 
-#define IsPyPad(v)    ( (v)->ob_type == &PyTypePad )
+#define IsPyPad(v)    ( Py_TYPE(v) == &PyTypePad )
 #define PYPAD(v)      ( (PyPad*)(v) )
 #define PYPAD_O(v)    ( PYPAD(v)->_baseObject._baseObject._object )
 

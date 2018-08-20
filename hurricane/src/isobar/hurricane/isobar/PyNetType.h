@@ -47,7 +47,7 @@ namespace  Isobar {
     extern void      PyNetType_postModuleInit ();
 
 
-# define IsPyNetType(v)     ( (v)->ob_type == &PyTypeNetType )
+# define IsPyNetType(v)     ( Py_TYPE(v) == &PyTypeNetType )
 # define PYNETTYPE(v)       ( (PyNetType*)(v) )
 # define PYNETTYPE_O(v)     ( PYNETTYPE(v)->_object )
 

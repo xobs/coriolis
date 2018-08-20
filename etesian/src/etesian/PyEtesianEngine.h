@@ -47,7 +47,7 @@ extern "C" {
   extern  void      PyEtesianEngine_postModuleInit ();
 
 
-#define IsPyEtesianEngine(v)  ( (v)->ob_type == &PyTypeEtesianEngine )
+#define IsPyEtesianEngine(v)  ( Py_TYPE(v) == &PyTypeEtesianEngine )
 #define PYETESIANENGINE(v)    ( (PyEtesianEngine*)(v) )
 #define PYETESIANENGINE_O(v)  ( PYETESIANENGINE(v)->_baseObject._object )
 

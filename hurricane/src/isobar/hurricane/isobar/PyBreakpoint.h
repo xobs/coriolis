@@ -54,7 +54,7 @@ extern "C" {
   extern void  PyBreakpoint_LinkPyType  ();
 
 
-#define IsPyBreakpoint(v)   ( (v)->ob_type == &PyTypeBreakpoint )
+#define IsPyBreakpoint(v)   ( Py_TYPE(v) == &PyTypeBreakpoint )
 #define PYBREAKPOINT(v)     ( (PyBreakpoint*)(v) )
 #define PYBREAKPOINT_O(v)   ( PY_BREAKPOINT(v)->_object )
 

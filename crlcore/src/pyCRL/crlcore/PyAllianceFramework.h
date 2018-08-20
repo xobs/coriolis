@@ -47,7 +47,7 @@ extern "C" {
   extern  void      PyAllianceFramework_postModuleInit ();
 
 
-#define IsPyAllianceFramework(v)  ( (v)->ob_type == &PyTypeAllianceFramework )
+#define IsPyAllianceFramework(v)  ( Py_TYPE(v) == &PyTypeAllianceFramework )
 #define PYALLIANCEFRAMEWORK(v)    ( (PyAllianceFramework*)(v) )
 #define PYALLIANCEFRAMEWORK_O(v)  ( PYALLIANCEFRAMEWORK(v)->_object )
 

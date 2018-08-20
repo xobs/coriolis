@@ -73,7 +73,7 @@ extern "C" {
   extern  void      PyBasicLayer_LinkPyType     ();
   extern  void      PyBasicLayer_postModuleInit ();
 
-# define IsPyBasicLayer(v)    ( (v)->ob_type == &PyTypeBasicLayer )
+# define IsPyBasicLayer(v)    ( Py_TYPE(v) == &PyTypeBasicLayer )
 # define PYBASICLAYER(v)      ( (PyBasicLayer*)(v) )
 # define PYBASICLAYER_O(v)    ( dynamic_cast<BasicLayer*>(PYBASICLAYER(v)->_baseObject._object) )
 

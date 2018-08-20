@@ -44,7 +44,7 @@ extern "C" {
   extern  void  PyGraphicEtesianEngine_LinkPyType ();
 
 
-#define IsPyGraphicEtesianEngine(v)    ( (v)->ob_type == &PyTypeGraphicEtesianEngine )
+#define IsPyGraphicEtesianEngine(v)    ( Py_TYPE(v) == &PyTypeGraphicEtesianEngine )
 #define PY_GRAPHIC_ETESIAN_ENGINE(v)   ( (PyGraphicEtesianEngine*)(v) )
 #define PY_GRAPHIC_ETESIAN_ENGINE_O(v) ( PY_GRAPHIC_ETESIAN_ENGINE(v)->_baseObject._object )
 

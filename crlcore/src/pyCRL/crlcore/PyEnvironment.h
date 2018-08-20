@@ -48,7 +48,7 @@ extern "C" {
   extern  void      PyEnvironment_postModuleInit ();
 
 
-#define IsPyEnvironment(v)   ( (v)->ob_type == &PyTypeEnvironment )
+#define IsPyEnvironment(v)   ( Py_TYPE(v) == &PyTypeEnvironment )
 #define PYENVIRONMENT(v)     ( (PyEnvironment*)(v) )
 #define PYENVIRONMENT_O(v)   ( PYENVIRONMENT(v)->_object )
 

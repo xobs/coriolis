@@ -45,7 +45,7 @@ namespace  Isobar {
   extern  PyMethodDef   PyEntity_Methods[];
 
 
-#define IsPyEntity(v)    ( (v)->ob_type == &PyTypeEntity )
+#define IsPyEntity(v)    ( Py_TYPE(v) == &PyTypeEntity )
 #define PYENTITY(v)      ( (PyEntity*)(v) )
 #define PYENTITY_O(v)    ( PYENTITY(v)->_object )
 

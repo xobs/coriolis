@@ -47,7 +47,7 @@ namespace  Isobar {
     extern void      PyNetDirection_postModuleInit ();
 
 
-# define IsPyNetDirection(v)    ( (v)->ob_type == &PyTypeNetDirection )
+# define IsPyNetDirection(v)    ( Py_TYPE(v) == &PyTypeNetDirection )
 # define PYNETDIRECTION(v)      ( (PyNetDirection*)(v) )
 # define PYNETDIRECTION_O(v)    ( PYNETDIRECTION(v)->_object )
 

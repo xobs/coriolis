@@ -44,7 +44,7 @@ namespace  Isobar {
     extern void          PyInterval_LinkPyType ();
 
 
-#define IsPyInterval(v)    ( (v)->ob_type == &PyTypeInterval )
+#define IsPyInterval(v)    ( Py_TYPE(v) == &PyTypeInterval )
 #define PYINTERVAL(v)      ( (PyInterval*)(v) )
 #define PYINTERVAL_O(v)    ( PYINTERVAL(v)->_object )
 

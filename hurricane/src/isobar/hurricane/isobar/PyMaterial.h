@@ -74,7 +74,7 @@ extern "C" {
   extern  void      PyMaterial_LinkPyType     ();
   extern  void      PyMaterial_postModuleInit ();
 
-# define IsPyMaterial(v)    ( (v)->ob_type == &PyTypeMaterial )
+# define IsPyMaterial(v)    ( Py_TYPE(v) == &PyTypeMaterial )
 # define PYMATERIAL(v)      ( (PyMaterial*)(v) )
 # define PYMATERIAL_O(v)    ( PYMATERIAL(v)->_object )
 

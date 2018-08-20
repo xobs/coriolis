@@ -47,7 +47,7 @@ extern "C" {
   extern  void      PyHSVr_LinkPyType ();
 
 
-#define IsPyHSVr(v)  ( (v)->ob_type == &PyTypeHSVr )
+#define IsPyHSVr(v)  ( Py_TYPE(v) == &PyTypeHSVr )
 #define PYHSVR(v)    ( (PyHSVr*)(v) )
 #define PYHSVR_O(v)  ( PYHSVR(v)->_object )
 

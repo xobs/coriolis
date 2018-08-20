@@ -46,7 +46,7 @@ namespace  Isobar {
     extern void      PyTransformation_postModuleInit ();
 
 
-# define IsPyTransformation(v)    ( (v)->ob_type == &PyTypeTransformation )
+# define IsPyTransformation(v)    ( Py_TYPE(v) == &PyTypeTransformation )
 # define PYTRANSFORMATION(v)      ( (PyTransformation*)(v) )
 # define PYTRANSFORMATION_O(v)    ( PYTRANSFORMATION(v)->_object )
 

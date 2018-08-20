@@ -44,7 +44,7 @@ extern "C" {
   extern  void  PyGraphicMaukaEngine_LinkPyType ();
 
 
-#define IsPyGraphicMaukaEngine(v)     ( (v)->ob_type == &PyTypeGraphicMaukaEngine )
+#define IsPyGraphicMaukaEngine(v)     ( Py_TYPE(v) == &PyTypeGraphicMaukaEngine )
 #define PY_GRAPHIC_MAUKA_ENGINE(v)    ( (PyGraphicMaukaEngine*)(v) )
 #define PY_GRAPHIC_MAUKA_ENGINE_O(v)  ( PY_GRAPHIC_MAUKA_ENGINE(v)->_baseObject.object )
 

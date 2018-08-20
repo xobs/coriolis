@@ -72,7 +72,7 @@ extern "C" {
   extern  PyObject* PyContactLayer_Link       ( Hurricane::ContactLayer* object );
   extern  void      PyContactLayer_LinkPyType ();
 
-# define IsPyContactLayer(v)    ( (v)->ob_type == &PyTypeContactLayer )
+# define IsPyContactLayer(v)    ( Py_TYPE(v) == &PyTypeContactLayer )
 # define PYCONTACTLAYER(v)      ( (PyContactLayer*)(v) )
 # define PYCONTACTLAYER_O(v)    ( dynamic_cast<ContactLayer*>(PYCONTACTLAYER(v)->_baseObject._object) )
 

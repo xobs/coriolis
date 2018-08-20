@@ -48,7 +48,7 @@ namespace  Isobar {
   extern  void      PyInstance_postModuleInit ();
 
 
-#define IsPyInstance(v) ((v)->ob_type == &PyTypeInstance )
+#define IsPyInstance(v) (Py_TYPE(v) == &PyTypeInstance )
 #define PYINSTANCE(v)   ((PyInstance*)(v) )
 #define PYINSTANCE_O(v) (static_cast<Instance*>(PYINSTANCE(v)->_baseObject._object))
 

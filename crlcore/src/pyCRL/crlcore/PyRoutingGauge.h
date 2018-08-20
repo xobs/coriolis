@@ -50,7 +50,7 @@ extern "C" {
   extern  void      PyRoutingGauge_postModuleInit ();
 
 
-#define IsPyRoutingGauge(v)   ( (v)->ob_type == &PyTypeRoutingGauge )
+#define IsPyRoutingGauge(v)   ( Py_TYPE(v) == &PyTypeRoutingGauge )
 #define PYROUTINGGAUGE(v)     ( (PyRoutingGauge*)(v) )
 #define PYROUTINGGAUGE_O(v)   ( PYROUTINGGAUGE(v)->_object )
 

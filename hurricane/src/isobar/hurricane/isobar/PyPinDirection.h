@@ -47,7 +47,7 @@ namespace  Isobar {
     extern void      PyPinDirection_postModuleInit ();
 
 
-# define IsPyPinDirection(v)    ( (v)->ob_type == &PyTypePinDirection )
+# define IsPyPinDirection(v)    ( Py_TYPE(v) == &PyTypePinDirection )
 # define PYPINDIRECTION(v)      ( (PyPinDirection*)(v) )
 # define PYPINDIRECTION_O(v)    ( PYPINDIRECTION(v)->_object )
 

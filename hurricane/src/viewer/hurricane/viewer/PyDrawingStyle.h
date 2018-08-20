@@ -47,7 +47,7 @@ extern "C" {
   extern  void      PyRawDrawingStyle_LinkPyType ();
 
 
-#define IsPyRawDrawingStyle(v)  ( (v)->ob_type == &PyTypeRawDrawingStyle )
+#define IsPyRawDrawingStyle(v)  ( Py_TYPE(v) == &PyTypeRawDrawingStyle )
 #define PYRAWDRAWINGSTYLE(v)    ( (PyRawDrawingStyle*)(v) )
 #define PYRAWDRAWINGSTYLE_O(v)  ( PYRAWDRAWINGSTYLE(v)->_object )
 

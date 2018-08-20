@@ -47,7 +47,7 @@ namespace  Isobar {
     extern void      PyPinPlacementStatus_postModuleInit ();
 
 
-# define IsPyPinPlacementStatus(v)    ( (v)->ob_type == &PyTypePinPlacementStatus )
+# define IsPyPinPlacementStatus(v)    ( Py_TYPE(v) == &PyTypePinPlacementStatus )
 # define PYPINPLACEMENTSTATUS(v)      ( (PyPinPlacementStatus*)(v) )
 # define PYPINPLACEMENTSTATUS_O(v)    ( PYPINPLACEMENTSTATUS(v)->_object )
 

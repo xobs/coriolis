@@ -46,7 +46,7 @@ extern "C" {
   extern  void      PyAllianceLibrary_LinkPyType     ();
 
 
-#define IsPyAllianceLibrary(v)    ( (v)->ob_type == &PyTypeAllianceLibrary )
+#define IsPyAllianceLibrary(v)    ( Py_TYPE(v) == &PyTypeAllianceLibrary )
 #define PYALLIANCE_LIBRARY(v)     ( (PyAllianceLibrary*)(v) )
 #define PYALLIANCE_LIBRARY_O(v)   ( PYALLIANCE_LIBRARY(v)->_object )
 

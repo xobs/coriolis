@@ -47,7 +47,7 @@ extern "C" {
   extern  void      PyDrawingGroup_LinkPyType ();
 
 
-#define IsPyDrawingGroup(v)  ( (v)->ob_type == &PyTypeDrawingGroup )
+#define IsPyDrawingGroup(v)  ( Py_TYPE(v) == &PyTypeDrawingGroup )
 #define PYDRAWINGGROUP(v)    ( (PyDrawingGroup*)(v) )
 #define PYDRAWINGGROUP_O(v)  ( PYDRAWINGGROUP(v)->_object )
 

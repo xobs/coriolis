@@ -44,7 +44,7 @@ extern "C" {
   extern  void  PyGraphicKiteEngine_LinkPyType ();
 
 
-#define IsPyGraphicKiteEngine(v)    ( (v)->ob_type == &PyTypeGraphicKiteEngine )
+#define IsPyGraphicKiteEngine(v)    ( Py_TYPE(v) == &PyTypeGraphicKiteEngine )
 #define PY_GRAPHIC_KITE_ENGINE(v)   ( (PyGraphicKiteEngine*)(v) )
 #define PY_GRAPHIC_KITE_ENGINE_O(v) ( PY_GRAPHIC_KITE_ENGINE(v)->_baseObject._object )
 

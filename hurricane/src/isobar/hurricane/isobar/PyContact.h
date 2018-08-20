@@ -43,7 +43,7 @@ namespace  Isobar {
     extern void      PyContact_LinkPyType ();
 
 
-#define IsPyContact(v)    ( (v)->ob_type == &PyTypeContact )
+#define IsPyContact(v)    ( Py_TYPE(v) == &PyTypeContact )
 #define PYCONTACT(v)      ( (PyContact*)(v) )
 #define PYCONTACT_O(v)    ( PYCONTACT(v)->_baseObject._baseObject._object )
 

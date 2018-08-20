@@ -44,7 +44,7 @@ namespace  Isobar {
 
 
 
-#define IsPyHorizontal(v)    ( (v)->ob_type == &PyTypeHorizontal )
+#define IsPyHorizontal(v)    ( Py_TYPE(v) == &PyTypeHorizontal )
 #define PYHORIZONTAL(v)      ( (PyHorizontal*)(v) )
 #define PYHORIZONTAL_O(v)    ( PYHORIZONTAL(v)->_baseObject._baseObject._baseObject._object )
 

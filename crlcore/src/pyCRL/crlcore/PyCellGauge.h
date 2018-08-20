@@ -48,7 +48,7 @@ extern "C" {
   extern  void      PyCellGauge_postModuleInit ();
 
 
-#define IsPyCellGauge(v)   ( (v)->ob_type == &PyTypeCellGauge )
+#define IsPyCellGauge(v)   ( Py_TYPE(v) == &PyTypeCellGauge )
 #define PYCELLGAUGE(v)     ( (PyCellGauge*)(v) )
 #define PYCELLGAUGE_O(v)   ( PYCELLGAUGE(v)->_object )
 

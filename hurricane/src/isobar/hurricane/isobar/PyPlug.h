@@ -8,7 +8,7 @@
 // Main contributors :
 //        Christophe Alexandre   <Christophe.Alexandre@lip6.fr>
 //        Sophie Belloeil             <Sophie.Belloeil@lip6.fr>
-//        Hugo Clément                   <Hugo.Clement@lip6.fr>
+//        Hugo Clï¿½ment                   <Hugo.Clement@lip6.fr>
 //        Jean-Paul Chaput           <Jean-Paul.Chaput@lip6.fr>
 //        Damien Dupuis                 <Damien.Dupuis@lip6.fr>
 //        Christian Masson           <Christian.Masson@lip6.fr>
@@ -88,7 +88,7 @@ extern "C" {
   extern  void      PyPlug_LinkPyType ();
 
 
-# define IsPyPlug(v)    ( (v)->ob_type == &PyTypePlug )
+# define IsPyPlug(v)    ( Py_TYPE(v) == &PyTypePlug )
 # define PYPLUG(v)      ( (PyPlug*)(v) )
 # define PYPLUG_O(v)    ( PYPLUG(v)->_baseObject._baseObject._object )
 

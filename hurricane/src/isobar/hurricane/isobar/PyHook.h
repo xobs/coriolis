@@ -44,7 +44,7 @@ extern "C" {
 
   extern  void      PyHook_LinkPyType     ();
 
-#define IsPyHook(v)    ( (v)->ob_type == &PyTypeHook )
+#define IsPyHook(v)    ( Py_TYPE(v) == &PyTypeHook )
 #define PYHOOK(v)      ( (PyHook*)(v) )
 #define PYHOOK_O(v)    ( PYHOOK(v)->_object )
 

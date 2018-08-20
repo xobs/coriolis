@@ -44,7 +44,7 @@ namespace  Isobar {
     extern  void      PyCell_LinkPyType ();
   
 
-#define IsPyCell(v)    ((v)->ob_type == &PyTypeCell)
+#define IsPyCell(v)    (Py_TYPE(v) == &PyTypeCell)
 #define PYCELL(v)      ((PyCell*)(v))
 #define PYCELL_O(v)    (static_cast<Cell*>(PYCELL(v)->_baseObject._object))
 

@@ -56,7 +56,7 @@ extern "C" {
   extern  void      PyCatalogState_postModuleInit ();
 
 
-#define IsPyCatalogState(v)  ( (v)->ob_type == &PyTypeCatalogState )
+#define IsPyCatalogState(v)  ( Py_TYPE(v) == &PyTypeCatalogState )
 #define PYCATALOGSTATE(v)    ( (PyCatalogState*)(v) )
 #define PYCATALOGSTATE_O(v)  ( PYCATALOGSTATE(v)->_object )
 

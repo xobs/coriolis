@@ -46,7 +46,7 @@ namespace  Isobar {
 
 
 
-#define IsPyNet(v) ((v)->ob_type == &PyTypeNet)
+#define IsPyNet(v) (Py_TYPE(v) == &PyTypeNet)
 #define PYNET(v)   ((PyNet*)(v))
 #define PYNET_O(v) (dynamic_cast<Net*>(PYNET(v)->_baseObject._object))
 

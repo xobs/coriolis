@@ -46,7 +46,7 @@ extern "C" {
   extern  void      PyNimbusEngine_LinkPyType ();
 
 
-#define IsPyNimbusEngine(v)    ( (v)->ob_type == &PyTypeNimbusEngine )
+#define IsPyNimbusEngine(v)    ( Py_TYPE(v) == &PyTypeNimbusEngine )
 #define PY_NIMBUS_ENGINE(v)    ( (PyNimbusEngine*)(v) )
 #define PY_NIMBUS_ENGINE_O(v)  ( PY_NIMBUS_ENGINE(v)->_baseObject._object )
 

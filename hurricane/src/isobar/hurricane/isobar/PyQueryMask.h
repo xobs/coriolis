@@ -73,7 +73,7 @@ extern "C" {
   extern  PyObject* PyQueryMask_Link       ( const Query::Mask& object );
   extern  void      PyQueryMask_LinkPyType ();
 
-# define IsPyQueryMask(v)    ( (v)->ob_type == &PyTypeQueryMask )
+# define IsPyQueryMask(v)    ( Py_TYPE(v) == &PyTypeQueryMask )
 # define PYQUERYMASK(v)      ( (PyQueryMask*)(v) )
 # define PYQUERYMASK_O(v)    ( PYQUERYMASK(v)->_object )
 

@@ -43,7 +43,7 @@ namespace Isobar {
     extern  void      PyPath_LinkPyType ();
 
 
-#define IsPyPath(v)    ( (v)->ob_type == &PyTypePath )
+#define IsPyPath(v)    ( Py_TYPE(v) == &PyTypePath )
 #define PYPATH(v)      ( (PyPath*)(v) )
 #define PYPATH_O(v)    ( PYPATH(v)->_object )
 

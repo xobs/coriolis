@@ -72,7 +72,7 @@ extern "C" {
   extern  PyObject* PyDiffusionLayer_Link       ( Hurricane::DiffusionLayer* object );
   extern  void      PyDiffusionLayer_LinkPyType ();
 
-# define IsPyDiffusionLayer(v)    ( (v)->ob_type == &PyTypeDiffusionLayer )
+# define IsPyDiffusionLayer(v)    ( Py_TYPE(v) == &PyTypeDiffusionLayer )
 # define PYDIFFUSIONLAYER(v)      ( (PyDiffusionLayer*)(v) )
 # define PYDIFFUSIONLAYER_O(v)    ( dynamic_cast<DiffusionLayer*>(PYDIFFUSIONLAYER(v)->_baseObject._object) )
 

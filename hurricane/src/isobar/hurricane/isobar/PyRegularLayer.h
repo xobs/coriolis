@@ -72,7 +72,7 @@ extern "C" {
   extern  PyObject* PyRegularLayer_Link       ( Hurricane::RegularLayer* object );
   extern  void      PyRegularLayer_LinkPyType ();
 
-# define IsPyRegularLayer(v)    ( (v)->ob_type == &PyTypeRegularLayer )
+# define IsPyRegularLayer(v)    ( Py_TYPE(v) == &PyTypeRegularLayer )
 # define PYREGULARLAYER(v)      ( (PyRegularLayer*)(v) )
 # define PYREGULARLAYER_O(v)    ( dynamic_cast<RegularLayer*>(PYREGULARLAYER(v)->_baseObject._object) )
 

@@ -47,7 +47,7 @@ extern "C" {
   extern void      PyCellViewer_postModuleInit ();
 
 
-#define  IsPyCellViewer(v)      ( (v)->ob_type == &PyTypeCellViewer )
+#define  IsPyCellViewer(v)      ( Py_TYPE(v) == &PyTypeCellViewer )
 #define  PYCELLVIEWER(v)        ( (PyCellViewer*)(v) )
 #define  PYCELLVIEWER_O(v)      ( PYCELLVIEWER(v)->_object )
 

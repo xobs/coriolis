@@ -46,7 +46,7 @@ extern "C" {
   extern  void      PySmurfEngine_LinkPyType ();
 
 
-#define IsPySmurfEngine(v)  ( (v)->ob_type == &PyTypeSmurfEngine )
+#define IsPySmurfEngine(v)  ( Py_TYPE(v) == &PyTypeSmurfEngine )
 #define PYSMURFENGINE(v)    ( (PySmurfEngine*)(v) )
 #define PYSMURFENGINE_O(v)  ( PYSMURFENGINE(v)->_baseObject._object )
 

@@ -44,7 +44,7 @@ extern "C" {
   extern  void          PyGraphicTool_LinkPyType ();
 
 
-#define IsPyGraphicTool(v)    ( (v)->ob_type == &PyTypeGraphicTool )
+#define IsPyGraphicTool(v)    ( Py_TYPE(v) == &PyTypeGraphicTool )
 #define PY_GRAPHIC_TOOL(v)    ( (PyGraphicTool*)(v) )
 #define PY_GRAPHIC_TOOL_O(v)  ( PY_GRAPHIC_TOOL(v)->_object )
 

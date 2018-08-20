@@ -43,7 +43,7 @@ namespace  Isobar {
     extern  void      PyOccurrence_LinkPyType ();
 
 
-#define IsPyOccurrence(v)    ( (v)->ob_type == &PyTypeOccurrence )
+#define IsPyOccurrence(v)    ( Py_TYPE(v) == &PyTypeOccurrence )
 #define PYOCCURRENCE(v)      ( (PyOccurrence*)(v) )
 #define PYOCCURRENCE_O(v)    ( PYOCCURRENCE(v)->_object )
 

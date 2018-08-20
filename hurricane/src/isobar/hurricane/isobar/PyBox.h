@@ -43,7 +43,7 @@ namespace  Isobar {
     extern void      PyBox_LinkPyType ();
 
 
-#define IsPyBox(v)    ( (v)->ob_type == &PyTypeBox )
+#define IsPyBox(v)    ( Py_TYPE(v) == &PyTypeBox )
 #define PYBOX(v)      ( (PyBox*)(v) )
 #define PYBOX_O(v)    ( PYBOX(v)->_object )
 

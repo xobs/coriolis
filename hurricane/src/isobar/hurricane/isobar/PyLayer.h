@@ -47,7 +47,7 @@ extern "C" {
   extern  void      PyLayer_LinkPyType     ();
   extern  void      PyLayer_postModuleInit ();
 
-# define IsPyLayer(v)    ( (v)->ob_type == &PyTypeLayer )
+# define IsPyLayer(v)    ( Py_TYPE(v) == &PyTypeLayer )
 # define PYLAYER(v)      ( (PyLayer*)(v) )
 # define PYLAYER_O(v)    ( PYLAYER(v)->_object )
 

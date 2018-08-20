@@ -73,7 +73,7 @@ extern "C" {
   extern  PyObject* PyLayerMask_Link       ( const Layer::Mask& object );
   extern  void      PyLayerMask_LinkPyType ();
 
-# define IsPyLayerMask(v)    ( (v)->ob_type == &PyTypeLayerMask )
+# define IsPyLayerMask(v)    ( Py_TYPE(v) == &PyTypeLayerMask )
 # define PYLAYERMASK(v)      ( (PyLayerMask*)(v) )
 # define PYLAYERMASK_O(v)    ( PYLAYERMASK(v)->_object )
 

@@ -48,7 +48,7 @@ extern "C" {
   extern  void      PyRoutingLayerGauge_postModuleInit ();
 
 
-#define IsPyRoutingLayerGauge(v)   ( (v)->ob_type == &PyTypeRoutingLayerGauge )
+#define IsPyRoutingLayerGauge(v)   ( Py_TYPE(v) == &PyTypeRoutingLayerGauge )
 #define PYROUTINGLAYERGAUGE(v)     ( (PyRoutingLayerGauge*)(v) )
 #define PYROUTINGLAYERGAUGE_O(v)   ( PYROUTINGLAYERGAUGE(v)->_object )
 

@@ -45,7 +45,7 @@ namespace Isobar {
 
 
 
-#define IsPyReference(v) ((v)->ob_type == &PyTypeReference )
+#define IsPyReference(v) (Py_TYPE(v) == &PyTypeReference )
 #define PYREFERENCE(v)   ((PyReference*)(v) )
 #define PYREFERENCE_O(v) (PYREFERENCE(v)->_baseObject._object)
 

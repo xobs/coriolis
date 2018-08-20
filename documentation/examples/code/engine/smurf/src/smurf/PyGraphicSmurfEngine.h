@@ -44,7 +44,7 @@ extern "C" {
   extern  void  PyGraphicSmurfEngine_LinkPyType ();
 
 
-#define IsPyGraphicSmurfEngine(v)    ( (v)->ob_type == &PyTypeGraphicSmurfEngine )
+#define IsPyGraphicSmurfEngine(v)    ( Py_TYPE(v) == &PyTypeGraphicSmurfEngine )
 #define PY_GRAPHIC_SMURF_ENGINE(v)   ( (PyGraphicSmurfEngine*)(v) )
 #define PY_GRAPHIC_SMURF_ENGINE_O(v) ( PY_GRAPHIC_SMURF_ENGINE(v)->_baseObject._object )
 

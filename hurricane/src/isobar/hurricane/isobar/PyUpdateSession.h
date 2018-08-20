@@ -42,7 +42,7 @@ namespace  Isobar {
     extern void  PyUpdateSession_LinkPyType  ();
 
 
-#define IsPyUpdateSession(v)   ( (v)->ob_type == &PyTypeUpdateSession )
+#define IsPyUpdateSession(v)   ( Py_TYPE(v) == &PyTypeUpdateSession )
 #define PYUPDATESESSION(v)     ( (PyUpdateSession*)(v) )
 #define PYUPDATESESSION_O(v)   ( PY_UPDATE_SESSION(v)->_object )
 

@@ -47,7 +47,7 @@ extern "C" {
   extern  void          PyMaukaEngine_LinkPyType ();
 
 
-#define IsPyMaukaEngine(v)  ( (v)->ob_type == &PyTypeMaukaEngine )
+#define IsPyMaukaEngine(v)  ( Py_TYPE(v) == &PyTypeMaukaEngine )
 #define PYMAUKAENGINE(v)    ( (PyMaukaEngine*)(v) )
 #define PYMAUKAENGINE_O(v)  ( PYMAUKAENGINE(v)->_baseObject._object )
 

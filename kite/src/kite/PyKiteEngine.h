@@ -46,7 +46,7 @@ extern "C" {
   extern  void      PyKiteEngine_LinkPyType ();
 
 
-#define IsPyKiteEngine(v)  ( (v)->ob_type == &PyTypeKiteEngine )
+#define IsPyKiteEngine(v)  ( Py_TYPE(v) == &PyTypeKiteEngine )
 #define PYKITEENGINE(v)    ( (PyKiteEngine*)(v) )
 #define PYKITEENGINE_O(v)  ( PYKITEENGINE(v)->_baseObject._object )
 

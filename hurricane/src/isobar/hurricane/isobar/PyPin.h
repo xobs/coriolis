@@ -44,7 +44,7 @@ namespace  Isobar {
     extern  void      PyPin_postModuleInit ();
 
 
-# define IsPyPin(v)    ( (v)->ob_type == &PyTypePin )
+# define IsPyPin(v)    ( Py_TYPE(v) == &PyTypePin )
 # define PYPIN(v)      ( (PyPin*)(v) )
 # define PYPIN_O(v)    ( PYPIN(v)->_baseObject._baseObject._baseObject._object )
 

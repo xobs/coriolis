@@ -352,7 +352,7 @@ extern "C" {
   // PyQuery Object Definitions.
 
   PyTypeObject  PyTypeQueryMask =
-    { PyObject_HEAD_INIT(NULL)
+    { PyVarObject_HEAD_INIT(NULL, 0)
       "Hurricane.Query.Mask"          /* tp_name.          */
     , sizeof(PyQueryMask)             /* tp_basicsize.     */
     , 0                               /* tp_itemsize.      */

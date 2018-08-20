@@ -46,7 +46,7 @@ extern "C" {
   extern  void      PyMetisEngine_LinkPyType ();
 
 
-#define IsPyMetisEngine(v)    ( (v)->ob_type == &PyTypeMetisEngine )
+#define IsPyMetisEngine(v)    ( Py_TYPE(v) == &PyTypeMetisEngine )
 #define PY_METIS_ENGINE(v)    ( (PyMetisEngine*)(v) )
 #define PY_METIS_ENGINE_O(v)  ( PY_METIS_ENGINE(v)->_baseObject._object )
 

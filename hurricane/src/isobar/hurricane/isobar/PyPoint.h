@@ -43,7 +43,7 @@ namespace  Isobar {
     extern  void      PyPoint_LinkPyType();
 
 
-# define IsPyPoint(v)    ( (v)->ob_type == &PyTypePoint )
+# define IsPyPoint(v)    ( Py_TYPE(v) == &PyTypePoint )
 # define PYPOINT(v)      ( (PyPoint*)(v) )
 # define PYPOINT_O(v)    ( PYPOINT(v)->_object )
 

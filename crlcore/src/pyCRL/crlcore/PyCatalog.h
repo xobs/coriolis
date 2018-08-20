@@ -56,7 +56,7 @@ extern "C" {
   extern  void      PyCatalog_postModuleInit ();
 
 
-#define IsPyCatalog(v)  ( (v)->ob_type == &PyTypeCatalog )
+#define IsPyCatalog(v)  ( Py_TYPE(v) == &PyTypeCatalog )
 #define PYCATALOG(v)    ( (PyCatalog*)(v) )
 #define PYCATALOG_O(v)  ( PYCATALOG(v)->_object )
 

@@ -46,7 +46,7 @@ extern "C" {
   extern  void      PyRoutingPad_postModuleInit ();
 
 
-#define IsPyRoutingPad(v)    ( (v)->ob_type == &PyTypeRoutingPad )
+#define IsPyRoutingPad(v)    ( Py_TYPE(v) == &PyTypeRoutingPad )
 #define PYROUTINGPAD(v)      ( (PyRoutingPad*)(v) )
 #define PYROUTINGPAD_O(v)    ( PYROUTINGPAD(v)->_baseObject._baseObject._object )
 

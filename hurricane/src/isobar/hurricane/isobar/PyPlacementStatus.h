@@ -45,7 +45,7 @@ namespace  Isobar {
     extern  void      PyPlacementStatus_postModuleInit ();
 
 
-#define IsPyPlacementStatus(v)  ( (v)->ob_type == &PyTypePlacementStatus )
+#define IsPyPlacementStatus(v)  ( Py_TYPE(v) == &PyTypePlacementStatus )
 #define PYPLACEMENTSTATUS(v)    ( (PyPlacementStatus*)(v) )
 #define PYPLACEMENTSTATUS_O(v)  ( PYPLACEMENTSTATUS(v)->_object )
 

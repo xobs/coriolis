@@ -47,7 +47,7 @@ namespace  Isobar {
     extern  void      PyQuery_LinkPyType     ();
     extern  void      PyQuery_postModuleInit ();
 
-#define IsPyQuery(v)    ( (v)->ob_type == &PyTypeQuery )
+#define IsPyQuery(v)    ( Py_TYPE(v) == &PyTypeQuery )
 #define PYQUERY(v)      ( (PyQuery*)(v) )
 #define PYQUERY_O(v)    ( PYQUERY(v)->_object )
 

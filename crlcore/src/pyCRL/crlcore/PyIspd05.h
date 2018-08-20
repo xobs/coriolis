@@ -42,7 +42,7 @@ extern "C" {
   extern  void          PyIspd05_LinkPyType();
 
 
-#define IsPyIspd05(v)     ( (v)->ob_type == &PyTypeIspd05 )
+#define IsPyIspd05(v)     ( Py_TYPE(v) == &PyTypeIspd05 )
 #define PY_ISPD05(v)      ( (PyIspd05*)(v) )
 
 

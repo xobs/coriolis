@@ -47,7 +47,7 @@ extern "C" {
   extern  void      PyBanner_LinkPyType ();
 
 
-#define IsPyBanner(v)   ( (v)->ob_type == &PyTypeBanner )
+#define IsPyBanner(v)   ( Py_TYPE(v) == &PyTypeBanner )
 #define PY_BANNER(v)    ( (PyBanner*)(v) )
 #define PY_BANNER_O(v)  ( PYBANNER(v)->_object )
 

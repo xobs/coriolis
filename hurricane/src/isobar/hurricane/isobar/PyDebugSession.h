@@ -42,7 +42,7 @@ namespace  Isobar {
     extern void  PyDebugSession_LinkPyType  ();
 
 
-#define IsPyDebugSession(v)   ( (v)->ob_type == &PyTypeDebugSession )
+#define IsPyDebugSession(v)   ( Py_TYPE(v) == &PyTypeDebugSession )
 #define PYDEBUGSESSION(v)     ( (PyDebugSession*)(v) )
 #define PYDEBUGSESSION_O(v)   ( PY_UPDATE_SESSION(v)->_object )
 

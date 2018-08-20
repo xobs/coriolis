@@ -72,7 +72,7 @@ extern "C" {
   extern  PyObject* PyTransistorLayer_Link       ( Hurricane::TransistorLayer* object );
   extern  void      PyTransistorLayer_LinkPyType ();
 
-# define IsPyTransistorLayer(v)    ( (v)->ob_type == &PyTypeTransistorLayer )
+# define IsPyTransistorLayer(v)    ( Py_TYPE(v) == &PyTypeTransistorLayer )
 # define PYTRANSISTORLAYER(v)      ( (PyTransistorLayer*)(v) )
 # define PYTRANSISTORLAYER_O(v)    ( dynamic_cast<TransistorLayer*>(PYTRANSISTORLAYER(v)->_baseObject._object) )
 

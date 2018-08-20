@@ -45,7 +45,7 @@ namespace Unicorn {
     extern  void          PyUnicornGui_LinkPyType ();
 
 
-#define IsPyUnicornGui(v)    ( (v)->ob_type == &PyTypeUnicornGui )
+#define IsPyUnicornGui(v)    ( Py_TYPE(v) == &PyTypeUnicornGui )
 #define PY_UNICORN_GUI(v)    ( (PyUnicornGui*)(v) )
 #define PY_UNICORN_GUI_O(v)  ( PY_UNICORN_GUI(v)->_baseObject._object )
 

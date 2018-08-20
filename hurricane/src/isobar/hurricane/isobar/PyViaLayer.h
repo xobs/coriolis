@@ -72,7 +72,7 @@ extern "C" {
   extern  PyObject* PyViaLayer_Link       ( Hurricane::ViaLayer* object );
   extern  void      PyViaLayer_LinkPyType ();
 
-# define IsPyViaLayer(v)    ( (v)->ob_type == &PyTypeViaLayer )
+# define IsPyViaLayer(v)    ( Py_TYPE(v) == &PyTypeViaLayer )
 # define PYVIALAYER(v)      ( (PyViaLayer*)(v) )
 # define PYVIALAYER_O(v)    ( dynamic_cast<ViaLayer*>(PYVIALAYER(v)->_baseObject._object) )
 

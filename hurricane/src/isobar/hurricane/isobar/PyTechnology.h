@@ -8,7 +8,7 @@
 // Main contributors :
 //        Christophe Alexandre   <Christophe.Alexandre@lip6.fr>
 //        Sophie Belloeil             <Sophie.Belloeil@lip6.fr>
-//        Hugo Clément                   <Hugo.Clement@lip6.fr>
+//        Hugo Clï¿½ment                   <Hugo.Clement@lip6.fr>
 //        Jean-Paul Chaput           <Jean-Paul.Chaput@lip6.fr>
 //        Damien Dupuis                 <Damien.Dupuis@lip6.fr>
 //        Christian Masson           <Christian.Masson@lip6.fr>
@@ -80,7 +80,7 @@ extern "C" {
   extern  PyObject* PyTechnology_Link       ( Hurricane::Technology* object );
   extern  void      PyTechnology_LinkPyType ();
 
-# define IsPyTechnology(v)    ( (v)->ob_type == &PyTypeTechnology )
+# define IsPyTechnology(v)    ( Py_TYPE(v) == &PyTypeTechnology )
 # define PYTECHNOLOGY(v)      ( (PyTechnology*)(v) )
 # define PYTECHNOLOGY_O(v)    ( PYTECHNOLOGY(v)->_object )
 

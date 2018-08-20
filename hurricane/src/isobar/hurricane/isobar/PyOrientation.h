@@ -45,7 +45,7 @@ namespace  Isobar {
     extern  void      PyOrientation_postModuleInit ();
 
 
-#define IsPyOrientation(v)  ( (v)->ob_type == &PyTypeOrientation )
+#define IsPyOrientation(v)  ( Py_TYPE(v) == &PyTypeOrientation )
 #define PYORIENTATION(v)    ( (PyOrientation*)(v) )
 #define PYORIENTATION_O(v)  ( PYORIENTATION(v)->_object )
 

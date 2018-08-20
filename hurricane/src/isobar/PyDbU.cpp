@@ -8,7 +8,7 @@
 // Main contributors :
 //        Christophe Alexandre   <Christophe.Alexandre@lip6.fr>
 //        Sophie Belloeil             <Sophie.Belloeil@lip6.fr>
-//        Hugo Clément                   <Hugo.Clement@lip6.fr>
+//        Hugo Clï¿½ment                   <Hugo.Clement@lip6.fr>
 //        Jean-Paul Chaput           <Jean-Paul.Chaput@lip6.fr>
 //        Damien Dupuis                 <Damien.Dupuis@lip6.fr>
 //        Christian Masson           <Christian.Masson@lip6.fr>
@@ -546,7 +546,7 @@ extern "C" {
 
 
   PyTypeObject  PyTypeDbU =
-    { PyObject_HEAD_INIT(NULL)
+    { PyVarObject_HEAD_INIT(NULL, 0)
       "Hurricane.DbU"                         /* tp_name.          */
     , sizeof(PyDbU)                           /* tp_basicsize.     */
     , 0                                       /* tp_itemsize.      */
