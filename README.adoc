@@ -33,9 +33,9 @@ version.
 
 On Ubuntu 18.04, install the necessary packages:
 
-`sh
+````sh
 sudo apt install cmake libxml2-dev python3-dev libboost-python-dev libboost-program-options-dev libboost-regex-dev libboost-wave-dev libqt4-dev liblemon-dev libbz2-dev rapidjson-dev
-`
+````
 
 Build order:
 
