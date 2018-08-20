@@ -111,7 +111,7 @@ namespace Hurricane {
 // DataBase implementation
 // ****************************************************************************************************
 
-DataBase* DataBase::_db = NULL;
+static DataBase* _current_db = NULL;
 
 
 DataBase::DataBase()
@@ -120,7 +120,7 @@ DataBase::DataBase()
     _technology(NULL),
     _rootLibrary(NULL)
 {
-    if (_db)
+    if (_current_db)
         throw Error("Can't create " + _TName("DataBase") + " : already exists");
 }
 
@@ -140,7 +140,7 @@ void DataBase::_postCreate()
   Init::runOnce();
   Inherit::_postCreate();
 
-  _db = this;
+  _current_db = this;
 }
 
 void DataBase::_preDestroy()
@@ -153,7 +153,7 @@ void DataBase::_preDestroy()
     if (_technology) _technology->destroy();
     UpdateSession::close();
 
-    _db = NULL;
+    _current_db = NULL;
 }
 
 string DataBase::_getString() const
@@ -179,7 +179,9 @@ Record* DataBase::_getRecord() const
 DataBase* DataBase::getDB()
 // ************************
 {
-    return _db;
+    if (!_current_db)
+      create();
+    return _current_db;
 }
 
 Library* DataBase::getLibrary(string rpath, unsigned int flags)
