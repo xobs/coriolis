@@ -209,7 +209,7 @@ class Environment ( object ):
               libPath, mode = libraryEntry
               self.mbkEnv['MBK_CATA_LIB'].add( libPath, mode )
     
-        except Exception, e:
+        except Exception as e:
             ErrorMessage.wrapPrint(e,'In %s:<Alliance> at index %d.' % (allianceFile,entryNo))
 
       self.mbkEnv[ 'LD_LIBRARY_PATH' ] = self.mbkEnv[ 'ALLIANCE_TOP' ] + '/lib'
@@ -224,7 +224,7 @@ class Environment ( object ):
       env = os.environ
       for key in self.mbkEnv.keys():
         if not self.mbkEnv[key]:
-          print WarningMessage( 'Environment variable <%s> is not set.' % key )
+          print(WarningMessage( 'Environment variable <%s> is not set.' % key ))
           continue
         env[ key ] = str(self.mbkEnv[ key ])
       return env
@@ -312,7 +312,7 @@ class ReportLog ( object ):
       while True:
           self._reportFile = "./%s-%s-%02d.log" % (self._reportBase,timeTag,index)
           if not os.path.isfile(self._reportFile):
-              print "Report log: <%s>" % self._reportFile
+              print("Report log: <%s>" % self._reportFile)
               break
           index += 1
       return
@@ -351,28 +351,28 @@ def staticInitialization ():
   symbol         = 'allianceConfig'
   
   if not os.path.isfile(confFile):
-    print '[ERROR] Missing mandatory Coriolis2 system file:'
-    print '        <%s>' % confFile
+    print('[ERROR] Missing mandatory Coriolis2 system file:')
+    print('        <%s>' % confFile)
     sys.exit( 1 )
   
   try:
-    print '     o  Running configuration hook: Alliance.staticInitialization().'
-    print '        - Loading \"%s\".' % helpers.truncPath(confFile)
+    print('     o  Running configuration hook: Alliance.staticInitialization().')
+    print('        - Loading \"%s\".' % helpers.truncPath(confFile))
     execfile( confFile, moduleGlobals )
-  except Exception, e:
-    print '[ERROR] An exception occured while loading the configuration file:'
-    print '        <%s>\n' % (confFile)
-    print '        You should check for simple python errors in this file.'
-    print '        Error was:'
-    print '        %s\n' % e
+  except Exception as e:
+    print('[ERROR] An exception occured while loading the configuration file:')
+    print('        <%s>\n' % (confFile))
+    print('        You should check for simple python errors in this file.')
+    print('        Error was:')
+    print('        %s\n' % e)
     sys.exit( 1 )
   
   if moduleGlobals.has_key(symbol):
     env.load( moduleGlobals[symbol], confFile )
     del moduleGlobals[symbol]
   else:
-    print '[ERROR] Mandatory symbol <%s> is missing in system configuration file:' % symbol
-    print '        <%s>' % confFile
+    print('[ERROR] Mandatory symbol <%s> is missing in system configuration file:' % symbol)
+    print('        <%s>' % confFile)
     sys.exit( 1 )
 
   print
@@ -451,7 +451,7 @@ class Node ( EnvironmentWrapper ):
       if self._dependencies == []:
         raise ErrorMessage( 1, 'Node.setDefaultTargetName(): node is neither used nor have dependencies.' )
       self.setTarget( self.getDependency(0)._targetName+'_'+self.toolName.lower() )
-      print WarningMessage( 'Node.setDefaultTargetName(): Node is not affected, using: <%s>' % self.targetName )
+      print(WarningMessage( 'Node.setDefaultTargetName(): Node is not affected, using: <%s>' % self.targetName ))
       return
 
     def addDependency ( self, dependency ):
@@ -491,20 +491,20 @@ class Node ( EnvironmentWrapper ):
                                  % (self.fileName,self._targetName) )
         if errorMessage:
           print
-          for line in errorMessage: print line
+          for line in errorMessage: print(line)
         if hardStop:
           raise error
         else:
-          print error
+          print(error)
       return
 
     def isUptodate ( self ):
       depsMTime = 0
-     #print '    Target: %-30s %d' % (self.fileName, self.mtime)
+     #print('    Target: %-30s %d' % (self.fileName, self.mtime))
       for dependency in self.getDependencies():
         dependency.checkFile()
         depsMTime = max( depsMTime, dependency.mtime )
-       #print '    | Dep: %-31s %d' % (dependency.fileName, dependency.mtime)
+       #print('    | Dep: %-31s %d' % (dependency.fileName, dependency.mtime))
       return depsMTime <= self.mtime
 
     def setActive ( self ):
@@ -520,7 +520,7 @@ class Node ( EnvironmentWrapper ):
       if     not isinstance(self,Source) \
          and not isinstance(self,Probe)  \
          and not isinstance(self,Rule):
-        print 'Clean     | %-30s| rm %s' % ( "<%s>"%self.ruleName, self.fileName )
+        print('Clean     | %-30s| rm %s' % ( "<%s>"%self.ruleName, self.fileName ))
 
         report.open()
         report.write( 'Clean <%s>: (%s)\n' % (self.ruleName, self.fileName) )
@@ -620,7 +620,7 @@ class Command ( Node ):
 
       if self.isActive() and (not self.isUptodate() or flags & ForceRun):
         if flags & ShowCommand:
-          print "Executing | %-30s%s" % (ruleName,Command.indent(command,42))
+          print("Executing | %-30s%s" % (ruleName,Command.indent(command,42)))
         child = subprocess.Popen( command
                                 , env=self.env.toSystemEnv()
                                 , stdout=subprocess.PIPE
@@ -637,7 +637,7 @@ class Command ( Node ):
           if not line: break
         
           if flags & ShowLog:
-            print "%s" % (line[:-1])
+            print("%s" % (line[:-1]))
             sys.stdout.flush()
           elif flags & ShowDots:
             dots.dot()
@@ -660,7 +660,7 @@ class Command ( Node ):
         status >>= 8
         if status != 0:
           print
-          for line in errorLines: print line
+          for line in errorLines: print(line)
           raise ErrorMessage( 1, "%s returned status:%d." % (self.toolName,status) )
         if checkFile:
           self.checkFile( hardStop=True, errorMessage=errorLines )
@@ -668,7 +668,7 @@ class Command ( Node ):
         if self.isActive(): action = 'Up to date'
         else:               action = 'Inactive'
         if flags & ShowCommand:
-            print "%-10s| %-30s%s" % (action,ruleName,Command.indent(command,42))
+            print("%-10s| %-30s%s" % (action,ruleName,Command.indent(command,42)))
 
         report.open()
         report.write( '%s command:\n' % action )
@@ -1441,23 +1441,23 @@ class Tools ( object ):
          if node: node.setActive()
 
      if commandFlags & ShowCommand and not (commandFlags & ShowLog):
-       print "==========+===============================+============================================"
-       print "  ACTION  |          TARGET/RULE          |  COMMAND"
-       print "==========+===============================+============================================"
+       print("==========+===============================+============================================")
+       print("  ACTION  |          TARGET/RULE          |  COMMAND")
+       print("==========+===============================+============================================")
 
      if doClean:
        Node.allClean()
        if commandFlags & ShowCommand and not (commandFlags & ShowLog):
-         print "----------+-------------------------------+--------------------------------------------"
+         print("----------+-------------------------------+--------------------------------------------")
 
      for node in tool._staticOrder:
       #for dep in node.getDependencies():
-      #  print dep.name
-      #  print dep.fileName
+      #  print(dep.name)
+      #  print(dep.fileName)
        if not isinstance(node,Source) and not isinstance(node,Rule):
          if node._run(): break
 
      if commandFlags & ShowCommand and not (commandFlags & ShowLog):
-       print "----------+-------------------------------+--------------------------------------------"
-       
+       print("----------+-------------------------------+--------------------------------------------")
+
      return
