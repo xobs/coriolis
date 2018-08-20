@@ -3,7 +3,6 @@
 
 import sys
 import os.path
-import string
 import traceback
 import Hurricane
 from   Hurricane import DbU
@@ -233,8 +232,8 @@ def loadSymbolicRules ( symbolicRulesTable, confFile ):
             ruleLayer = layersLUT.lookup( elements[0], LayersLUT.Symbolic|LayersLUT.MissingError  )
             subLayer  = layersLUT.lookup( elements[1], LayersLUT.Real )
 
-            if subLayer: ruleTag  = string.join(elements[2:],'.')
-            else:        ruleTag  = string.join(elements[1:],'.')
+            if subLayer: ruleTag  = ".".join(elements[2:])
+            else:        ruleTag  = ".".join(elements[1:])
 
             if   ruleTag == 'extention.cap':   ruleLayer.setExtentionCap  ( subLayer, value )
             elif ruleTag == 'extention.width': ruleLayer.setExtentionWidth( subLayer, value )
