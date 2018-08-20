@@ -129,15 +129,20 @@ extern "C" {
   // |                "PyMaterial" Object Methods                  |
   // +-------------------------------------------------------------+
 
-  static int  PyMaterial_Cmp ( PyMaterial *self, PyObject* other )
+  static PyObject * PyMaterial_Richcmp ( PyMaterial *self, PyObject* other, int cmp )
   {
-    if (not IsPyMaterial(other) ) return -1;
+    if (not IsPyMaterial(other) ) return Py_NotImplemented;
 
     PyMaterial* otherPyObject = (PyMaterial *)other;
-    if (self->_object->getCode() == otherPyObject->_object->getCode()) return  0;
-    if (self->_object->getCode() <  otherPyObject->_object->getCode()) return -1;
-
-    return 1;
+    switch (cmp) {
+      case Py_EQ: return (self->_object->getCode() == otherPyObject->_object->getCode()) ? Py_True : Py_False;
+      case Py_NE: return (self->_object->getCode() != otherPyObject->_object->getCode()) ? Py_True : Py_False;
+      case Py_LT: return (self->_object->getCode() <  otherPyObject->_object->getCode()) ? Py_True : Py_False;
+      case Py_LE: return (self->_object->getCode() <= otherPyObject->_object->getCode()) ? Py_True : Py_False;
+      case Py_GT: return (self->_object->getCode() >  otherPyObject->_object->getCode()) ? Py_True : Py_False;
+      case Py_GE: return (self->_object->getCode() >= otherPyObject->_object->getCode()) ? Py_True : Py_False;
+      default: return Py_False;
+    }
   }
 
   DirectHashMethod  (PyMaterial_Hash   , PyMaterial)
@@ -152,7 +157,7 @@ extern "C" {
     PyTypeMaterial.tp_dealloc = (destructor) PyMaterial_DeAlloc;
     PyTypeMaterial.tp_repr    = (reprfunc)   PyMaterial_Repr;
     PyTypeMaterial.tp_str     = (reprfunc)   PyMaterial_Str;
-  /*PyTypeMaterial.tp_compare = (cmpfunc)    PyMaterial_Cmp;*/
+    PyTypeMaterial.tp_richcompare=(richcmpfunc)PyMaterial_Richcmp;
     PyTypeMaterial.tp_hash    = (hashfunc)   PyMaterial_Hash;
     PyTypeMaterial.tp_methods = PyMaterial_Methods;
   }

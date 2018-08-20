@@ -64,13 +64,13 @@ extern "C" {
   PythonOnlyDeleteMethod(NetDirection)
   DirectReprMethod(PyNetDirection_Repr, PyNetDirection,   Net::Direction)
   DirectStrMethod (PyNetDirection_Str,  PyNetDirection,   Net::Direction)
-  DirectCmpMethod (PyNetDirection_Cmp,  IsPyNetDirection, PyNetDirection)
+  DirectRichcmpMethod (PyNetDirection_Richcmp,  IsPyNetDirection, PyNetDirection)
   DirectHashMethod(PyNetDirection_Hash, PyNetDirection)
 
   extern void  PyNetDirection_LinkPyType() {
     cdebug_log(20,0) << "PyNetDirection_LinkType()" << endl;
     PyTypeNetDirection.tp_dealloc = (destructor) PyNetDirection_DeAlloc;
-  /*PyTypeNetDirection.tp_compare = (cmpfunc)    PyNetDirection_Cmp;*/
+    PyTypeNetDirection.tp_richcompare = (richcmpfunc)    PyNetDirection_Richcmp;
     PyTypeNetDirection.tp_repr    = (reprfunc)   PyNetDirection_Repr;
     PyTypeNetDirection.tp_str     = (reprfunc)   PyNetDirection_Str;
     PyTypeNetDirection.tp_hash    = (hashfunc)   PyNetDirection_Hash;

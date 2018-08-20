@@ -63,13 +63,13 @@ extern "C" {
   PythonOnlyDeleteMethod(NetType)
   DirectReprMethod(PyNetType_Repr, PyNetType,   Net::Type)
   DirectStrMethod (PyNetType_Str,  PyNetType,   Net::Type)
-  DirectCmpMethod (PyNetType_Cmp,  IsPyNetType, PyNetType)
+  DirectRichcmpMethod (PyNetType_Richcmp,  IsPyNetType, PyNetType)
   DirectHashMethod(PyNetType_Hash, PyNetType)
 
   extern void  PyNetType_LinkPyType() {
     cdebug_log(20,0) << "PyNetType_LinkType()" << endl;
     PyTypeNetType.tp_dealloc = (destructor) PyNetType_DeAlloc;
-  /*PyTypeNetType.tp_compare = (cmpfunc)    PyNetType_Cmp;*/
+    PyTypeNetType.tp_richcompare=(richcmpfunc)PyNetType_Richcmp;
     PyTypeNetType.tp_repr    = (reprfunc)   PyNetType_Repr;
     PyTypeNetType.tp_str     = (reprfunc)   PyNetType_Str;
     PyTypeNetType.tp_hash    = (hashfunc)   PyNetType_Hash;

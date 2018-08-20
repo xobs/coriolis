@@ -289,15 +289,20 @@ extern "C" {
   }
 
 
-  static int  PyLayerMask_Cmp ( PyLayerMask *self, PyObject* other )
+  static PyObject * PyLayerMask_Richcmp ( PyLayerMask *self, PyObject* other, int cmp )
   {
-    if ( not IsPyLayerMask(other) ) return -1;
+    if ( not IsPyLayerMask(other) ) return Py_NotImplemented;
 
     PyLayerMask* otherPyObject = (PyLayerMask*)other;
-    if ( self->_object == otherPyObject->_object ) return  0;
-    if ( self->_object <  otherPyObject->_object ) return -1;
-
-    return 1;
+    switch (cmp) {
+      case Py_EQ: return (self->_object == otherPyObject->_object) ? Py_True : Py_False;
+      case Py_NE: return (self->_object != otherPyObject->_object) ? Py_True : Py_False;
+      case Py_LT: return (self->_object <  otherPyObject->_object) ? Py_True : Py_False;
+      case Py_LE: return (self->_object <= otherPyObject->_object) ? Py_True : Py_False;
+      case Py_GT: return (self->_object >  otherPyObject->_object) ? Py_True : Py_False;
+      case Py_GE: return (self->_object >= otherPyObject->_object) ? Py_True : Py_False;
+      default: return Py_False;
+    }
   }
 
 
@@ -313,7 +318,7 @@ extern "C" {
 
     PyTypeLayerMask.tp_new       =              PyLayerMask_new;
     PyTypeLayerMask.tp_dealloc   = (destructor) PyLayerMask_DeAlloc;
-  /*PyTypeLayerMask.tp_compare   = (cmpfunc)    PyLayerMask_Cmp;*/
+    PyTypeLayerMask.tp_richcompare=(richcmpfunc)PyLayerMask_Richcmp;
     PyTypeLayerMask.tp_repr      = (reprfunc)   PyLayerMask_Repr;
     PyTypeLayerMask.tp_str       = (reprfunc)   PyLayerMask_Str;
     PyTypeLayerMask.tp_hash      = (hashfunc)   PyLayerMask_Hash;

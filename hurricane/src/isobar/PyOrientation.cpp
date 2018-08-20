@@ -68,13 +68,13 @@ extern "C" {
 
   DirectReprMethod(PyOrientation_Repr, PyOrientation,   Transformation::Orientation)
   DirectStrMethod (PyOrientation_Str,  PyOrientation,   Transformation::Orientation)
-  DirectCmpMethod (PyOrientation_Cmp,  IsPyOrientation, PyOrientation)
+  DirectRichcmpMethod (PyOrientation_Richcmp,  IsPyOrientation, PyOrientation)
   DirectHashMethod(PyOrientation_Hash, PyOrientation)
 
   extern void  PyOrientation_LinkPyType() {
     cdebug_log(20,0) << "PyOrientation_LinkType()" << endl;
     PyTypeOrientation.tp_dealloc = (destructor) PyOrientation_DeAlloc;
-  /*PyTypeOrientation.tp_compare = (cmpfunc)    PyOrientation_Cmp;*/
+    PyTypeOrientation.tp_richcompare=(richcmpfunc)PyOrientation_Richcmp;
     PyTypeOrientation.tp_repr    = (reprfunc)   PyOrientation_Repr;
     PyTypeOrientation.tp_str     = (reprfunc)   PyOrientation_Str;
     PyTypeOrientation.tp_hash    = (hashfunc)   PyOrientation_Hash;

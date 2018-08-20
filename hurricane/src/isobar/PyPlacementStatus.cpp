@@ -68,13 +68,13 @@ extern "C" {
 
   DirectReprMethod(PyPlacementStatus_Repr, PyPlacementStatus,   Instance::PlacementStatus)
   DirectStrMethod (PyPlacementStatus_Str,  PyPlacementStatus,   Instance::PlacementStatus)
-  DirectCmpMethod (PyPlacementStatus_Cmp,  IsPyPlacementStatus, PyPlacementStatus)
+  DirectRichcmpMethod (PyPlacementStatus_Richcmp,  IsPyPlacementStatus, PyPlacementStatus)
   DirectHashMethod(PyPlacementStatus_Hash, PyPlacementStatus)
 
   extern void  PyPlacementStatus_LinkPyType() {
     cdebug_log(20,0) << "PyPlacementStatus_LinkType()" << endl;
     PyTypePlacementStatus.tp_dealloc = (destructor) PyPlacementStatus_DeAlloc;
-  /*PyTypePlacementStatus.tp_compare = (cmpfunc)    PyPlacementStatus_Cmp;*/
+    PyTypePlacementStatus.tp_richcompare=(richcmpfunc)PyPlacementStatus_Richcmp;
     PyTypePlacementStatus.tp_repr    = (reprfunc)   PyPlacementStatus_Repr;
     PyTypePlacementStatus.tp_str     = (reprfunc)   PyPlacementStatus_Str;
     PyTypePlacementStatus.tp_hash    = (hashfunc)   PyPlacementStatus_Hash;

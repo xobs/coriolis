@@ -289,15 +289,20 @@ extern "C" {
   }
 
 
-  static int  PyQueryMask_Cmp ( PyQueryMask *self, PyObject* other )
+  static PyObject * PyQueryMask_Richcmp ( PyQueryMask *self, PyObject* other, int cmp )
   {
-    if ( not IsPyQueryMask(other) ) return -1;
+    if ( not IsPyQueryMask(other) ) return Py_NotImplemented;
 
     PyQueryMask* otherPyObject = (PyQueryMask*)other;
-    if ( self->_object == otherPyObject->_object ) return  0;
-    if ( self->_object <  otherPyObject->_object ) return -1;
-
-    return 1;
+    switch (cmp) {
+      case Py_EQ: return (self->_object == otherPyObject->_object) ? Py_True : Py_False;
+      case Py_NE: return (self->_object != otherPyObject->_object) ? Py_True : Py_False;
+      case Py_LT: return (self->_object <  otherPyObject->_object) ? Py_True : Py_False;
+      case Py_LE: return (self->_object <= otherPyObject->_object) ? Py_True : Py_False;
+      case Py_GT: return (self->_object >  otherPyObject->_object) ? Py_True : Py_False;
+      case Py_GE: return (self->_object >= otherPyObject->_object) ? Py_True : Py_False;
+      default: return Py_False;
+    }
   }
 
 
@@ -313,7 +318,7 @@ extern "C" {
 
     PyTypeQueryMask.tp_new       =              PyQueryMask_new;
     PyTypeQueryMask.tp_dealloc   = (destructor) PyQueryMask_DeAlloc;
-  /*PyTypeQueryMask.tp_compare   = (cmpfunc)    PyQueryMask_Cmp;*/
+    PyTypeQueryMask.tp_richcompare=(richcmpfunc)PyQueryMask_Richcmp;
     PyTypeQueryMask.tp_repr      = (reprfunc)   PyQueryMask_Repr;
     PyTypeQueryMask.tp_str       = (reprfunc)   PyQueryMask_Str;
     PyTypeQueryMask.tp_hash      = (hashfunc)   PyQueryMask_Hash;
