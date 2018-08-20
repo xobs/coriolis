@@ -61,7 +61,7 @@ class Pattern ( object ):
 
        # Convert in MSB mode. Invert the bytes by pairs.
         self._hexa = ''
-        for i in range(len(hexasLSB)/2):
+        for i in range(int(len(hexasLSB)/2)):
             self._hexa += hexasLSB[i*2+1] + hexasLSB[i*2]
         return self._hexa
 
