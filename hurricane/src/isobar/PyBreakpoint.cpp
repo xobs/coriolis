@@ -60,7 +60,7 @@ extern "C" {
     if ( not ParseTwoArg ( "Breakpoint::stop()", args, ":int:string", &arg0, &arg1) ) return NULL;
     
     result = Breakpoint::stop( (unsigned int)PyAny_AsLong     (arg0)
-                             ,               PyBytes_AsString(arg1)
+                             ,               PyUnicode_AsUTF8(arg1)
                              );
     HCATCH
 

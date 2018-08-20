@@ -98,12 +98,12 @@ extern "C" {
 
     if (__cs.getObjectIds() == ":ent:string:ent") {
       instance = Instance::create( PYCELL_O(arg0)
-                                 , Name(PyBytes_AsString(arg1))
+                                 , Name(PyUnicode_AsUTF8(arg1))
                                  , PYCELL_O(arg2)
                                  );
     } else if (__cs.getObjectIds() == ":ent:string:ent:transfo") {
       instance = Instance::create( PYCELL_O(arg0)
-                                 , Name(PyBytes_AsString(arg1))
+                                 , Name(PyUnicode_AsUTF8(arg1))
                                  , PYCELL_O(arg2)
                                  , *PYTRANSFORMATION_O(arg3)
                                  , Instance::PlacementStatus::PLACED

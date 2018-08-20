@@ -85,7 +85,7 @@ extern "C" {
       char*       strData = NULL;
       Py_ssize_t  strSize = 0;
 
-      PyBytes_AsStringAndSize(pyStr, &strData, &strSize);
+      strData = PyUnicode_AsUTF8AndSize(pyStr, &strSize);
       strCopy = new char[(size_t)strSize+1];
       strncpy(strCopy, strData, (size_t)strSize+1);
       

@@ -212,11 +212,11 @@ extern "C" {
         PyObject* iterator  = PyObject_GetIter(pyRoutingNets);
         PyObject* pyNetName = NULL;
         while( (pyNetName = PyIter_Next(iterator)) ) {
-          if (not PyBytes_Check(pyNetName)) {
+          if (not PyUnicode_Check(pyNetName)) {
             PyErr_SetString(ConstructorError, "KiteEngine.loadGlobalRouting(): The second argument must be a container of strings.");
             return NULL;
           }
-          Net* net = cell->getNet(Name(PyBytes_AsString(pyNetName)));
+          Net* net = cell->getNet(Name(PyUnicode_AsUTF8(pyNetName)));
           routingNets->insert(net);
           Py_DECREF(pyNetName);
         }

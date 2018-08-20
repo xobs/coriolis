@@ -131,8 +131,8 @@ extern "C" {
     PyObject* arg0 = NULL;
     PyObject* arg1 = NULL;
     if (PyArg_ParseTuple(args,"O|OO:Technology.getLayer", &arg0, &arg1)) {
-      if (PyBytes_Check(arg0)) {
-        layer = techno->getLayer(Name(PyBytes_AsString(arg0)));
+      if (PyUnicode_Check(arg0)) {
+        layer = techno->getLayer(Name(PyUnicode_AsUTF8(arg0)));
       } else if (IsPyLayerMask(arg0)) {
         bool useWorking = (arg1 != NULL) ? PyObject_IsTrue(arg1) : true;
         layer = techno->getLayer(PYLAYERMASK_O(arg0), useWorking);
@@ -198,8 +198,8 @@ extern "C" {
     HTRY
     PyObject* arg0 = NULL;
     if (PyArg_ParseTuple(args,"O:Technology.setWorkingLayer", &arg0)) {
-      if (PyBytes_Check(arg0)) {
-        rvalue = techno->setWorkingLayer(Name(PyBytes_AsString(arg0)));
+      if (PyUnicode_Check(arg0)) {
+        rvalue = techno->setWorkingLayer(Name(PyUnicode_AsUTF8(arg0)));
       } else if (IsPyLayer(arg0)) {
         rvalue = techno->setWorkingLayer(PYLAYER_O(arg0));
       } else {

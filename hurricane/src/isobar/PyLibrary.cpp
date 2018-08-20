@@ -54,10 +54,10 @@ extern "C" {
       }
       if (__cs.getObjectIds() == ":db:string") {
           DataBase* db = PYDATABASE_O(arg0);
-          library = Library::create(db, Name(PyBytes_AsString(arg1)));
+          library = Library::create(db, Name(PyUnicode_AsUTF8(arg1)));
       } else if (__cs.getObjectIds() == ":library:string") {
           Library* masterLibrary = PYLIBRARY_O(arg0);
-          library = Library::create(masterLibrary, Name(PyBytes_AsString(arg1)));
+          library = Library::create(masterLibrary, Name(PyUnicode_AsUTF8(arg1)));
       } else {
           PyErr_SetString( ConstructorError, "invalid number of parameters for Library constructor." );
           return NULL;

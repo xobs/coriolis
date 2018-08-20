@@ -685,7 +685,7 @@ extern "C" {
     __cs.addType ( "float"      , &PyFloat_Type                , "<Float>"                 , true  );
     __cs.addType ( "int"        , &PyLong_Type                 , "<Int>"                   , true  );
     __cs.addType ( "bool"       , &PyBool_Type                 , "<Bool>"                  , true  );
-    __cs.addType ( "string"     , &PyBytes_Type                , "<String>"                , true  );
+    __cs.addType ( "string"     , &PyUnicode_Type                , "<String>"                , true  );
     __cs.addType ( "list"       , &PyList_Type                 , "<List>"                  , true  );
     // Do not change the "function" string. It's hardwired to callable (function) objects.
     __cs.addType ( "function"   , NULL                         , "<Function>"              , true  );

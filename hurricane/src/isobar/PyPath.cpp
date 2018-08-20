@@ -83,7 +83,7 @@ extern "C" {
     else if ( __cs.getObjectIds() == PATH_INST_ARG   ) { path = new Path ( *PYPATH_O(arg0)
                                                                          ,  PYINSTANCE_O(arg1) ); }
     else if ( __cs.getObjectIds() == CELL_STRING_ARG ) { path = new Path (  PYCELL_O(arg0) 
-                                                                         ,  PyBytes_AsString(arg1) ); }
+                                                                         ,  PyUnicode_AsUTF8(arg1) ); }
     else {
       PyErr_SetString ( ConstructorError, "invalid number of parameters for Path constructor." );
       return ( NULL );
