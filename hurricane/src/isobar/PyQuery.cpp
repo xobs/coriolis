@@ -61,6 +61,13 @@ extern "C" {
   };
 
 
+// +=================================================================+
+// |               "PyQuery" Python Module Code Part                 |
+// +=================================================================+
+
+#if defined(__PYTHON_MODULE__)
+
+
   inline void  BaseQuery::setGoCallback          ( PyObject* cb ) { _goCallback          = cb; }
   inline void  BaseQuery::setMarkerCallback      ( PyObject* cb ) { _markerCallback      = cb; }
   inline void  BaseQuery::setRubberCallback      ( PyObject* cb ) { _rubberCallback      = cb; }
@@ -116,15 +123,6 @@ extern "C" {
 
 
 #define  METHOD_HEAD(function)   GENERIC_METHOD_HEAD(BaseQuery,query,function)
-
-
-// +=================================================================+
-// |               "PyQuery" Python Module Code Part                 |
-// +=================================================================+
-
-#if defined(__PYTHON_MODULE__)
-
-
   // +-------------------------------------------------------------+
   // |                "PyQuery" Attribute Methods                  |
   // +-------------------------------------------------------------+

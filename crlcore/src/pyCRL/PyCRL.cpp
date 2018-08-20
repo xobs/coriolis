@@ -102,7 +102,7 @@ extern "C" {
   // ---------------------------------------------------------------
   // Module Initialization  :  "initCRL ()"
 
-  PyMODINIT_FUNC  initCRL (void) {
+  PyMODINIT_FUNC PyInit_CRL (void) {
     PyCRL_Module.m_base = PyModuleDef_HEAD_INIT;
     PyCRL_Module.m_name = "CRL";
     PyCRL_Module.m_doc = NULL;

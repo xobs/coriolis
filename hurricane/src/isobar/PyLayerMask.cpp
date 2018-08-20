@@ -272,13 +272,13 @@ extern "C" {
   {
     ostringstream repr;
     repr << "[" << hex << self << "<->" << (void*)&(self->_object) << " " << self->_object << "]";
-    return ( PyBytes_FromString(repr.str().c_str()) );
+    return ( PyUnicode_FromString(repr.str().c_str()) );
   }
 
 
   static PyObject* PyLayerMask_Str ( PyLayerMask *self )
   {
-    return ( PyBytes_FromString(getString(self->_object).c_str()) );
+    return ( PyUnicode_FromString(getString(self->_object).c_str()) );
   }
 
 

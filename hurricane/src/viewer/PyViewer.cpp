@@ -63,7 +63,7 @@ extern "C" {
   // ---------------------------------------------------------------
   // Module Initialization  :  "initViewer ()"
 
-  PyMODINIT_FUNC initViewer (void) {
+  PyMODINIT_FUNC PyInit_Viewer (void) {
 
     PyViewer_Module.m_base = PyModuleDef_HEAD_INIT;
     PyViewer_Module.m_name = PyViewer_Name;

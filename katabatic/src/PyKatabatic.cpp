@@ -52,7 +52,7 @@ extern "C" {
   // ---------------------------------------------------------------
   // Module Initialization  :  "initKatabatic ()"
 
-  PyMODINIT_FUNC initKatabatic (void) {
+  PyMODINIT_FUNC PyInit_Katabatic (void) {
     cdebug_log(38,0) << "initKatabatic()" << endl;
 
     PyKatabatic_Module.m_base = PyModuleDef_HEAD_INIT;

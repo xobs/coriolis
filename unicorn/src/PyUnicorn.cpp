@@ -57,7 +57,7 @@ extern "C" {
   // ---------------------------------------------------------------
   // Module Initialization  :  "initUnicorn ()"
 
-  PyMODINIT_FUNC initUnicorn (void) {
+  PyMODINIT_FUNC PyInit_Unicorn (void) {
     cdebug_log(46,0) << "initUnicorn()" << endl;
 
     PyUnicorn_Module.m_base = PyModuleDef_HEAD_INIT;

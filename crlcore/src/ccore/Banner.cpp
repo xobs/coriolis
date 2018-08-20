@@ -118,83 +118,90 @@ namespace CRL {
 // Class  :  "BannerFont::FontMap".
 
 
+  static BannerFont *default_font;
+  static BannerFont *getDefaultFont(void) {
+# define  ADDCHAR(c,t) (default_font->addChar((c),sizeof(t)/sizeof(char*),(t)))
+
+    if (!default_font) {
+        default_font = new BannerFont ( "Unknown_Bold_Normal_14" );
+      // Digits.
+        ADDCHAR ( '0', Unknown_Bold_Normal_14_0 );
+        ADDCHAR ( '1', Unknown_Bold_Normal_14_1 );
+        ADDCHAR ( '2', Unknown_Bold_Normal_14_2 );
+        ADDCHAR ( '3', Unknown_Bold_Normal_14_3 );
+        ADDCHAR ( '4', Unknown_Bold_Normal_14_4 );
+        ADDCHAR ( '5', Unknown_Bold_Normal_14_5 );
+        ADDCHAR ( '6', Unknown_Bold_Normal_14_6 );
+        ADDCHAR ( '7', Unknown_Bold_Normal_14_7 );
+        ADDCHAR ( '8', Unknown_Bold_Normal_14_8 );
+        ADDCHAR ( '9', Unknown_Bold_Normal_14_9 );
+
+      // Alphabetical caps.
+        ADDCHAR ( 'A', Unknown_Bold_Normal_14_A );
+        ADDCHAR ( 'B', Unknown_Bold_Normal_14_B );
+        ADDCHAR ( 'C', Unknown_Bold_Normal_14_C );
+        ADDCHAR ( 'D', Unknown_Bold_Normal_14_D );
+        ADDCHAR ( 'E', Unknown_Bold_Normal_14_E );
+        ADDCHAR ( 'F', Unknown_Bold_Normal_14_F );
+        ADDCHAR ( 'G', Unknown_Bold_Normal_14_G );
+        ADDCHAR ( 'H', Unknown_Bold_Normal_14_H );
+        ADDCHAR ( 'I', Unknown_Bold_Normal_14_I );
+        ADDCHAR ( 'J', Unknown_Bold_Normal_14_J );
+        ADDCHAR ( 'K', Unknown_Bold_Normal_14_K );
+        ADDCHAR ( 'L', Unknown_Bold_Normal_14_L );
+        ADDCHAR ( 'M', Unknown_Bold_Normal_14_M );
+        ADDCHAR ( 'N', Unknown_Bold_Normal_14_N );
+        ADDCHAR ( 'O', Unknown_Bold_Normal_14_O );
+        ADDCHAR ( 'P', Unknown_Bold_Normal_14_P );
+        ADDCHAR ( 'Q', Unknown_Bold_Normal_14_Q );
+        ADDCHAR ( 'R', Unknown_Bold_Normal_14_R );
+        ADDCHAR ( 'S', Unknown_Bold_Normal_14_S );
+        ADDCHAR ( 'T', Unknown_Bold_Normal_14_T );
+        ADDCHAR ( 'U', Unknown_Bold_Normal_14_U );
+        ADDCHAR ( 'V', Unknown_Bold_Normal_14_V );
+        ADDCHAR ( 'W', Unknown_Bold_Normal_14_W );
+        ADDCHAR ( 'X', Unknown_Bold_Normal_14_X );
+        ADDCHAR ( 'Y', Unknown_Bold_Normal_14_Y );
+        ADDCHAR ( 'Z', Unknown_Bold_Normal_14_Z );
+
+      // Alphabetical.
+        ADDCHAR ( 'a', Unknown_Bold_Normal_14_a );
+        ADDCHAR ( 'b', Unknown_Bold_Normal_14_b );
+        ADDCHAR ( 'c', Unknown_Bold_Normal_14_c );
+        ADDCHAR ( 'd', Unknown_Bold_Normal_14_d );
+        ADDCHAR ( 'e', Unknown_Bold_Normal_14_e );
+        ADDCHAR ( 'f', Unknown_Bold_Normal_14_f );
+        ADDCHAR ( 'g', Unknown_Bold_Normal_14_g );
+        ADDCHAR ( 'h', Unknown_Bold_Normal_14_h );
+        ADDCHAR ( 'i', Unknown_Bold_Normal_14_i );
+        ADDCHAR ( 'j', Unknown_Bold_Normal_14_j );
+        ADDCHAR ( 'k', Unknown_Bold_Normal_14_k );
+        ADDCHAR ( 'l', Unknown_Bold_Normal_14_l );
+        ADDCHAR ( 'm', Unknown_Bold_Normal_14_m );
+        ADDCHAR ( 'n', Unknown_Bold_Normal_14_n );
+        ADDCHAR ( 'o', Unknown_Bold_Normal_14_o );
+        ADDCHAR ( 'p', Unknown_Bold_Normal_14_p );
+        ADDCHAR ( 'q', Unknown_Bold_Normal_14_q );
+        ADDCHAR ( 'r', Unknown_Bold_Normal_14_r );
+        ADDCHAR ( 's', Unknown_Bold_Normal_14_s );
+        ADDCHAR ( 't', Unknown_Bold_Normal_14_t );
+        ADDCHAR ( 'u', Unknown_Bold_Normal_14_u );
+        ADDCHAR ( 'v', Unknown_Bold_Normal_14_v );
+        ADDCHAR ( 'w', Unknown_Bold_Normal_14_w );
+        ADDCHAR ( 'x', Unknown_Bold_Normal_14_x );
+        ADDCHAR ( 'y', Unknown_Bold_Normal_14_y );
+        ADDCHAR ( 'z', Unknown_Bold_Normal_14_z );
+    }
+#undef ADDCHAR
+    return default_font;
+  }
+
   BannerFont::FontMap::FontMap (): map<const string,const BannerFont*>()
   {
-# define  ADDCHAR(c,t) (font->addChar((c),sizeof(t)/sizeof(char*),(t)))
-
-    BannerFont *font;
 
     try {
-      font = new BannerFont ( "Unknown_Bold_Normal_14" );
-    // Digits.
-      ADDCHAR ( '0', Unknown_Bold_Normal_14_0 );
-      ADDCHAR ( '1', Unknown_Bold_Normal_14_1 );
-      ADDCHAR ( '2', Unknown_Bold_Normal_14_2 );
-      ADDCHAR ( '3', Unknown_Bold_Normal_14_3 );
-      ADDCHAR ( '4', Unknown_Bold_Normal_14_4 );
-      ADDCHAR ( '5', Unknown_Bold_Normal_14_5 );
-      ADDCHAR ( '6', Unknown_Bold_Normal_14_6 );
-      ADDCHAR ( '7', Unknown_Bold_Normal_14_7 );
-      ADDCHAR ( '8', Unknown_Bold_Normal_14_8 );
-      ADDCHAR ( '9', Unknown_Bold_Normal_14_9 );
-
-    // Alphabetical caps.
-      ADDCHAR ( 'A', Unknown_Bold_Normal_14_A );
-      ADDCHAR ( 'B', Unknown_Bold_Normal_14_B );
-      ADDCHAR ( 'C', Unknown_Bold_Normal_14_C );
-      ADDCHAR ( 'D', Unknown_Bold_Normal_14_D );
-      ADDCHAR ( 'E', Unknown_Bold_Normal_14_E );
-      ADDCHAR ( 'F', Unknown_Bold_Normal_14_F );
-      ADDCHAR ( 'G', Unknown_Bold_Normal_14_G );
-      ADDCHAR ( 'H', Unknown_Bold_Normal_14_H );
-      ADDCHAR ( 'I', Unknown_Bold_Normal_14_I );
-      ADDCHAR ( 'J', Unknown_Bold_Normal_14_J );
-      ADDCHAR ( 'K', Unknown_Bold_Normal_14_K );
-      ADDCHAR ( 'L', Unknown_Bold_Normal_14_L );
-      ADDCHAR ( 'M', Unknown_Bold_Normal_14_M );
-      ADDCHAR ( 'N', Unknown_Bold_Normal_14_N );
-      ADDCHAR ( 'O', Unknown_Bold_Normal_14_O );
-      ADDCHAR ( 'P', Unknown_Bold_Normal_14_P );
-      ADDCHAR ( 'Q', Unknown_Bold_Normal_14_Q );
-      ADDCHAR ( 'R', Unknown_Bold_Normal_14_R );
-      ADDCHAR ( 'S', Unknown_Bold_Normal_14_S );
-      ADDCHAR ( 'T', Unknown_Bold_Normal_14_T );
-      ADDCHAR ( 'U', Unknown_Bold_Normal_14_U );
-      ADDCHAR ( 'V', Unknown_Bold_Normal_14_V );
-      ADDCHAR ( 'W', Unknown_Bold_Normal_14_W );
-      ADDCHAR ( 'X', Unknown_Bold_Normal_14_X );
-      ADDCHAR ( 'Y', Unknown_Bold_Normal_14_Y );
-      ADDCHAR ( 'Z', Unknown_Bold_Normal_14_Z );
-
-    // Alphabetical.
-      ADDCHAR ( 'a', Unknown_Bold_Normal_14_a );
-      ADDCHAR ( 'b', Unknown_Bold_Normal_14_b );
-      ADDCHAR ( 'c', Unknown_Bold_Normal_14_c );
-      ADDCHAR ( 'd', Unknown_Bold_Normal_14_d );
-      ADDCHAR ( 'e', Unknown_Bold_Normal_14_e );
-      ADDCHAR ( 'f', Unknown_Bold_Normal_14_f );
-      ADDCHAR ( 'g', Unknown_Bold_Normal_14_g );
-      ADDCHAR ( 'h', Unknown_Bold_Normal_14_h );
-      ADDCHAR ( 'i', Unknown_Bold_Normal_14_i );
-      ADDCHAR ( 'j', Unknown_Bold_Normal_14_j );
-      ADDCHAR ( 'k', Unknown_Bold_Normal_14_k );
-      ADDCHAR ( 'l', Unknown_Bold_Normal_14_l );
-      ADDCHAR ( 'm', Unknown_Bold_Normal_14_m );
-      ADDCHAR ( 'n', Unknown_Bold_Normal_14_n );
-      ADDCHAR ( 'o', Unknown_Bold_Normal_14_o );
-      ADDCHAR ( 'p', Unknown_Bold_Normal_14_p );
-      ADDCHAR ( 'q', Unknown_Bold_Normal_14_q );
-      ADDCHAR ( 'r', Unknown_Bold_Normal_14_r );
-      ADDCHAR ( 's', Unknown_Bold_Normal_14_s );
-      ADDCHAR ( 't', Unknown_Bold_Normal_14_t );
-      ADDCHAR ( 'u', Unknown_Bold_Normal_14_u );
-      ADDCHAR ( 'v', Unknown_Bold_Normal_14_v );
-      ADDCHAR ( 'w', Unknown_Bold_Normal_14_w );
-      ADDCHAR ( 'x', Unknown_Bold_Normal_14_x );
-      ADDCHAR ( 'y', Unknown_Bold_Normal_14_y );
-      ADDCHAR ( 'z', Unknown_Bold_Normal_14_z );
-
-      insert ( make_pair("Unknown_Bold_Normal_14",font) );
+      BannerFont *font = getDefaultFont();
+      insert ( make_pair("Unknown_Bold_Normal_14", font) );
     }
     catch ( Error &e ) {
       cerr << e.what() << endl;
@@ -214,11 +221,12 @@ namespace CRL {
 
   const BannerFont* BannerFont::FontMap::operator[] ( const string& name ) const
   {
+    return getDefaultFont();
+    /*
     const_iterator it = find ( name );
     if ( it != end() )
       return it->second;
-
-    return (*this)[ "Unknown_Bold_Normal_14" ];
+    */
   }
 
 
@@ -236,7 +244,10 @@ namespace CRL {
 
   const BannerFont* BannerFont::getBannerFont ( const string& name )
   {
-    return _fontMap[name];
+    const BannerFont *font = _fontMap[name];
+    if (!font)
+      font = getDefaultFont();
+    return font;
   }
 
 

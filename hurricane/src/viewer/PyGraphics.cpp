@@ -105,7 +105,7 @@ extern "C" {
     }
     HCATCH
 
-    return PyBytes_FromString(pattern);
+    return PyUnicode_FromString(pattern);
   }
 
 

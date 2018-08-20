@@ -191,7 +191,7 @@ namespace Isobar {
     vector<string>::iterator ipath = _pathes.begin();
 
     for ( ; ipath != _pathes.end() ; ++ipath ) {
-      PyObject* element = PyBytes_FromString( const_cast<char*>((*ipath).c_str()) );
+      PyObject* element = PyUnicode_FromString( const_cast<char*>((*ipath).c_str()) );
       PyList_Insert( path, 0, element );
     }
 
@@ -293,7 +293,7 @@ namespace Isobar {
   {
     if (_pyKw == NULL) _pyKw = PyDict_New();
 
-    PyObject* pyKey = PyBytes_FromString( key );
+    PyObject* pyKey = PyUnicode_FromString( key );
     if (PyDict_Contains(_pyKw,pyKey) == 1) {
       cerr << Error( "Script::addKwArgument(): Attempt to add twice key %s (nothing done)."
                    , key ) << endl;

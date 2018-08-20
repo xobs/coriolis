@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <sstream>
 #include <exception>
+#include <utility>
 
 #include <QAction>
 #include <QMenu>
@@ -270,7 +271,7 @@ namespace Hurricane {
       if (not icon.isNull()) action->setIcon( icon );
       parentMenu->addAction( action );
 
-      _actionCallbacks.insert( make_pair(absolutePath,boost::any(callback)) );
+      _actionCallbacks.insert( std::make_pair(absolutePath,boost::any(callback)) );
       connect( action, SIGNAL(triggered()), this, SLOT(doAction()) );
     }
     return action;
@@ -297,7 +298,7 @@ namespace Hurricane {
         addAction( action );
       }
 
-      _actionCallbacks.insert( make_pair(absolutePath,boost::any(QString(scriptPath.c_str()))) );
+      _actionCallbacks.insert( std::make_pair(absolutePath,boost::any(QString(scriptPath.c_str()))) );
       connect( action, SIGNAL(triggered()), this, SLOT(doAction()) );
     }
     return action;

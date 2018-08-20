@@ -66,7 +66,7 @@ extern "C" {
     pattern = ds->getPattern().c_str();
     HCATCH
 
-    return PyBytes_FromString(pattern);
+    return PyUnicode_FromString(pattern);
   }
 
 

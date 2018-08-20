@@ -65,7 +65,7 @@ extern "C" {
   // ---------------------------------------------------------------
   // Module Initialization  :  "initMauka ()"
 
-  PyMODINIT_FUNC initMauka (void) {
+  PyMODINIT_FUNC PyInit_Mauka (void) {
     cdebug_log(40,0) << "initMauka()" << endl;
 
     PyNimbus_Module.m_base = PyModuleDef_HEAD_INIT;

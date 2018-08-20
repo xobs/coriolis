@@ -1,16 +1,13 @@
 .. -*- Mode: rst -*-
 
 
-===============
-Coriolis README
-===============
+# Coriolis README
 
 
 Coriolis is a free database, placement tool and routing tool for VLSI designs.
 
 
-Purpose
-=======
+## Purpose
 
 Coriolis provides several tools to perform the layout of VLSI circuits.  Its
 main components are the Hurricane database, the Etesian placer and the Kite
@@ -21,8 +18,7 @@ The user interface <cgt> is the prefered way to use Coriolis, but all
 Coriolis tools are Python modules and thus scriptables.
 
 
-Documentation
-=============
+## Documentation
 
 The complete documentation is available here, both in pdf & html:
 
@@ -36,13 +32,12 @@ version.
     https://soc-extras.lip6.fr/en/coriolis/coriolis2-users-guide/
 
 
-Building Coriolis
-=================
+## Building Coriolis
 
 On Ubuntu 18.04, install the necessary packages:
 
 ```sh
-sudo apt install cmake libxml2-dev python3-dev libboost-python1.62-dev libboost-program-options1.62-dev libboost-regex1.62-dev libqt4-dev liblemon-dev libbz2-dev rapidjson-dev libboost-wave1.62-dev
+sudo apt install cmake libxml2-dev python3-dev libboost-python-dev libboost-program-options-dev libboost-regex-dev libboost-wave-dev libqt4-dev liblemon-dev libbz2-dev rapidjson-dev
 ```
 
 Build order:
@@ -50,48 +45,33 @@ Build order:
 1. vlsisapd
 1. coloquinte
 1. hurricane
+1. crlcore
+1. cumulus
+1. equinox
+1. knik
+1. katabatic
+1. kite
+1. etesian
+1. nimbus
+1. metis
+1. mauka
+1. solstice
+1. stratus1
+1. unicorn
+1. ispd
 
-To build Coriolis, ensure the following prerequisites are met:
+For each directory, do the following:
 
-* Python 2.7.
-* cmake.
-* boost.
-* bison & flex.
-* Qt 4 or 5.
-* libxml2.
-* RapidJSON
-* A C++11 compliant compiler.
+```sh
+cd ${dir}
+mkdir -p build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=/opt/coriolis -DPYTHON_SITE_PACKAGES=lib/python3/dist-packages -DCMAKE_BUILD_TYPE=Debug ..
+make all install
+cd ../..
+```
 
-The build system relies on a fixed directory tree from the root
-of the user currently building it. Thus first step is to get a clone of
-the repository in the right place. Proceed as follow: ::
-
-   ego@home:~$ mkdir -p ~/coriolis-2.x/src/support
-   ego@home:~$ cd ~/coriolis-2.x/src/support
-   ego@home:~$ git clone http://github.com/miloyip/rapidjson
-   ego@home:~$ git checkout ec322005072076ef53984462fb4a1075c27c7dfd
-   ego@home:~$ cd ~/coriolis-2.x/src
-   ego@home:src$ git clone https://www-soc.lip6.fr/git/coriolis.git
-   ego@home:src$ cd coriolis
-
-If you want to use the *devel* branch: ::
-
-    ego@home:coriolis$ git checkout devel
-
-Then, build the tool: ::
-
-    ego@home:coriolis$ make install
-
-Coriolis gets installed at the root of the following tree: ::
-
-    ~/coriolis-2.x/<OS>.<DISTRIB>/Release.Shared/install/
-
-Where ``<OS>`` is the name of your operating system and ``<DISTRIB>`` your
-distribution.
-
-
-Using Coriolis
-==============
+## Using Coriolis
 
 The Coriolis main interface can be launched with the command: ::
 

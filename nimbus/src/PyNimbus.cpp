@@ -62,7 +62,7 @@ extern "C" {
   // ---------------------------------------------------------------
   // Module Initialization  :  "initNimbus ()"
 
-  PyMODINIT_FUNC initNimbus (void) {
+  PyMODINIT_FUNC PyInit_Nimbus (void) {
     cdebug_log(40,0) << "initNimbus()" << endl;
 
     PyNimbus_Module.m_base = PyModuleDef_HEAD_INIT;

@@ -69,6 +69,7 @@
                                    PyDebugSession.cpp
                                    PyVertical.cpp
                                    PyQueryMask.cpp
+                                   PyQuery.cpp
                       )	    
                    set( pyIncludes hurricane/isobar/ProxyProperty.h
                                    hurricane/isobar/PyBreakpoint.h

@@ -641,7 +641,7 @@ extern "C" {
     cdebug_log(20,0) << "Py"#SELF_TYPE"_getName()" << endl;              \
     HTRY                                                               \
     METHOD_HEAD (#SELF_TYPE".getName()")                               \
-    return PyBytes_FromString(getString(SELF->getName()).c_str());    \
+    return PyUnicode_FromString(getString(SELF->getName()).c_str());    \
     HCATCH                                                             \
     return NULL;                                                       \
   }
@@ -968,15 +968,15 @@ extern "C" {
   static PyObject* PY_FUNC_NAME ( PY_SELF_TYPE *self )                   \
   {                                                                      \
     if ( self->ACCESS_OBJECT == NULL )                                   \
-      return ( PyBytes_FromString("<PyObject unbound>") );              \
+      return ( PyUnicode_FromString("<PyObject unbound>") );              \
     SELF_TYPE* object = dynamic_cast<SELF_TYPE*>(self->ACCESS_OBJECT);   \
     if ( object == NULL )                                                \
-      return ( PyBytes_FromString("<PyObject invalid dynamic-cast>") ); \
+      return ( PyUnicode_FromString("<PyObject invalid dynamic-cast>") ); \
                                                                          \
     ostringstream repr;                                                  \
     repr << "[" << hex << self << "<->" << (void*)object << " " << getString(object) << "]"; \
                                                                          \
-    return ( PyBytes_FromString(repr.str().c_str()) );                  \
+    return ( PyUnicode_FromString(repr.str().c_str()) );                  \
   }
 
 
@@ -989,12 +989,12 @@ extern "C" {
   static PyObject* PY_FUNC_NAME ( PY_SELF_TYPE *self )                   \
   {                                                                      \
     if ( self->ACCESS_OBJECT == NULL )                                   \
-      return ( PyBytes_FromString("<PyObject unbound>") );              \
+      return ( PyUnicode_FromString("<PyObject unbound>") );              \
     SELF_TYPE* object = dynamic_cast<SELF_TYPE*>(self->ACCESS_OBJECT);   \
     if ( object == NULL )                                                \
-      return ( PyBytes_FromString("<PyObject invalid dynamic_cast>") ); \
+      return ( PyUnicode_FromString("<PyObject invalid dynamic_cast>") ); \
                                                                          \
-    return ( PyBytes_FromString(getString(object).c_str()) );           \
+    return ( PyUnicode_FromString(getString(object).c_str()) );           \
   }
 
 

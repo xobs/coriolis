@@ -56,7 +56,7 @@ extern "C" {
   // ---------------------------------------------------------------
   // Module Initialization  :  "initMetis ()"
 
-  PyMODINIT_FUNC initMetis (void) {
+  PyMODINIT_FUNC PyInit_Metis (void) {
     cdebug_log(40,0) << "initMetis()" << endl;
 
     PyMetis_Module.m_base = PyModuleDef_HEAD_INIT;

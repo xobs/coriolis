@@ -522,7 +522,7 @@ extern "C" {
   // ---------------------------------------------------------------
   // Module Initialization  :  "initHurricane ()"
 
-  PyMODINIT_FUNC initHurricane (void) {
+  PyMODINIT_FUNC PyInit_Hurricane (void) {
     PyHurricane_Module.m_base = PyModuleDef_HEAD_INIT;
     PyHurricane_Module.m_name = "Hurricane";
     PyHurricane_Module.m_doc = NULL;

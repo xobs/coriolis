@@ -157,10 +157,10 @@ extern "C" {
   static PyObject* PyDrawingGroup_Repr ( PyDrawingGroup* self )
   {
     if ( self->ACCESS_OBJECT == NULL )
-      return PyBytes_FromString("<PyObject unbound>");
+      return PyUnicode_FromString("<PyObject unbound>");
 
     string s = "<DrawingGroup " + getString(self->_object->getName()) + ">";
-    return PyBytes_FromString(s.c_str());
+    return PyUnicode_FromString(s.c_str());
   }
 
   

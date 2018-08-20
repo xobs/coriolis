@@ -80,7 +80,7 @@
                                        ${QtX_LIBRARIES}
                                        ${Boost_LIBRARIES}
                                        ${LIBXML2_LIBRARIES}
-                                       ${PYTHON_LIBRARIES} -lutil
+                                       ${PYTHON_LIBRARIES} -lutil -lbz2
                        )	    
 				    
                install ( TARGETS       knik flute DESTINATION lib${LIB_SUFFIX} )
