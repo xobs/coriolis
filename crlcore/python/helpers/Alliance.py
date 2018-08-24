@@ -213,7 +213,6 @@ def loadAllianceConfig ( table, fromFile ):
     allianceFile = fromFile
 
     af         = AllianceFramework.get()
-    DataBase.create()
     db         = DataBase.getDB()
     technology = db.getTechnology()
     if not technology:
