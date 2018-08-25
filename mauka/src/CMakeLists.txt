@@ -48,7 +48,7 @@
           qtX_wrap_cpp ( mocCpps       ${mocIncludes} )
 
 
-           add_library ( mauka         ${cpps} ${mocCpps} ${pyCpps} )
+           add_library ( mauka         SHARED ${cpps} ${mocCpps} ${pyCpps} )
  set_target_properties ( mauka         PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON )
  target_link_libraries ( mauka         ${METIS_LIBRARIES}
                                        ${NIMBUS_LIBRARIES}
@@ -67,7 +67,7 @@
                                        ${PYTHON_LIBRARIES} -lutil
                        )
 
-           add_library ( pyMauka       MODULE ${pyCpps} )
+           add_library ( pyMauka       SHARED MODULE ${pyCpps} )
  set_target_properties ( pyMauka       PROPERTIES COMPILE_FLAGS "${COMPILE_FLAGS} -D__PYTHON_MODULE__=1"
                                                   PREFIX        ""
                                                   OUTPUT_NAME   "Mauka"

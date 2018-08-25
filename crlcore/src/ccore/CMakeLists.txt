@@ -292,7 +292,7 @@
 
                 qtX_wrap_cpp ( moc_cpps ${mocincludes} )
 
-                 add_library ( crlcore  ${ccore_cpps}
+                 add_library ( crlcore  SHARED ${ccore_cpps}
                                         ${moc_cpps}
                                         ${ap_cpps}
                                         ${agds_cpps}
@@ -328,7 +328,7 @@
                                         ${QtX_LIBRARIES}
                                         ${Boost_LIBRARIES}
                                         ${LIBXML2_LIBRARIES}
-					${PYTHON_LIBRARIES} -lutil -lbz2 ${CMAKE_INSTALL_PREFIX}/lib/libisobar.a
+                                        ${PYTHON_LIBRARIES} -lutil
                              )
 
                      install ( TARGETS  crlcore DESTINATION lib${LIB_SUFFIX} )

@@ -10,10 +10,11 @@
                        )
       link_directories ( ${CRLCORE_BINARY_DIR}/src/ccore )
  
-        add_executable ( cx2y        ${cpps} )
- target_link_libraries ( cx2y        crlcore
-                                     ${UTILITIES_LIBRARY}
-				     -lbz2
-                                     ${LIBEXECINFO_LIBRARIES} 
+        add_executable ( cx2y       ${cpps} )
+ target_link_libraries ( cx2y       crlcore
+                                    ${UTILITIES_LIBRARY}
+                                    ${LIBEXECINFO_LIBRARIES}
+                                    ${HURRICANE_PYTHON_LIBRARY_PATH}
                        )
+#                       target_link_libraries( ${CMAKE_INSTALL_PREFIX}/lib/libisobar.a -lbz2)
                install ( TARGETS     cx2y DESTINATION bin )

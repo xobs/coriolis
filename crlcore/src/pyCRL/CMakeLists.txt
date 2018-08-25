@@ -64,10 +64,9 @@
                    set( depLibs     crlcore
                                     ${HURRICANE_PYTHON_LIBRARIES}
                                     ${PYTHON_LIBRARIES}
-                                    -lutil
+                                    -lutil -lbz2
                       )
 
-     set_target_properties( PROPERTIES POSITION_INDEPENDENT_CODE ON )
      add_python_module( "${pyCpps}"
                         "${pyIncludes}"
                         "pycrlcore;1.0;1"
@@ -75,3 +74,4 @@
                         "${depLibs}"
                         include/coriolis2/crlcore
                       )
+     set_target_properties(pycrlcore PROPERTIES POSITION_INDEPENDENT_CODE ON )

@@ -31,7 +31,7 @@
 
           qtX_wrap_cpp( moccpps      ${mocincludes} )
 				     
-           add_library( libmanager   ${cpps} ${moccpps} )
+           add_library( libmanager   SHARED ${cpps} ${moccpps} )
  set_target_properties( libmanager   PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON )
  target_link_libraries( libmanager   crlcore
                                      ${HURRICANE_PYTHON_LIBRARIES}

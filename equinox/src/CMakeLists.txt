@@ -38,11 +38,11 @@
                    set ( intervalTreeCpps     intervalTree/src/IntervalTree.cpp )
           qtX_wrap_cpp ( mocCpps              ${mocIncludes} )
 
-           add_library ( intervalTree   ${intervalTreeCpps} )
+           add_library ( intervalTree   SHARED ${intervalTreeCpps} )
  set_target_properties ( intervalTree   PROPERTIES VERSION 1.0 SOVERSION 1 )
  target_link_libraries ( intervalTree   ${HURRICANE_LIBRARIES} )
 
-           add_library ( equinox       ${cpps} ${mocCpps} )
+           add_library ( equinox       SHARED ${cpps} ${mocCpps} )
  set_target_properties ( equinox       PROPERTIES VERSION 1.0 SOVERSION 1 )
  target_link_libraries ( equinox       intervalTree
                                        ${CORIOLIS_LIBRARIES}

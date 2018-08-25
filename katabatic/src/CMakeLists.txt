@@ -75,7 +75,7 @@ endif ( CHECK_DETERMINISM )
                                      ${PYTHON_LIBRARIES} -lutil
                       )
 
-           add_library( katabatic    ${cpps} )
+           add_library( katabatic    SHARED ${cpps} )
  set_target_properties( katabatic    PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON )
  target_link_libraries( katabatic    ${depLibs} )
 

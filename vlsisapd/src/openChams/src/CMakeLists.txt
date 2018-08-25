@@ -52,7 +52,7 @@ SET ( cpps Circuit.cpp
 	   SET ( pycpps PyOpenChams.cpp 
 	   )
 
-	   ADD_LIBRARY(openChams ${cpps})
+	   ADD_LIBRARY(openChams SHARED ${cpps})
 	   TARGET_LINK_LIBRARIES(openChams ${LIBXML2_LIBRARIES})
 	   SET_TARGET_PROPERTIES(openChams PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON)
 	   INSTALL(TARGETS openChams DESTINATION lib${LIB_SUFFIX} )

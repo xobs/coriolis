@@ -49,13 +49,13 @@
                                       ${Boost_LIBRARIES}
                                       ${LIBXML2_LIBRARIES}
                                       ${PYTHON_LIBRARIES} -lutil -lxml2 -lbz2
-                                      ${CMAKE_INSTALL_PREFIX}/lib/libkatabatic.a
-                                      ${CMAKE_INSTALL_PREFIX}/lib/libknik.a
-                                      ${CMAKE_INSTALL_PREFIX}/lib/libflute.a
+                                      ${KATABATIC_LIBRARY_PATH}
+                                      ${KNIK_LIBRARY_PATH}
+                                      ${FLUTE_LIBRARY_PATH}
                                       ${LIBEXECINFO_LIBRARIES}
                       )
 
-           add_library( etesian       ${cpps} ${mocCpps} ${pyCpps} )
+           add_library( etesian       SHARED ${cpps} ${mocCpps} ${pyCpps} )
  set_target_properties( etesian       PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON )
  target_link_libraries( etesian       ${depLibs} )
 

@@ -28,7 +28,7 @@ endif ( HMETIS_FOUND )
                                        PyMetisEngine.cpp
                        )
 
-           add_library ( metis         ${cpps} ${pyCpps} )
+           add_library ( metis         SHARED ${cpps} ${pyCpps} )
  set_target_properties ( metis         PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON )
  target_link_libraries ( metis         ${HMETIS_LIBRARIES}
                                        ${NIMBUS_LIBRARIES}
@@ -47,7 +47,7 @@ endif ( HMETIS_FOUND )
                                        ${PYTHON_LIBRARIES} -lutil
                        )
 
-           add_library ( pyMetis       MODULE ${pyCpps} )
+           add_library ( pyMetis       SHARED MODULE ${pyCpps} )
  set_target_properties ( pyMetis       PROPERTIES COMPILE_FLAGS "${COMPILE_FLAGS} -D__PYTHON_MODULE__=1"
                                                   PREFIX        ""
                                                   OUTPUT_NAME   "Metis"

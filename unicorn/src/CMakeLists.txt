@@ -53,6 +53,7 @@
                                       ${CORIOLIS_LIBRARIES}
                                       ${HURRICANE_PYTHON_LIBRARIES}
                                       ${HURRICANE_GRAPHICAL_LIBRARIES}
+                                      ${HURRICANE_PYTHON_LIBRARY_PATH}
                                       ${HURRICANE_LIBRARIES}
                                       ${BOOKSHELF_LIBRARY}
                                       ${AGDS_LIBRARY}
@@ -65,11 +66,11 @@
                                       ${QtX_LIBRARIES}
                                       ${Boost_LIBRARIES}
                                       ${PYTHON_LIBRARIES}
-                                      -lutil -lbz2 ${CMAKE_INSTALL_PREFIX}/lib/libisobar.a
+                                      -lutil
                                       ${LIBXML2_LIBRARIES}
                       )
 
-           add_library( unicorn       ${cpps} ${mocCpps} ${pyCpps} )
+           add_library( unicorn       SHARED ${cpps} ${mocCpps} ${pyCpps} )
  set_target_properties( unicorn       PROPERTIES VERSION 1.0 SOVERSION 1 POSITION_INDEPENDENT_CODE ON )
  target_link_libraries( unicorn       ${depLibs} )
 

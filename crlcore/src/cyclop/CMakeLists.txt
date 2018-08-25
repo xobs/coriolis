@@ -30,6 +30,7 @@ endif()
                                        ${HURRICANE_PYTHON_LIBRARIES}
                                        ${HURRICANE_GRAPHICAL_LIBRARIES}
                                        ${HURRICANE_LIBRARIES}
+                                       ${HURRICANE_PYTHON_LIBRARY_PATH}
                                        ${BOOKSHELF_LIBRARY}
                                        ${AGDS_LIBRARY}
                                        ${CIF_LIBRARY}
@@ -40,7 +41,6 @@ endif()
                                        ${QtX_LIBRARIES}
                                        ${Boost_LIBRARIES}
                                        ${PYTHON_LIBRARIES}
-                                       -lutil
                                        ${LIBXML2_LIBRARIES}
                                        ${LIBEXECINFO_LIBRARIES}
                        )
