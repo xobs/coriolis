@@ -550,7 +550,7 @@ namespace Hurricane {
   QMenu* CellViewer::createDebugMenu ()
   {
     if (not _debugMenu)
-      addMenu ( "debug" , "Debug" , TopMenu );
+      _debugMenu = addMenu ( "debug" , "Debug" , TopMenu );
     return _debugMenu;
   }
 
