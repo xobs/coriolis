@@ -53,11 +53,11 @@ try:
   import Kite
   import Unicorn
   import plugins
-  from . import clocktree.ClockTree
-  from . import chip.Configuration
-  from . import chip.BlockPower
-  from . import chip.BlockCorona
-  from . import chip.PadsCorona
+  import clocktree.ClockTree
+  import chip.Configuration
+  import chip.BlockPower
+  import chip.BlockCorona
+  import chip.PadsCorona
 except ImportError as e:
   serror = str(e)
   if serror.startswith('No module named'):

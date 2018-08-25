@@ -30,8 +30,8 @@ try:
   import Etesian
   import Unicorn
   import plugins
-  from . import clocktree.ClockTree
-  from . import chip.Configuration
+  import clocktree.ClockTree
+  import chip.Configuration
 except ImportError as e:
   serror = str(e)
   if serror.startswith('No module named'):
