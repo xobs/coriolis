@@ -60,6 +60,7 @@ Build order:
 1. stratus1
 1. unicorn
 1. ispd
+1. documentation
 
 For each directory, do the following:
 
