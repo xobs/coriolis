@@ -106,6 +106,7 @@ extern "C" {
     PyCRL_Module.m_base = PyModuleDef_HEAD_INIT;
     PyCRL_Module.m_name = "CRL";
     PyCRL_Module.m_doc = NULL;
+    PyCRL_Module.m_size = -1;
     PyCRL_Module.m_methods = PyCRL_Methods;
 
     cdebug_log(30,0) << "initCRL()" << endl;
