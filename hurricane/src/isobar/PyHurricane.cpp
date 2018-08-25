@@ -526,6 +526,7 @@ extern "C" {
     PyHurricane_Module.m_base = PyModuleDef_HEAD_INIT;
     PyHurricane_Module.m_name = "Hurricane";
     PyHurricane_Module.m_doc = NULL;
+    PyHurricane_Module.m_size = -1;
     PyHurricane_Module.m_methods = PyHurricane_Methods;
   //trace_on();
     cdebug_log(20,0) << "initHurricane()" << endl;

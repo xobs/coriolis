@@ -32,6 +32,7 @@ IF(UNIX)
     # Help the user find it if we cannot.
     DOC "${HURRICANE_LIBRARY_PATH_DESCRIPTION}"
   )
+  set(HURRICANE_LIBRARY_PATH ${HURRICANE_LIBRARY_PATH} -lbz2 )
 
   FIND_PATH(HURRICANE_PYTHON_INCLUDE_PATH
     NAMES hurricane/isobar/PyCell.h
