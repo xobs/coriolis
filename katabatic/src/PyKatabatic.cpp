@@ -58,6 +58,7 @@ extern "C" {
     PyKatabatic_Module.m_base = PyModuleDef_HEAD_INIT;
     PyKatabatic_Module.m_name = "Katabatic";
     PyKatabatic_Module.m_doc = NULL;
+    PyKatabatic_Module.m_size = -1;
     PyKatabatic_Module.m_methods = PyKatabatic_Methods;
 
     PyObject* module = PyModule_Create ( &PyKatabatic_Module );
