@@ -338,15 +338,15 @@ set(CRLCORE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../crlcore/")
      list( GET clibSpec 2 soversion )
      set( pyDeplibs ${clib} ${deplibs} )
 
-             add_library( ${clib}      ${pyCpps} ) 
-   set_target_properties( ${clib}      PROPERTIES VERSION ${version} SOVERSION ${soversion} POSITION_INDEPENDENT_CODE ON )
-   target_link_libraries( ${clib}      ${deplibs} )
+             add_library( ${clib}      SHARED ${pyCpps} )
+   set_target_properties( ${clib}      PROPERTIES VERSION ${version} SOVERSION ${soversion} POSITION_INDEPENDENT_CODE OFF )
+   target_link_libraries( ${clib}      ${deplibs} -lbz2 )
                  install( TARGETS      ${clib}  DESTINATION lib${LIB_SUFFIX} )
    endif()
   
                      set( pytarget     "${pymodule}_target" )
 
-             add_library( ${pytarget}  MODULE ${pyCpps} ) 
+             add_library( ${pytarget}  SHARED MODULE ${pyCpps} )
    set_target_properties( ${pytarget}  PROPERTIES
                                        COMPILE_FLAGS "${COMPILE_FLAGS} -D__PYTHON_MODULE__=1"
                                        PREFIX        ""
