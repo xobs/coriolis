@@ -62,6 +62,7 @@ extern "C" {
     PyMetis_Module.m_base = PyModuleDef_HEAD_INIT;
     PyMetis_Module.m_name = "Metis";
     PyMetis_Module.m_doc = NULL;
+    PyMetis_Module.m_size = -1;
     PyMetis_Module.m_methods = PyMetis_Methods;
 
     PyMetisEngine_LinkPyType ();
