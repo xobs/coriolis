@@ -38,7 +38,7 @@ sudo apt install cmake libxml2-dev python3-dev flex bison \
                  libboost-python-dev libboost-program-options-dev \
                  libboost-regex-dev libboost-wave-dev \
                  libqt4-dev liblemon-dev libbz2-dev rapidjson-dev \
-                 libgtk2.0
+                 libgtk2.0 doxygen texlive-font-utils
 ```
 
 Build order:
@@ -68,7 +68,7 @@ For each directory, do the following:
 cd ${dir}
 mkdir -p build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=/opt/coriolis -DCMAKE_BUILD_TYPE=Debug ..
+cmake -DCMAKE_INSTALL_PREFIX=/opt/coriolis -DCMAKE_BUILD_TYPE=Debug -DBUILD_DOC=ON ..
 make all install
 cd ../..
 ```
