@@ -2002,6 +2002,6 @@ You can generate the chip using one of the following method:
    then run the |Python| script :cb:`doChip.py`.
 
 .. note::
-   Between two consecutive run, be sure to erase the netlist/layout generateds: ::
+   Between two consecutive run, be sure to erase the netlist/layout generated files:
 
-       dummy@lepka:AM2901$ rm *_clocked*.vst *.ap
+       dummy@lepka:AM2901$ rm \*_clocked \*.vst \*.ap
