@@ -3,8 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.11: http://docutils.sourceforge.net/" />
-<title></title>
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<title>UsersGuide_HTML.rst</title>
 <link rel="stylesheet" href="./SoC.css" type="text/css" />
 <link rel="stylesheet" href="./Pygments.css" type="text/css" />
 </head>
@@ -243,7 +243,7 @@ whole design down and including the standard cells.</li>
 </div>
 <div class="section" id="installation">
 <h2><a class="toc-backref" href="#id20">Installation</a></h2>
-<div class="note">
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">As the sources are being released, the binary packaging is dropped.
 You still may find older version here: <a class="reference external" href="http://asim.lip6.fr/pub/coriolis/2.0">http://asim.lip6.fr/pub/coriolis/2.0</a> .</p>
@@ -359,7 +359,7 @@ automatically created either by <span class="cb">ccb</span> or the build system.
 </tr>
 </tbody>
 </table>
-<div class="note">
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p><em>Alternate build types:</em> the <tt class="docutils literal">Release.Shared</tt> means an optimized build
 with shared libraries. But there are also available <tt class="docutils literal">Static</tt> instead of <tt class="docutils literal">Shared</tt>
@@ -479,7 +479,7 @@ in the <tt class="docutils literal">bootstrap</tt> source directory (also instal
 <pre class="literal-block">
 dummy&#64;lepka:~&gt; eval `~/coriolis-2.x/src/coriolis/bootstrap/coriolisEnv.py`
 </pre>
-<div class="note">
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p><strong>Do not call that script in your environement initialisation.</strong>
 When used under <span class="sc">rhel6</span> or clones, it needs to be run in the <span class="cb">devtoolset2</span>
@@ -497,7 +497,7 @@ alias c2r='eval &quot;`~/coriolis-2.x/src/coriolis/bootstrap/coriolisEnv.py`&quo
 <h2><a class="toc-backref" href="#id28">Documentation</a></h2>
 <p>The general index of the documentation for the various parts of Coriolis
 are avalaibles here <a class="reference external" href="file:///usr/share/doc/coriolis2/index.html">Coriolis Tools Documentation</a>.</p>
-<div class="note">
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><strong>Python Documentation:</strong>
 Most of the documentation is related to the C++ API and implemetation of
@@ -609,7 +609,7 @@ by executing, in order, the following file(s):</p>
 </tr>
 </tbody>
 </table>
-<div class="note">
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p><em>The loading policy is not hard-coded.</em> It is implemented
 at Python level in <span class="cb">/etc/coriolis2/coriolisInit.py</span>, and thus may be easily be
@@ -927,7 +927,7 @@ and write Alliance designs and libraries directly.</p>
 <p>The <span class="sc">Etesian</span> placer is a state of the art (as of 2015) analytical placer. It is
 within <tt class="docutils literal">5%</tt> of other placers' solutions, but is normally a bit worse than ePlace.
 This <span class="sc">Coriolis</span> tool is actually an encapsulation of <span class="sc">Coloquinte</span> which <em>is</em> the placer.</p>
-<div class="note">
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><em>Instance Uniquification Unsupported:</em> a same logical instance cannot have
 two different placements. So, either you manually make a clone of it or you
@@ -1062,7 +1062,7 @@ restrictions:</p>
 <li>Do not allow (take into account) pre-routed wires on signals
 other than <span class="sc">power</span> or <span class="sc">ground</span>.</li>
 </ul>
-<div class="note">
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><strong>Slow Layer Assignment.</strong> Most of the time, the layer assignment stage is
 fast (less than a dozen seconds), but in some instances it can take more
@@ -1226,7 +1226,7 @@ topological modification</td>
 <div class="section" id="executing-python-scripts-in-cgt">
 <span id="python-scripts-in-cgt"></span><h3><a class="toc-backref" href="#id49">Executing Python Scripts in Cgt</a></h3>
 <p>Python/Stratus scripts can be executed either in text or graphical mode.</p>
-<div class="note">
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><strong>How Cgt Locates Python Scripts:</strong>
 <span class="cb">cgt</span> uses the Python <tt class="docutils literal">import</tt> mechanism to load Python scripts.
@@ -1276,7 +1276,7 @@ outlines).</td>
 </tr>
 </tbody>
 </table>
-<div class="note">
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><em>The pdf file size</em>
 Be aware that the generated <span class="sc">pdf</span> files are indeed only pixmaps.
@@ -1619,7 +1619,7 @@ cells) is disabled by default when you load a hierarchical design and enabled
 when you load a single Cell.</p>
 <p>You can choose what kind of form to give to the rubbers and the type of
 unit used to display coordinates.</p>
-<div class="note">
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p><em>What are Rubbers:</em> <span class="sc">Hurricane</span> uses <em>Rubbers</em> to materialize
 physical gaps in net topology. That is, if some wires are missing to
@@ -1685,13 +1685,13 @@ to browse through the live DataBase. The <em>Inspector</em> provide three entry 
 </ul>
 <p>Once an entry point has been activated, you may recursively expore all
 it's fields using the right/left arrows.</p>
-<div class="note">
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><em>Do not put your fingers in the socket:</em> when inspecting
 anything, do not modify the DataBase. If any object under inspection
 is deleted, you will crash the application...</p>
 </div>
-<div class="note">
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><em>Implementation Detail:</em> the inspector support is done with
 <tt class="docutils literal">Slot</tt>, <tt class="docutils literal">Record</tt> and <tt class="docutils literal">getString()</tt>.</p>
@@ -1959,7 +1959,7 @@ the core</td>
 </tr>
 </tbody>
 </table>
-<div class="note">
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If no clock tree is generated, then the clock rail is <em>not</em> created.
 So even if the requested number of rails <tt class="docutils literal">chip.block.rails.count</tt> is, say 5,
@@ -2011,7 +2011,7 @@ the relevant clock sub-nets to the instanciated model. The new model
 with the added clock signal is renamed with a <tt class="docutils literal">_clocked</tt> suffix.
 For example, the sub-block model <tt class="docutils literal">ram.vst</tt> will become <tt class="docutils literal">ram_clocked.vst</tt>.</li>
 </ul>
-<div class="note">
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If you are to re-run the clock tree plugin on a netlist, be careful
 to erase any previously generated <tt class="docutils literal">_clocked</tt> file (both netlist and
@@ -2082,12 +2082,11 @@ dummy&#64;lepka:AM2901$ ./doChip -V --cell=amd2901
 then run the <span class="sc">Python</span> script <span class="cb">doChip.py</span>.</p>
 </li>
 </ol>
-<div class="note">
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>Between two consecutive run, be sure to erase the netlist/layout generateds:</p>
-<pre class="last literal-block">
-dummy&#64;lepka:AM2901$ rm *_clocked*.vst *.ap
-</pre>
+<p>Between two consecutive run, be sure to erase the netlist/layout generated files:</p>
+<blockquote class="last">
+<a class="reference external" href="mailto:dummy&#64;lepka">dummy&#64;lepka</a>:AM2901$ rm *_clocked *.vst *.ap</blockquote>
 </div>
 </div>
 </div>
