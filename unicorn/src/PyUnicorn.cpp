@@ -63,6 +63,7 @@ extern "C" {
     PyUnicorn_Module.m_base = PyModuleDef_HEAD_INIT;
     PyUnicorn_Module.m_name = "Unicorn";
     PyUnicorn_Module.m_doc = NULL;
+    PyUnicorn_Module.m_size = -1;
     PyUnicorn_Module.m_methods = PyUnicorn_Methods;
 
     PyUnicornGui_LinkPyType ();
