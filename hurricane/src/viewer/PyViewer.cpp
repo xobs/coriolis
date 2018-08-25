@@ -68,6 +68,7 @@ extern "C" {
     PyViewer_Module.m_base = PyModuleDef_HEAD_INIT;
     PyViewer_Module.m_name = PyViewer_Name;
     PyViewer_Module.m_doc = NULL;
+    PyViewer_Module.m_size = -1;
     PyViewer_Module.m_methods = PyViewer_Methods;
 
     cdebug_log(20,0) << "initViewer()" << endl;
