@@ -68,6 +68,7 @@ extern "C" {
     PyNimbus_Module.m_base = PyModuleDef_HEAD_INIT;
     PyNimbus_Module.m_name = "Nimbus";
     PyNimbus_Module.m_doc = NULL;
+    PyNimbus_Module.m_size = -1;
     PyNimbus_Module.m_methods = PyNimbus_Methods;
 
     PyNimbusEngine_LinkPyType ();
