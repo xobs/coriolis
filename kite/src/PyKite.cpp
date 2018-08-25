@@ -70,6 +70,7 @@ extern "C" {
     PyKite_Module.m_base = PyModuleDef_HEAD_INIT;
     PyKite_Module.m_name = "Kite";
     PyKite_Module.m_doc = NULL;
+    PyKite_Module.m_size = -1;
     PyKite_Module.m_methods = PyKite_Methods;
 
     PyKiteEngine_LinkPyType();
