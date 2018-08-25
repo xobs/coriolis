@@ -70,6 +70,7 @@ extern "C" {
     PyEtesian_Module.m_base = PyModuleDef_HEAD_INIT;
     PyEtesian_Module.m_name = "Etesian";
     PyEtesian_Module.m_doc = NULL;
+    PyEtesian_Module.m_size = -1;
     PyEtesian_Module.m_methods = PyEtesian_Methods;
 
     PyEtesianEngine_LinkPyType();
