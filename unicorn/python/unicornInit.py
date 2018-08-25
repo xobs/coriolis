@@ -88,7 +88,9 @@ def unicornConfigure(**kw):
 
             module.__dict__['unicornHook'](**kw)
         except ErrorMessage as e:
+            print("Couldn't load hook:")
             print(e)
+            traceback.print_tb(sys.exc_info()[2])
         except Exception as e:
             print(ErrorMessage(
                 3, 'Plugin <%s> cannot be loaded, see message below:' % moduleName))
