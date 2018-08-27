@@ -19,7 +19,7 @@ src/dpgen/Makefile
 doc/Makefile
 doc/stratus/Makefile
 doc/stratus/images/Makefile
-doc/developper/Makefile
+doc/developer/Makefile
 doc/dpgen/Makefile
 doc/patterns/Makefile
 etc/Makefile
