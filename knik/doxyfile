@@ -211,8 +211,6 @@ MAN_LINKS              = NO
 
 GENERATE_XML           = NO
 XML_OUTPUT             = xml
-XML_SCHEMA             = 
-XML_DTD                = 
 
 # --------------------------------------------------------------------
 # Configuration options for the AutoGen Definitions output
