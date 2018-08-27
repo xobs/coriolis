@@ -180,20 +180,16 @@
                          set ( VstParserGrammar    ${VstParserSourceDir}/VstParserGrammar.yy  )
                          set ( VstParserScannerCpp ${VstParserBinaryDir}/VstParserScanner.cpp )
                          set ( VstParserGrammarCpp ${VstParserBinaryDir}/VstParserGrammar.cpp )
-            add_subdirectory ( alliance )
-           add_custom_target ( VstParser echo "Creating VST parser" )
-          add_custom_command ( SOURCE   ${VstParserScanner}
-                               COMMAND  ${FLEX_EXECUTABLE}
-                               ARGS     -PVST -o${VstParserScannerCpp} ${VstParserScanner}
-                               TARGET   VstParser
-                               OUTPUTS  ${VstParserScannerCpp}
+          add_custom_command ( COMMAND  ${FLEX_EXECUTABLE}
+                                        -PVST -o${VstParserScannerCpp} ${VstParserScanner}
+                               OUTPUT   ${VstParserScannerCpp}
+                               COMMENT  "Creating VST parser"
                              )
-          add_custom_command ( SOURCE   ${VstParserGrammar}
-                               COMMAND  ${BISON_EXECUTABLE} 
-                               ARGS     -d -v -p VST -y ${VstParserGrammar} -o ${VstParserGrammarCpp}
-                               TARGET   VstParser
+          add_custom_command ( COMMAND  ${BISON_EXECUTABLE}
+                                        -d -v -p VST -y ${VstParserGrammar} -o ${VstParserGrammarCpp}
                                DEPENDS  ${VstParserScannerCpp}
-                               OUTPUTS  ${VstParserGrammarCpp}
+                               OUTPUT   ${VstParserGrammarCpp}
+                               COMMENT  "Creating VST grammar"
                              )
          include_directories ( ${VstParserBinaryDir} )
                          set ( vst_parser_cpps ${VstParserScannerCpp}
@@ -209,20 +205,16 @@
                          set ( IocParserGrammar    ${IocParserSourceDir}/IocParserGrammar.yy  )
                          set ( IocParserScannerCpp ${IocParserBinaryDir}/IocParserScanner.cpp )
                          set ( IocParserGrammarCpp ${IocParserBinaryDir}/IocParserGrammar.cpp )
-            add_subdirectory ( ioc )
-           add_custom_target ( IocParser echo "Creating IOC parser" )
-          add_custom_command ( SOURCE   ${IocParserScanner}
-                               COMMAND  ${FLEX_EXECUTABLE}
-                               ARGS     -PIoc -o${IocParserScannerCpp} ${IocParserScanner}
-                               TARGET   IocParser
-                               OUTPUTS  ${IocParserScannerCpp}
+          add_custom_command ( COMMAND  ${FLEX_EXECUTABLE}
+                                        -PIoc -o${IocParserScannerCpp} ${IocParserScanner}
+                               OUTPUT   ${IocParserScannerCpp}
+                               COMMENT  "Creating IOC parser"
                              )
-          add_custom_command ( SOURCE   ${IocParserGrammar}
-                               COMMAND  ${BISON_EXECUTABLE} 
-                               ARGS     -d -v -p Ioc -y ${IocParserGrammar} -o ${IocParserGrammarCpp}
-                               TARGET   IocParser
+          add_custom_command ( COMMAND  ${BISON_EXECUTABLE}
+                                        -d -v -p Ioc -y ${IocParserGrammar} -o ${IocParserGrammarCpp}
                                DEPENDS  ${IocParserScannerCpp}
-                               OUTPUTS  ${IocParserGrammarCpp}
+                               OUTPUT   ${IocParserGrammarCpp}
+                               COMMENT  "Creating IOC grammar"
                              )
          include_directories ( ${IocParserBinaryDir} )
                          set ( ioc_parser_cpps ${IocParserScannerCpp}
@@ -266,21 +258,17 @@
                          set ( AcmSigdaParserGrammar    ${AcmSigdaParserSourceDir}/AcmSigdaParserGrammar.yy  )
                          set ( AcmSigdaParserScannerCpp ${AcmSigdaParserBinaryDir}/AcmSigdaParserScanner.cpp )
                          set ( AcmSigdaParserGrammarCpp ${AcmSigdaParserBinaryDir}/AcmSigdaParserGrammar.cpp )
-            add_subdirectory ( acmsigda )
-           add_custom_target ( AcmSigdaParser echo "Creating ACM/SIGDA parser" )
-          add_custom_command ( SOURCE   ${AcmSigdaParserScanner}
-                               COMMAND  ${FLEX_EXECUTABLE}
-                               ARGS     -PAcmSigda_ -o${AcmSigdaParserScannerCpp} ${AcmSigdaParserScanner}
-                               TARGET   AcmSigdaParser
-                               OUTPUTS  ${AcmSigdaParserScannerCpp}
+          add_custom_command ( COMMAND  ${FLEX_EXECUTABLE}
+                                        -PAcmSigda_ -o${AcmSigdaParserScannerCpp} ${AcmSigdaParserScanner}
+                               OUTPUT   ${AcmSigdaParserScannerCpp}
+                               COMMENT  "Creating AcmSigda parser"
                              )
-          add_custom_command ( SOURCE   ${AcmSigdaParserGrammar}
-                               COMMAND  ${BISON_EXECUTABLE} 
-                               ARGS     -d -v -p AcmSigda_ -y ${AcmSigdaParserGrammar} -o ${AcmSigdaParserGrammarCpp}
-                               TARGET   AcmSigdaParser
+          add_custom_command ( COMMAND  ${BISON_EXECUTABLE}
+                                        -d -v -p AcmSigda_ -y ${AcmSigdaParserGrammar} -o ${AcmSigdaParserGrammarCpp}
                                DEPENDS  ${AcmSigdaParserScannerCpp}
                                         crlcore/AcmSigda.h
-                               OUTPUTS  ${AcmSigdaParserGrammarCpp}
+                               OUTPUT   ${AcmSigdaParserGrammarCpp}
+                               COMMENT  "Creating AcmSigda grammar"
                              )
          include_directories ( ${AcmSigdaParserBinaryDir} )
                          set ( acmsigda_parser_cpps ${AcmSigdaParserScannerCpp}
