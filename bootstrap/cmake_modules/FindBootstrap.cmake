@@ -2,19 +2,10 @@
 
 #
 # Setup CMake policies.
+# These are obsoleted now, so this macro is empty.
 #
- macro(set_cmake_policies)
-   if(COMMAND CMAKE_POLICY)
-     cmake_policy(SET CMP0003 NEW)
-     cmake_policy(SET CMP0005 NEW)
-     if(NOT (CMAKE_VERSION VERSION_LESS 2.8.0))
-       cmake_policy(SET CMP0014 OLD)
-     endif()
-     if(NOT (CMAKE_VERSION VERSION_LESS 2.8.12))
-       cmake_policy(SET CMP0022 OLD)
-     endif()
-   endif(COMMAND CMAKE_POLICY)
- endmacro(set_cmake_policies)
+macro(set_cmake_policies)
+endmacro(set_cmake_policies)
 
 
 #
@@ -187,8 +178,6 @@ set(CRLCORE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../crlcore/")
 # Find Boost, checking different versions.
 #
  macro(setup_boost)
-  #set(Boost_USE_STATIC_LIBS ON)
-  #message(STATUS "Always uses Boost static libraries.")
    if(ARGC LESS 1)
      find_package(Boost 1.33.1 REQUIRED)
    else(ARGC LESS 1)
