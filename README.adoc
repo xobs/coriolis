@@ -39,11 +39,12 @@ sudo apt install cmake libxml2-dev python3-dev flex bison \
                  libboost-regex-dev libboost-wave-dev \
                  libqt4-dev liblemon-dev libbz2-dev rapidjson-dev \
                  libgtk2.0 \
+                 alliance \
                  doxygen texlive-font-utils latex2html texlive-lang-french \
                  python3-docutils texlive-fonts-extra
 ```
 
-Build order:
+The build order is important.  The individual programs do not yet define their interdependencies via cmake.  This is a bug that is being worked on.  For now, build modules in this order:
 
 1. vlsisapd
 1. coloquinte
@@ -64,15 +65,23 @@ Build order:
 1. ispd
 1. documentation
 
-For each directory, do the following:
+This script should do the trick:
 
 ```sh
-cd ${dir}
-mkdir -p build
-cd build
-cmake -DCMAKE_INSTALL_PREFIX=/opt/coriolis -DCMAKE_BUILD_TYPE=Debug -DBUILD_DOC=ON ..
-make all install
-cd ../..
+#!/bin/sh
+set -x
+set -e
+for i in vlsisapd coloquinte hurricane crlcore cumulus equinox knik katabatic kite etesian nimbus metis mauka solstice stratus1 unicorn ispd documentation
+do
+	mkdir -p $i/build
+	cd $i/build
+	if [ ! -e Makefile ]
+	then
+		cmake -DCMAKE_INSTALL_PREFIX=/opt/coriolis -DCMAKE_BUILD_TYPE=Debug -DBUILD_DOC=ON ..
+	fi
+	make all install
+	cd ../..
+done
 ```
 
 ## Using Coriolis
@@ -81,21 +90,15 @@ Set up your PATH and PYTHONPATH to point to the subdirectory:
 
 ```sh
 export CORIOLIS_TOP=/opt/coriolis/
-export PATH=$PATH:/opt/coriolis/bin
-export PYTHONPATH=/opt/coriolis/lib/python3/dist-packages
+export ALLIANCE_TOP=/usr/share/alliance
+export PATH=$PATH:${CORIOLIS_TOP}/bin
+export PYTHONPATH=${CORIOLIS_TOP}/lib/python3/dist-packages
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${CORIOLIS_TOP}/lib
 ```
 
-The Coriolis main interface can be launched with the command: ::
+The Coriolis main interface can be launched with the command `cgt`, or
+any command available under `/opt/coriolis/bin/`.
 
-    ego@home:~: ~/coriolis-2.x/<OS>.<DISTRIB>/Release.Shared/install/bin/coriolis
-
-The ``coriolis`` script is tasked to guess it's location and setup appropriatly
-the UNIX environment, then lauch ``cgt`` (or *any* command, with the
-``--run=<COMMAND>`` option).
-
-Conversely, you can setup the current shell environement for Coriolis by 
-using the helper ``coriolisEnv.py``, then run any Coriolis tool: ::
-
-    ego@home:~$ eval `~/coriolis-2.x/src/coriolis/bootstrap/coriolisEnv.py`
-    ego@home:~$ cgt -V
-
+There is a script called `coriolis` that can be used to set up the
+environment and call child commands.  You can pass the `--run=<COMMAND>`
+argument to the script.
