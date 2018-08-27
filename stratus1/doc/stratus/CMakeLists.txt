@@ -43,6 +43,7 @@
                                             man_stimuli.tex
                                             man_stratus.tex
                                             see_also.tex
+                                 TARGET_NAME stratus
                                  IMAGE_DIRS images )
 
                    set ( htmlInstallDir  share/doc/coriolis2/en/html/ )
@@ -55,8 +56,8 @@
         make_directory ( "${output_dir}/stratus" )
        execute_process ( COMMAND cp -r "${CMAKE_CURRENT_SOURCE_DIR}/SoC.css" "${output_dir}/stratus" )
 
-               install ( FILES ${output_dir}/stratus.tex
-                               ${output_dir}/stratus.dvi
-                               ${output_dir}/stratus.pdf
+               install ( FILES stratus.tex
+                               ${stratus_dvi}
+                               ${stratus_pdf}
                                DESTINATION ${latexInstallDir} )
                install ( DIRECTORY ${output_dir}/stratus DESTINATION ${htmlInstallDir} )

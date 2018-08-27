@@ -16,8 +16,8 @@
         make_directory ( "${output_dir}/patterns" )
        execute_process ( COMMAND cp -r "${CMAKE_CURRENT_SOURCE_DIR}/SoC.css" "${output_dir}/patterns" )
 
-               install ( FILES ${output_dir}/patterns.tex
-                               ${output_dir}/patterns.dvi
-                               ${output_dir}/patterns.pdf
+               install ( FILES patterns.tex
+                               ${patterns_dvi}
+                               ${patterns_pdf}
                                DESTINATION ${latexInstallDir} )
                install ( DIRECTORY ${output_dir}/patterns DESTINATION ${htmlInstallDir} )

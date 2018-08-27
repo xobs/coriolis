@@ -55,7 +55,7 @@
        execute_process ( COMMAND cp -r "${CMAKE_CURRENT_SOURCE_DIR}/SoC.css" "${output_dir}/dpgen" )
 
                install ( FILES ${output_dir}/dpgen.tex
-                               ${output_dir}/dpgen.dvi
-                               ${output_dir}/dpgen.pdf
+                               ${dpgen_dvi}
+                               ${dpgen_pdf}
                                DESTINATION ${latexInstallDir} )
                install ( DIRECTORY ${output_dir}/dpgen DESTINATION ${htmlInstallDir} )

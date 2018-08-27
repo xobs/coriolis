@@ -22,8 +22,8 @@
         make_directory ( "${output_dir}/stratus_developper" )
        execute_process ( COMMAND cp -r "${CMAKE_CURRENT_SOURCE_DIR}/SoC.css" "${output_dir}/stratus_developper" )
 
-               install ( FILES ${output_dir}/stratus_developper.tex
-                               ${output_dir}/stratus_developper.dvi
-                               ${output_dir}/stratus_developper.pdf
+               install ( FILES stratus_developper.tex
+                               ${stratus_developper_dvi}
+                               ${stratus_developper_pdf}
                                DESTINATION ${latexInstallDir} )
                install ( DIRECTORY ${output_dir}/stratus_developper DESTINATION ${htmlInstallDir} )
