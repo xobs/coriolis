@@ -92,7 +92,8 @@ Set up your PATH and PYTHONPATH to point to the subdirectory:
 export CORIOLIS_TOP=/opt/coriolis/
 export ALLIANCE_TOP=/usr/share/alliance
 export PATH=$PATH:${CORIOLIS_TOP}/bin
-export PYTHONPATH=${CORIOLIS_TOP}/lib/python3/dist-packages
+export PYTHONPATH_BASE=${CORIOLIS_TOP}/lib/python3/dist-packages
+export PYTHONPATH=${PYTHONPATH}:${PYTHONPATH_BASE}/pharos:${PYTHONPATH_BASE}/cumulus:${PYTHONPATH_BASE}/cumulus/plugins:${PYTHONPATH_BASE}/stratus:${PYTHONPATH_BASE}/crlcore:${PYTHONPATH_BASE}
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${CORIOLIS_TOP}/lib
 ```
 
